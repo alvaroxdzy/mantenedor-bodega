@@ -153,10 +153,4 @@ class BodegaController extends Controller
         return view('busquedaBodega',compact('bodegas'));
     }
 
-    public function madafaker()
-    {
-
-        return 'madafaker';
-
-    }
 }
