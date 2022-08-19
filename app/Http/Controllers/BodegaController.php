@@ -135,7 +135,12 @@ class BodegaController extends Controller
     {
         if(isset($_GET['query'])){
             $search_text = $_GET['query'];
-            $bodegas = Bodega::where('Nombre_Bodega','LIKE','%'.$search_text.'%')->get();
+            $bodegas = Bodega::where('Nombre_Bodega','LIKE','%'.$search_text.'%')
+            ->orWhere('ID_Bodega','LIKE','%'.$search_text.'%')
+            ->orWhere('Direccion_bodega','LIKE','%'.$search_text.'%')
+            ->orWhere('Comuna_bodega','LIKE','%'.$search_text.'%')
+            ->orWhere('Telefono_bodega','LIKE','%'.$search_text.'%')
+            ->get();
 
         } else
         {
