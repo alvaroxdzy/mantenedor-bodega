@@ -12,9 +12,7 @@
      <form class="form-inline my-2 my-lg-0" type="get" action="{{ url('/busquedaBodegas') }}">
        <input class="form-control mr-sm-2" type="search" name="query">
        <button class="btn btn-outline-ligth my-2 my-sm-0" type="submit">BUSCAR</button>
-
      </form>
-
     </div>
 
     <div class="clod-md-4"> </div>
