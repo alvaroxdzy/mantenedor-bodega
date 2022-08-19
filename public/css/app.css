@@ -10925,5 +10925,5 @@ footer{
 #div-buscar-bodega{
   width: 500px;
   text-align: left;
-
+  display: inline-block;
 }
