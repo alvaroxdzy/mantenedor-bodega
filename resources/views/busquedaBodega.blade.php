@@ -6,9 +6,9 @@
 
 <div  class="container"> 
   <br/>
-  <h4>Gestión de Bodegas</h4>
+  <h4>Listado de bodegas</h4>
   <div class="row"> 
-    <div class="col-xl-12"> 
+    <div id="div-buscar-bodega" class="col-xl-12"> 
      <form class="form-inline my-2 my-lg-0" type="get" action="{{ url('/busquedaBodegas') }}">
        <input class="form-control mr-sm-2" type="search" name="query">
        <button class="btn btn-outline-ligth my-2 my-sm-0" type="submit">BUSCAR</button>

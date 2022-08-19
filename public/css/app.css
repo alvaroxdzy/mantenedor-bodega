@@ -10920,5 +10920,8 @@ footer{
   margin-top: auto;
 }
 
-
 .pie p {padding:0;margin:0; text-align:center; color: #FFFFFF; font-size: 10px; }
+
+#div-buscar-bodega{
+  width: 500px;
+}
