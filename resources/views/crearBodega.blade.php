@@ -49,7 +49,7 @@ input[type=number] {
 					<small id="suc_bod" class="form-text text-muted">Sin código de area.</small>
 				</div>
 
-				<input type="submit" class="btn btn-primary" onclick ='return enviarFormulario()' value="Enviar ">Enviar</input>
+				<input type="submit" class="btn btn-primary"  value="Enviar ">Enviar</input>
 			</form>
 			<div id="error"> </div>
 			@if(session()->has('message'))
