@@ -47,7 +47,7 @@
                         <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas"> Inventario  </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/busqueda-bodegas"> Bodegas </a> 
-                            <a class="dropdown-item" href="/home"> Productos </a> 
+                            <a class="dropdown-item" href="/busqueda-productos"> Productos </a> 
                         </div>
 
                         <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Contact</a></li>

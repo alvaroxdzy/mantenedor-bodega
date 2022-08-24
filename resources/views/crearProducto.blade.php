@@ -41,6 +41,7 @@ input[type=number] {
 						<option value="002">Antofagasta</option>
 						<option value="001">Santiago</option>
 					</select> 
+					<small id="dir_bod" class="form-text text-muted">Seleccione sucursal.</small>
 				</div>      
 				<input type="submit" class="btn btn-primary"  value="Enviar "> Guardar </input>
 			</form>

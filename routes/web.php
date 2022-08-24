@@ -31,3 +31,4 @@ Route::get('/actualizar-bodega','BodegaController@update')->name('bodega.update'
 Route::get('/productos', 'ProductoController@consultaProductos')->name('productos');
 Route::get('crear-producto','ProductoController@create')->name('producto.create') ;
 Route::get('/almacenar-producto','ProductoController@store')->name('producto.store');
+Route::get('/busqueda-productos','ProductoController@search')->name('producto.search');
