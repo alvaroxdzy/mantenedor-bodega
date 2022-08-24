@@ -26,7 +26,8 @@
           <th>Codigo</th>
           <th>Producto</th>
           <th>Observación</th>
-          <th>Bodega</th>       
+          <th>Bodega</th>  
+          <th>Gestionar</th>       
         </tr>
         @foreach($productos as $producto) 
         <tr>
@@ -34,6 +35,7 @@
           <td>{{$producto->nombre_producto}}</td>
           <td>{{$producto->observacion_producto}}</td>
           <td>{{$producto->cod_bod_producto}}</td>
+           <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar 👻 </a></td>
         </tr>
         @endforeach
       </table>  

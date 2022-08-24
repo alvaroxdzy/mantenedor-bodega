@@ -32,3 +32,5 @@ Route::get('/productos', 'ProductoController@consultaProductos')->name('producto
 Route::get('crear-producto','ProductoController@create')->name('producto.create') ;
 Route::get('/almacenar-producto','ProductoController@store')->name('producto.store');
 Route::get('/busqueda-productos','ProductoController@search')->name('producto.search');
+Route::get('/modificar-producto/{id}','ProductoController@edit')->name('producto.edit');
+Route::get('/actualizar-producto','ProductoController@update')->name('producto.update');

@@ -56,5 +56,24 @@ class ProductoController extends Controller
         $productos=Producto::all();
     }
     return view('busquedaProducto',compact('productos'));
-}
+    }
+
+    public function update(Request $request)  
+    {
+
+     $producto =Producto::find($request->id);
+     $producto->codigo_producto=$request->codigo_producto; 
+     $producto->nombre_producto=$request->nombre_producto; 
+     $producto->observacion_producto=$request->observacion_producto; 
+     $producto->cod_bod_producto=$request->cod_bod_producto;  
+     $producto->save();
+     return redirect(route('producto.search'));
+    }
+
+    public function edit($id)
+    {
+    $producto = Producto::where('codigo_producto',$id)->first();
+    return view('modificarProducto')->with('producto',$producto) ;
+    }
+
 }
