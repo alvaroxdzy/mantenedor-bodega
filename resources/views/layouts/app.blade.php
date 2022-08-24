@@ -35,75 +35,88 @@
 
                     </a>
                     <ul class="nav justify-content-end" id="ul_layout">
-                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="/busqueda-bodegas">Bodega</a></li>
-                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="/productos">Producto</a></li>
-                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Contact</a></li>
-                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">About</a></li>
-                  </ul>
 
+                      <li id="li_layout" class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas">Movimiento Producto </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/home"> Entrada productos </a> 
+                            <a class="dropdown-item" href="/home"> Salida productos </a> 
+                        </div>
 
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                        <li id="li_layout" class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas"> Inventario  </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/busqueda-bodegas"> Bodegas </a> 
+                            <a class="dropdown-item" href="/home"> Productos </a> 
+                        </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto" id="ul_layout">
-
+                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Contact</a></li>
+                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">About</a></li>                     
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto" id="ul_layout">
-                        <!-- Authentication Links -->
-                        @guest
-                        @if (Route::has('login'))
-                        <li id="li_layout" class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav me-auto" id="ul_layout">
+
+                        </ul>
+
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ms-auto" id="ul_layout">
+                            <!-- Authentication Links -->
+                            @guest
+                            @if (Route::has('login'))
+                            <li id="li_layout" class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                            <li id="li_layout" class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                            @endif
+                            @else
+                            <li id="li_layout" class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
                         </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                        <li id="li_layout" class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
-                        @else
-                        <li id="li_layout" class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                    @endguest
-                </ul>
+                        @endguest
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
-</div>
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
 
 </body>
 
 <footer class="page-footer font-small blue">
-<div class="pie">
-  <p><strong>Santiago:</strong> Lincoyan 9780, Quilicura, Santiago, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 27207900 / <strong>Fax:</strong> (+56 2) 2720 79 50 / <strong>transportes@javiercortes.com</strong></p>
-  <p><strong>Antofagasta:</strong> Acantitita 425, Sector La Chimba, Antofagasta, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 552552100 /<strong> Fax:</strong> (5655) 211012</p>
-</div>
-<div class="clear"></div>
+    <div class="pie">
+      <p><strong>Santiago:</strong> Lincoyan 9780, Quilicura, Santiago, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 27207900 / <strong>Fax:</strong> (+56 2) 2720 79 50 / <strong>transportes@javiercortes.com</strong></p>
+      <p><strong>Antofagasta:</strong> Acantitita 425, Sector La Chimba, Antofagasta, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 552552100 /<strong> Fax:</strong> (5655) 211012</p>
+  </div>
+  <div class="clear"></div>
 </footer>
 
 </html>
