@@ -34,11 +34,11 @@
                         <img src="{{ asset('/img/logo.PNG')}}" style="width:150px;" />    
 
                     </a>
-                    <ul id="ul_layout">
-                      <li id="li_layout"><a href="/busquedaBodegas">Bodega</a></li>
-                      <li id="li_layout"><a href="/productos">Producto</a></li>
-                      <li id="li_layout"><a href="contact">Contact</a></li>
-                      <li id="li_layout"><a href="about">About</a></li>
+                    <ul class="nav justify-content-end" id="ul_layout">
+                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="/busqueda-bodegas">Bodega</a></li>
+                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="/productos">Producto</a></li>
+                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Contact</a></li>
+                      <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">About</a></li>
                   </ul>
 
 

@@ -23,10 +23,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/bodegas', 'BodegaController@consulta')->name('bodegas');
 
-Route::get('/busquedaBodegas','BodegaController@search');
+Route::get('/busqueda-bodegas','BodegaController@search')->name('bodega.search');
 
 Route::get('/productos', 'ProductoController@consultaProductos')->name('productos');
 
-Route::get('/crearBodega','BodegaController@create')->name('bodega.create');
+Route::get('/crear-bodega','BodegaController@create')->name('bodega.create');
 
-Route::get('/almacenarBodega','BodegaController@store')->name('bodega.store');
+Route::get('/almacenar-bodega','BodegaController@store')->name('bodega.store');
+
+Route::get('/modificar-bodega/{id}','BodegaController@edit')->name('bodega.edit');
+
+Route::get('/actualizar-bodega','BodegaController@update')->name('bodega.update');
+ 
