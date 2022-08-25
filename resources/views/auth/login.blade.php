@@ -50,13 +50,13 @@
                             @guest
                             @if (Route::has('login'))
                             <li id="li_layout" class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                             </li>
                             @endif
 
                             @if (Route::has('register'))
                             <li id="li_layout" class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                             </li>
                             @endif
                             @else
@@ -69,7 +69,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Cerrar sesión') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -93,14 +93,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('Acceso') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -114,7 +114,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Clave') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -133,7 +133,7 @@
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
+                                            {{ __('Recordar') }}
                                         </label>
                                     </div>
                                 </div>
@@ -142,12 +142,12 @@
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
+                                        {{ __('Ingresar') }}
                                     </button>
 
                                     @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('Olvidaste tu contraseña?') }}
                                     </a>
                                     @endif
                                 </div>

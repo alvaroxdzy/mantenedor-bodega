@@ -34,3 +34,10 @@ Route::get('/almacenar-producto','ProductoController@store')->name('producto.sto
 Route::get('/busqueda-productos','ProductoController@search')->name('producto.search');
 Route::get('/modificar-producto/{id}','ProductoController@edit')->name('producto.edit');
 Route::get('/actualizar-producto','ProductoController@update')->name('producto.update');
+
+Route::get('/proveedores', 'ProveedorController@consultaProveedor')->name('proveedores');
+Route::get('crear-proveedor','ProveedorController@create')->name('proveedor.create') ;
+Route::get('/almacenar-proveedor','ProveedorController@store')->name('proveedor.store');
+Route::get('/busqueda-proveedores','ProveedorController@search')->name('proveedor.search');
+Route::get('/modificar-proveedor/{id}','ProveedorController@edit')->name('proveedor.edit');
+Route::get('/actualizar-proveedor','ProveedorController@update')->name('proveedor.update');

@@ -37,7 +37,7 @@
                     <ul class="nav justify-content-end" id="ul_layout">
 
                       <li id="li_layout" class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas">Inventario </a>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas">Movimientos </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/home"> Entrada bodega  </a> 
                             <a class="dropdown-item" href="/home"> Salida bodega </a> 
@@ -48,10 +48,11 @@
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/busqueda-bodegas"> Bodegas </a> 
                             <a class="dropdown-item" href="/busqueda-productos"> Productos </a> 
+                            <a class="dropdown-item" href="/busqueda-proveedores"> Proveedores </a> 
                         </div>
 
-                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Contact</a></li>
-                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">About</a></li>                     
+                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Reportes</a></li>
+                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">Rojas</a></li>                     
                     </ul>
 
 
@@ -71,13 +72,13 @@
                             @guest
                             @if (Route::has('login'))
                             <li id="li_layout" class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                             </li>
                             @endif
 
                             @if (Route::has('register'))
                             <li id="li_layout" class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                             </li>
                             @endif
                             @else
@@ -90,7 +91,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Cerrar sesión') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -104,7 +105,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" >
             @yield('content')
         </main>
     </div>
