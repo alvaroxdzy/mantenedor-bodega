@@ -52,7 +52,7 @@
                         </div>
 
                         <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Reportes</a></li>
-                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">Rojas</a></li>                     
+                        <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">Salir</a></li>                     
                     </ul>
 
 
