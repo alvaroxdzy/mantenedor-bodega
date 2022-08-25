@@ -162,7 +162,7 @@
 <footer class="page-footer font-small blue">
     <div class="pie">
       <p><strong>Santiago:</strong> Lincoyan 9780, Quilicura, Santiago, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 27207900 / <strong>Fax:</strong> (+56 2) 2720 79 50 / <strong>transportes@javiercortes.com</strong></p>
-      <p><strong>Antofagasta:</strong> Acantitita 425, Sector La Chimba, Antofagasta, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 552552100 /<strong> Fax:</strong> (5655) 211012</p>
+      <p><strong>Antofagasta:</strong> Acantitita 425, Sector La Chimba, Antofagasta, Chile  / <strong>Tel&eacute;fono: </strong>(+56 55) 2552100</strong></p>
   </div>
   <div class="clear"></div>
 </footer>
