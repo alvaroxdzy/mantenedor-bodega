@@ -37,14 +37,14 @@
                     <ul class="nav justify-content-end" id="ul_layout">
 
                       <li id="li_layout" class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas">Movimiento Producto </a>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas">Inventario </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/home"> Entrada productos </a> 
-                            <a class="dropdown-item" href="/home"> Salida productos </a> 
+                            <a class="dropdown-item" href="/home"> Entrada bodega  </a> 
+                            <a class="dropdown-item" href="/home"> Salida bodega </a> 
                         </div>
 
                         <li id="li_layout" class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas"> Inventario  </a>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas"> Mantenedores  </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/busqueda-bodegas"> Bodegas </a> 
                             <a class="dropdown-item" href="/busqueda-productos"> Productos </a> 
