@@ -32,7 +32,10 @@
           <th>Ciudad</th>
           <th>Banco</th>
           <th>Tipo cuenta</th>  
-          <th>Numero cuenta</th>       
+          <th>Numero cuenta</th> 
+          <th>Telefono proveedor</th>
+          <th>Gestionar</th> 
+
         </tr>
         @foreach($proveedores as $proveedor) 
         <tr>
@@ -46,6 +49,7 @@
           <td>{{$proveedor->banco}}</td>
           <td>{{$proveedor->tipo_cuenta}}</td>
           <td>{{$proveedor->n_cta_prov}}</td>
+          <td> {{$proveedor->telefono_prov}} </td>
           <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar 👻 </a></td>
         </tr>
         @endforeach

@@ -22,7 +22,7 @@ input[type=number] {
 				{{ csrf_field() }}    
 				<div class="form-group">  
 					<label for="codigo_bodega">Código Bodega</label>
-					<input value="{{$bodega->codigo_bodega}}" type="text" class="form-control" id="codigo_bodega" name="codigo_bodega" placeholder="Ingrese codigo" minlength="1" maxlength="6" required >
+					<input value="{{$bodega->codigo_bodega}}" type="text" class="form-control" id="codigo_bodega" name="codigo_bodega" placeholder="Ingrese codigo" minlength="1" maxlength="6" required readonly>
 					<small id="cod_bod" class="form-text text-muted">con este codigo identificaras la bodega.</small>
 				</div>
 

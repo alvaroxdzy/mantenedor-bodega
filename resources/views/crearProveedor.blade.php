@@ -82,6 +82,11 @@ input[type=number] {
 					<input type="text" class="form-control" id="n_cta_prov" name="n_cta_prov" placeholder="Ingrese el numero de cuenta" >
 					<small id="dir_bod" class="form-text text-muted">numero de la cuenta</small>
 				</div>
+				<div class="form-group">
+					<label for="telefono_prov">Telefono proveedor</label>
+					<input type="text" class="form-control" id="telefono_prov" name="telefono_prov" placeholder="Ingrese el numero de cuenta" >
+					<small id="dir_bod" class="form-text text-muted">numero de la cuenta</small>
+				</div>
 
 				<input type="submit" class="btn btn-primary"  value="Enviar "> Guardar </input>
 			</form>

@@ -22,7 +22,7 @@ input[type=number] {
 				{{ csrf_field() }}    
 				<div class="form-group">
 					<label for="rut_proveedor">Rut</label>
-					<input value="{{$proveedor->rut_proveedor}}" type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" placeholder="Ingrese codigo" minlength="1" maxlength="150" required >
+					<input value="{{$proveedor->rut_proveedor}}" type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" placeholder="Ingrese codigo" minlength="1" maxlength="150" required readonly >
 					<small id="rut_prov" class="form-text text-muted">rut del proveedor.</small>
 				</div>
 
@@ -84,6 +84,13 @@ input[type=number] {
 					<input value="{{$proveedor->n_cta_prov}}" type="text" class="form-control" id="n_cta_prov" name="n_cta_prov" placeholder="Ingrese el numero de cuenta" >
 					<small id="dir_bod" class="form-text text-muted">numero de la cuenta</small>
 				</div>
+				<div class="form-group">
+					<label for="telefono_prov">Telefono proveedor</label>
+					<input value="{{$proveedor->telefono_prov}}" type="text" class="form-control" id="telefono_prov" name="telefono_prov" placeholder="Ingrese el numero de cuenta" >
+					<small id="dir_bod" class="form-text text-muted">telefono proveedor</small>
+				</div>
+
+
 				<input type="submit" class="btn btn-primary"  value="Actualizar ">  </input>
 			</form>
 			<div id="error"> </div>

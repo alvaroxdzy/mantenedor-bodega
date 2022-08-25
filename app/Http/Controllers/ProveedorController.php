@@ -40,7 +40,8 @@ class ProveedorController extends Controller
        $proveedor->ciudad_prov=$request->ciudad_prov;
        $proveedor->banco=$request->banco;
        $proveedor->tipo_cuenta=$request->tipo_cuenta;
-       $proveedor->n_cta_prov=$request->n_cta_prov;       
+       $proveedor->n_cta_prov=$request->n_cta_prov;    
+       $proveedor->telefono_prov=$request->telefono_prov;   
        $proveedor->save();
 
          
@@ -66,6 +67,7 @@ class ProveedorController extends Controller
        $proveedor->banco=$request->banco;
        $proveedor->tipo_cuenta=$request->tipo_cuenta;
        $proveedor->n_cta_prov=$request->n_cta_prov;   
+       $proveedor->telefono_prov=$request->telefono_prov;
        $proveedor->save();
        return redirect(route('proveedor.search'));
    }
@@ -84,7 +86,8 @@ class ProveedorController extends Controller
             ->orWhere('ciudad_prov','LIKE','%'.$proveedor_search.'%')
             ->orWhere('banco','LIKE','%'.$proveedor_search.'%')
             ->orWhere('tipo_cuenta','LIKE','%'.$proveedor_search.'%')
-            ->orWhere('n_cta_prov','LIKE','%'.$proveedor_search.'%')            
+            ->orWhere('n_cta_prov','LIKE','%'.$proveedor_search.'%')  
+            ->orWhere('telefono_prov','LIKE','%'.$proveedor_search.'%')          
             ->get();
         } else
         {
