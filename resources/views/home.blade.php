@@ -2,11 +2,12 @@
 
 @section('content')
 <div class="container">
+    <img id="fondo_home" src="{{ asset('/img/Fondo.jpg')}} " width="1275px" height="600px"  />
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <img src="{{ asset('/img/Fondo.jpg')}}" style="width:900px;" />
+                    
                 </div>
 
                 <div class="card-body">
