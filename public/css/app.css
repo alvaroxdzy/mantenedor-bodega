@@ -10928,28 +10928,9 @@ footer{
   display: inline-block;
 }
 
-table {
-  padding: 10px;
-  border: none;
-  width: 250px;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-
-td, th { 
-  padding: 5px 10px;
-  text-align: center;
-  border: 1px solid black;
-  width: 100px;
-  word-wrap: break-word;
-}
-
-tr:nth-child(1) {
-  background: #dedede;
-}
-
 #fondo_home {
   padding: 15px;
   margin-top: auto;
   align-content: center;
 }
+

@@ -8,21 +8,17 @@
   <br/>
   <h4>Proveedores</h4>
   <div id="div-buscar-proveedor" class=""> 
-   <form class="form-text-input" type="get" action="{{ url('/busqueda-proveedores') }}">
-
-     <input class="form-text-input" placeholder=" 🔍︎ proveedores" type="text" name="query">
-     <button class="btn btn-outline-primary btn-sm" type="submit">BUSCAR</button>
-     <a href="crear-producto" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
-
-   </form>
- </div>
- <div class="row"> 
-   <div class="clod-md-4"> </div>
-   <div class="clod-md-6"> 
-     <div class="row">   
-       @if(@Auth::user()->hasRole('colaborador'))
-       <font size="1" >
-       <table width="100%" class="table dataTable no-footer dtr-inline collapsed">
+   <form class="form-text-input" type="get">
+    <a href="crear-proveedor" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
+  </form>
+</div>
+<div class="row"> 
+ <div class="clod-md-4"> </div>
+ <div class="clod-md-6"> 
+   <div class="row">   
+     @if(@Auth::user()->hasRole('colaborador'))
+     <font size="1" >
+       <table id="tablas" class="table table-striped" style="width:100%">
         <tr>
           <th>Rut Proveedor</th>
           <th>Digito verificador</th>
@@ -54,11 +50,17 @@
           <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar 👻 </a></td>
         </tr>
         @endforeach
-      </table>  
-      </font>
-      @endif
-    </div> 
+      </table> 
+      <script>
+        var tabla= document.querySelector("#tablas");
+        var dataTable = new DataTable(tablas);
+      </script>
+
+
+    </font>
+    @endif
   </div> 
+</div> 
 </div> 
 </div>      
 </div>  
