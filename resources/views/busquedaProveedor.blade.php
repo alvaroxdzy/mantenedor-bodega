@@ -51,12 +51,6 @@
         </tr>
         @endforeach
       </table> 
-      <script>
-        var tabla= document.querySelector("#tablas");
-        var dataTable = new DataTable(tablas);
-      </script>
-
-
     </font>
     @endif
   </div> 
