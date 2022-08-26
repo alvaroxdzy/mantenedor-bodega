@@ -59,12 +59,30 @@ input[type=number] {
 				</div>
 				<div class="form-group">
 					<label for="banco">Banco</label>
-					<select class="form-control" id="tipo_cuenta" name="tipo_cuenta" placeholder="Ingrese tipo de cuenta">
-						<option value="cuenta corriente">Cuenta corriente</option>
-						<option value="cuenta vista">Cuenta vista</option>
-						<option value="cuenta ahorro">Cuenta ahorro</option>>
-						
-
+					<select class="form-control" id="banco" name="banco" placeholder="Seleccione su banco">
+						<option value="BANCO CHILE-EDWARDS-CITI">BANCO CHILE-EDWARDS-CITI</option>
+						<option value="BANCO INTERNACIONAL">BANCO INTERNACIONAL</option>
+						<option value="BANCO ESTADO">BANCO ESTADO</option>
+						<option value="BANCO SCOTIABANK">BANCO SCOTIABANK</option>
+						<option value="BCI">BCI</option>
+						<option value="BANCO DO BRASIL S.A.">BANCO DO BRASIL S.A.</option>
+						<option value="CORPBANCA">CORPBANCA</option>
+						<option value="BANCO BICE">BANCO BICE</option>
+						<option value="REPUBLIC NATIONAL BANK OF N.Y.">REPUBLIC NATIONAL BANK OF N.Y.</option>
+						<option value="BANCO SANTANDER">BANCO SANTANDER</option>
+						<option value="BANCO ITAU">BANCO ITAU</option>
+						<option value="THE CHASE MANHATTAN BANK N.A.">THE CHASE MANHATTAN BANK N.A.</option>
+						<option value="BANCO SECURITY">BANCO SECURITY</option>
+						<option value="BANCO FALABELLA">BANCO FALABELLA</option>
+						<option value="BANCO RIPLEY">BANCO RIPLEY</option>
+						<option value="RABOBANK">RABOBANK</option>
+						<option value="BANCO CONSORCIO">BANCO CONSORCIO</option>
+						<option value="BANCO PARIS">BANCO PARIS</option>
+						<option value="BANCO BBVA">BANCO BBVA</option>
+						<option value="BANCO DEL DESARROLLO">BANCO DEL DESARROLLO</option>
+						<option value="COOPEUCH">COOPEUCH</option>
+						<option value="PREPAGO LOS HEROES">PREPAGO LOS HEROES</option>
+						<option value="TENPO PREGAGO">TENPO PREGAGO</option>
 					</select>
 					<small id="dir_bod" class="form-text text-muted">Nombre del banco.</small>
 				</div>
