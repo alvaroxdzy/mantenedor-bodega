@@ -5,13 +5,9 @@
 
 
 <div  class="container"> 
-  <br/>
   <h4>Listado de productos</h4>
   <div id="div-buscar-bodega" class=""> 
-   <form class="form-text-input" type="get" action="{{ url('/busqueda-productos') }}">
-
-     <input class="form-text-input" placeholder=" 🔍︎ productos" type="text" name="query">
-     <button class="btn btn-outline-primary btn-sm" type="submit">BUSCAR</button>
+   <form class="form-text-input" type="get">
      <a href="crear-producto" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
 
    </form>
@@ -35,7 +31,7 @@
           <td>{{$producto->nombre_producto}}</td>
           <td>{{$producto->observacion_producto}}</td>
           <td>{{$producto->cod_bod_producto}}</td>
-          <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar 👻 </a></td>
+          <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar </a></td>
         </tr>
         @endforeach
       </table>  

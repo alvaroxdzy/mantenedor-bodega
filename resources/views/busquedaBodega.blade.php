@@ -5,13 +5,10 @@
 
 
 <div  class="container"> 
-  <br/>
   <h4>Listado de bodegas</h4>
   <div id="div-buscar-bodega" class=""> 
-   <form class="form-text-input" type="get" action="{{ url('/busqueda-bodegas') }}">
+   <form class="form-text-input" type="get">
 
-     <input class="form-text-input" placeholder=" 🔍︎ bodega" type="text" name="query">
-     <button class="btn btn-outline-primary btn-sm" type="submit">BUSCAR</button>
      <a href="crear-bodega" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
 
    </form>
@@ -37,13 +34,13 @@
           <td>{{$bodega->direccion_bodega}}</td>
           <td>{{$bodega->comuna_bodega}}</td>
           <td>{{$bodega->telefono_bodega}}</td>
-          <td><a class="btn btn-outline-primary btn-sm" href="modificar-bodega/{{$bodega->codigo_bodega}}"> Modificar 👻 </a></td>
+          <td><a class="btn btn-outline-primary btn-sm" href="modificar-bodega/{{$bodega->codigo_bodega}}"> Modificar </a></td>
         </tr>
         @endforeach
       </table>  
       <script>
-        var myTable = document.querySelector("#myTable");
-        var dataTable = new DataTable(myTable);
+        var dataTable = new DataTable("#myTable");
+        
       </script>
       @endif
     </div> 
