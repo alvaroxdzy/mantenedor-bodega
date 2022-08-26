@@ -80,7 +80,7 @@ class ProveedorController extends Controller
             ->orWhere('rut_proveedor','LIKE','%'.$proveedor_search.'%')
             ->orWhere('dig_rut_prov','LIKE','%'.$proveedor_search.'%')
             ->orWhere('razon_social','LIKE','%'.$proveedor_search.'%')
-            ->orWhere('giro ','LIKE','%'.$proveedor_search.'%')
+            ->orWhere('giro','LIKE','%'.$proveedor_search.'%')
             ->orWhere('direccion_prov','LIKE','%'.$proveedor_search.'%')
             ->orWhere('comuna_prov','LIKE','%'.$proveedor_search.'%')
             ->orWhere('ciudad_prov','LIKE','%'.$proveedor_search.'%')

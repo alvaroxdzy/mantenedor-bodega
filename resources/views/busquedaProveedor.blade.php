@@ -21,7 +21,8 @@
    <div class="clod-md-6"> 
      <div class="row">   
        @if(@Auth::user()->hasRole('colaborador'))
-       <table  class="table dataTable no-footer dtr-inline collapsed">
+       <font size="1" >
+       <table width="100%" class="table dataTable no-footer dtr-inline collapsed">
         <tr>
           <th>Rut Proveedor</th>
           <th>Digito verificador</th>
@@ -54,6 +55,7 @@
         </tr>
         @endforeach
       </table>  
+      </font>
       @endif
     </div> 
   </div> 

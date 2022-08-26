@@ -59,7 +59,13 @@ input[type=number] {
 				</div>
 				<div class="form-group">
 					<label for="banco">Banco</label>
-					<input type="text" class="form-control" id="banco" name="banco" placeholder="Nombre del banco" >
+					<select class="form-control" id="tipo_cuenta" name="tipo_cuenta" placeholder="Ingrese tipo de cuenta">
+						<option value="cuenta corriente">Cuenta corriente</option>
+						<option value="cuenta vista">Cuenta vista</option>
+						<option value="cuenta ahorro">Cuenta ahorro</option>>
+						
+
+					</select>
 					<small id="dir_bod" class="form-text text-muted">Nombre del banco.</small>
 				</div>
 

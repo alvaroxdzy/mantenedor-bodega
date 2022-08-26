@@ -10928,6 +10928,22 @@ footer{
   display: inline-block;
 }
 
-#linkLayout {
-  
+table {
+  padding: 10px;
+  border: none;
+  width: 250px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td, th { 
+  padding: 5px 10px;
+  text-align: center;
+  border: 1px solid black;
+  width: 100px;
+  word-wrap: break-word;
+}
+
+tr:nth-child(1) {
+  background: #dedede;
 }
