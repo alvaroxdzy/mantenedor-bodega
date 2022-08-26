@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <img src="{{ asset('/img/logo.PNG')}}" style="width:150px;" />
+                    <img src="{{ asset('/img/Fondo.jpg')}}" style="width:800px;" />
                 </div>
 
                 <div class="card-body">
