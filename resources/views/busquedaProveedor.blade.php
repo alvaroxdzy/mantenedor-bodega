@@ -5,7 +5,6 @@
 
 
 <div  class="container"> 
-  <br/>
   <h4>Proveedores</h4>
   <div id="div-buscar-proveedor" class=""> 
    <form class="form-text-input" type="get">
@@ -18,7 +17,7 @@
    <div class="row">   
      @if(@Auth::user()->hasRole('colaborador'))
      <font size="1" >
-       <table id="tablas" class="table table-striped" style="width:100%">
+       <table id="myTable" class="table table-striped" style="width:100%">
         <tr>
           <th>Rut Proveedor</th>
           <th>Digito verificador</th>
@@ -47,10 +46,15 @@
           <td>{{$proveedor->tipo_cuenta}}</td>
           <td>{{$proveedor->n_cta_prov}}</td>
           <td> {{$proveedor->telefono_prov}} </td>
-          <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar 👻 </a></td>
+          <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a></td>
         </tr>
         @endforeach
       </table> 
+      <script>
+        var myTable = document.querySelector("#myTable");
+        var dataTable = new DataTable(myTable);
+      </script>
+
     </font>
     @endif
   </div> 

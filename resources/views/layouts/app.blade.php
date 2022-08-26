@@ -11,19 +11,12 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
-
+        <link href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
+        <script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css>">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
-        <script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.js" > </script>
-        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 
-        
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -120,9 +113,7 @@
         </div>
 
     </body>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" > </script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
     <footer class="page-footer font-small blue">
         <div class="pie">
           <p><strong>Santiago:</strong> Lincoyan 9780, Quilicura, Santiago, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 27207900 / <strong>Fax:</strong> (+56 2) 2720 79 50 / <strong>transportes@javiercortes.com</strong></p>

@@ -21,7 +21,7 @@
    <div class="clod-md-6"> 
      <div class="row">   
        @if(@Auth::user()->hasRole('colaborador'))
-       <table  class="table dataTable no-footer dtr-inline collapsed">
+       <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
         <tr>
           <th>Codigo</th>
           <th>Producto</th>
@@ -35,10 +35,14 @@
           <td>{{$producto->nombre_producto}}</td>
           <td>{{$producto->observacion_producto}}</td>
           <td>{{$producto->cod_bod_producto}}</td>
-           <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar 👻 </a></td>
+          <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar 👻 </a></td>
         </tr>
         @endforeach
       </table>  
+      <script>
+        var myTable = document.querySelector("#myTable");
+        var dataTable = new DataTable(myTable);
+      </script>
       @endif
     </div> 
   </div> 

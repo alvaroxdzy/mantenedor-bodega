@@ -21,7 +21,7 @@
    <div class="clod-md-6"> 
      <div class="row">   
        @if(@Auth::user()->hasRole('colaborador'))
-       <table  class="table dataTable no-footer dtr-inline collapsed">
+       <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
         <tr>
           <th>Codigo</th>
           <th>Bodega</th>
@@ -41,6 +41,10 @@
         </tr>
         @endforeach
       </table>  
+      <script>
+        var myTable = document.querySelector("#myTable");
+        var dataTable = new DataTable(myTable);
+      </script>
       @endif
     </div> 
   </div> 
