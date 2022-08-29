@@ -41,14 +41,20 @@ input[type=number] {
 					<input value="{{$producto->observacion_producto}}" type="text" class="form-control" id="observacion_producto" name="observacion_producto" placeholder="Ingrese detalles de producto" required>
 					<small id="dir_bod" class="form-text text-muted">detalle productos.</small>
 				</div>
+
+
 				<div class="form-group">
 					<label for="cod_bod_producto">Sucursal Bodega</label>
 					<select class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required>
-						<option value="{{$producto->cod_bod_producto}}">{{$producto->cod_bod_producto}}</option>
-						<option value="002">Antofagasta</option>
-						<option value="001">Santiago</option>
+						@foreach($productos as $productitos)
+
+						<option value="{{$productitos->cod_bod_producto}}">{{$productitos->comuna_bodega}} </option>
+
+						@endforeach
 					</select> 
 				</div>
+
+
 				<input type="submit" class="btn btn-primary"  value="Actualizar ">  </input>
 			</form>
 			<div id="error"> </div>

@@ -34,6 +34,7 @@ Route::get('/almacenar-producto','ProductoController@store')->name('producto.sto
 Route::get('/busqueda-productos','ProductoController@search')->name('producto.search');
 Route::get('/modificar-producto/{id}','ProductoController@edit')->name('producto.edit');
 Route::get('/actualizar-producto','ProductoController@update')->name('producto.update');
+Route::get('/eliminar-producto/{id}','ProductoController@destroy')->name('producto.destroy');
 
 Route::get('/proveedores', 'ProveedorController@consultaProveedor')->name('proveedores');
 Route::get('crear-proveedor','ProveedorController@create')->name('proveedor.create') ;

@@ -22,27 +22,34 @@ input[type=number] {
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label for="codigo_producto">Código Producto</label>
-					<input type="text" class="form-control" id="codigo_producto" name="codigo_producto" placeholder="Ingrese codigo" minlength="1" maxlength="150" required >
+					<input style="text-transform:uppercase" type="text" class="form-control" id="codigo_producto" name="codigo_producto" placeholder="Ingrese codigo" minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="cod_bod" class="form-text text-muted">con este codigo identificaras el producto.</small>
 				</div>
 				<div class="form-group">
 					<label for="nombre_producto">Nombre Producto</label>
-					<input type="text" class="form-control" id="nombre_producto" name="nombre_producto" placeholder="Ingrese nombre" required maxlength="100" >
+					<input style="text-transform:uppercase" type="text" class="form-control" id="nombre_producto" name="nombre_producto" placeholder="Ingrese nombre" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="nom_bod" class="form-text text-muted">con este nombre identificaras el producto.</small>
 				</div>
 				<div class="form-group">
 					<label for="observacion_producto">Observaciones Producto</label>
-					<input type="text" class="form-control" id="observacion_producto" name="observacion_producto" placeholder="Ingrese la observacion producto" required>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="observacion_producto" name="observacion_producto" placeholder="Ingrese la observacion producto" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dir_bod" class="form-text text-muted">detalles de los productos.</small>
 				</div>
+
 				<div class="form-group">
-					<label for="cod_bod_producto">Sucursal Bodega</label>
-					<select class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required>
-						<option value="002">Antofagasta</option>
-						<option value="001">Santiago</option>
-					</select> 
-					<small id="dir_bod" class="form-text text-muted">Seleccione sucursal.</small>
-				</div>      
+					<label> Seleccione sucursal bodega </label>
+					<select class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required >
+						@foreach($bodega as $bodeguita)
+
+						<option value="{{$bodeguita->codigo_bodega}}">{{$bodeguita->comuna_bodega}} </option>
+
+						@endforeach
+
+					</select>
+				</div>
+
+
+
 				<input type="submit" class="btn btn-primary"  value="Enviar "> Guardar </input>
 			</form>
 			<div id="error"> </div>

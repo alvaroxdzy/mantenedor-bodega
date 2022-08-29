@@ -22,39 +22,39 @@ input[type=number] {
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label for="rut_proveedor">Rut</label>
-					<input type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" placeholder="Ingrese codigo" minlength="1" maxlength="150" required >
+					<input style="text-transform:uppercase" type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" placeholder="Ingrese codigo" minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="rut_prov" class="form-text text-muted">rut del proveedor.</small>
 				</div>
 				<div class="form-group">
 					<label for="dig_rut_prov">Digito verificador</label>
-					<input type="text" class="form-control" id="dig_rut_prov" name="dig_rut_prov" placeholder="Ingrese codigo" minlength="1" maxlength="150" required >
+					<input style="text-transform:uppercase" type="text" class="form-control" id="dig_rut_prov" name="dig_rut_prov" placeholder="Ingrese codigo" minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dig_rut_prov" class="form-text text-muted">rut del proveedor.</small>
 				</div>
 
 				<div class="form-group">
 					<label for="razon_social">Razon social</label>
-					<input type="text" class="form-control" id="razon_social" name="razon_social" placeholder="Ingrese razon social" required maxlength="100" >
+					<input style="text-transform:uppercase" type="text" class="form-control" id="razon_social" name="razon_social" placeholder="Ingrese razon social" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="nom_bod" class="form-text text-muted">con este nombre identificaras al proveedor.</small>
 				</div>
 
 				<div class="form-group">
 					<label for="giro">Giro</label>
-					<input type="text" class="form-control" id="giro" name="giro" placeholder="Ingrese el giro del proveedor" required>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="giro" name="giro" placeholder="Ingrese el giro del proveedor" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dir_bod" class="form-text text-muted">giro del proveedor.</small>
 				</div>
 				<div class="form-group">
 					<label for="direccion_prov">Dirección</label>
-					<input type="text" class="form-control" id="direccion_prov" name="direccion_prov" placeholder="Ingrese la direccion del proveedor" required>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="direccion_prov" name="direccion_prov" placeholder="Ingrese la direccion del proveedor" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dir_bod" class="form-text text-muted">direccion del proveedor.</small>
 				</div>
 				<div class="form-group">
 					<label for="comuna_prov">Comuna</label>
-					<input type="text" class="form-control" id="comuna_prov" name="comuna_prov" placeholder="Ingrese la comuna del proveedor" required>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="comuna_prov" name="comuna_prov" placeholder="Ingrese la comuna del proveedor" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dir_bod" class="form-text text-muted">comuna del proveedor </small>
 				</div>
 				<div class="form-group">
 					<label for="ciudad_prov">Ciudad</label>
-					<input type="text" class="form-control" id="ciudad_prov" name="ciudad_prov" placeholder="Ingrese la ciudad del proveedor " required>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="ciudad_prov" name="ciudad_prov" placeholder="Ingrese la ciudad del proveedor " required onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dir_bod" class="form-text text-muted">ciudad del proveedor.</small>
 				</div>
 				<div class="form-group">
@@ -94,21 +94,21 @@ input[type=number] {
 				<div class="form-group">
 					<label for="tipo_cuenta">Tipo de cuenta</label>
 					<select class="form-control" id="tipo_cuenta" name="tipo_cuenta" placeholder="Ingrese tipo de cuenta">
-						<option value="cuenta corriente">Cuenta corriente</option>
-						<option value="cuenta vista">Cuenta vista</option>
-						<option value="cuenta ahorro">Cuenta ahorro</option>
+						<option value="CUENTA CORRIENTE">CUENTA CORRIENTE</option>
+						<option value="CUENTA VISTA">CUENTA VISTA</option>
+						<option value="CUENTA AHORRO">CUENTA AHORRO</option>
 					</select> 
 					<small id="dir_bod" class="form-text text-muted">Seleccione sucursal.</small>
 				</div>
 
 				<div class="form-group">
 					<label for="n_cta_prov">Cuenta bancaria</label>
-					<input type="text" class="form-control" id="n_cta_prov" name="n_cta_prov" placeholder="Ingrese el numero de cuenta" >
+					<input style="text-transform:uppercase" type="text" class="form-control" id="n_cta_prov" name="n_cta_prov" placeholder="Ingrese el numero de cuenta" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dir_bod" class="form-text text-muted">numero de la cuenta</small>
 				</div>
 				<div class="form-group">
 					<label for="telefono_prov">Telefono proveedor</label>
-					<input type="text" class="form-control" id="telefono_prov" name="telefono_prov" placeholder="Ingrese el numero de cuenta" >
+					<input style="text-transform:uppercase" type="text" class="form-control" id="telefono_prov" name="telefono_prov" placeholder="Ingrese el numero de cuenta" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="dir_bod" class="form-text text-muted">numero de la cuenta</small>
 				</div>
 

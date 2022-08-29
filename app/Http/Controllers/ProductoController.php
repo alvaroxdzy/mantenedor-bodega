@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Bodega;
 
 class ProductoController extends Controller
 {
@@ -21,7 +22,10 @@ class ProductoController extends Controller
 
     public function create()
     {
-        return view('crearProducto');
+        $bodega = Bodega::select('codigo_bodega','comuna_bodega')->get()->unique('comuna_bodega'); 
+        return view('crearProducto')->with('bodega',$bodega);
+
+
     }    
 
     public function store(Request $request)
@@ -35,7 +39,7 @@ class ProductoController extends Controller
        $producto->codigo_producto=$request->codigo_producto; 
        $producto->nombre_producto=$request->nombre_producto; 
        $producto->observacion_producto=$request->observacion_producto; 
-       $producto->cod_bod_producto=$request->cod_bod_producto;     
+       $producto->cod_bod_producto=$request->cod_bod_producto;    
        $producto->save();
 
           //  if ($bodega->save()) {
@@ -53,7 +57,10 @@ class ProductoController extends Controller
         ->get();
     } else
     {
-        $productos=Producto::all();
+        $productos=Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.id','producto.codigo_producto','producto.nombre_producto', 'producto.observacion_producto' , 'bodega.nombre_bodega as nombre_bodega')->get();
+
+
+
     }
     return view('busquedaProducto',compact('productos'));
     }
@@ -73,7 +80,18 @@ class ProductoController extends Controller
     public function edit($id)
     {
     $producto = Producto::where('codigo_producto',$id)->first();
-    return view('modificarProducto')->with('producto',$producto) ;
+
+    $productos = Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.cod_bod_producto','bodega.comuna_bodega')->get()->unique('comuna_bodega');
+
+    return view('modificarProducto')->with('producto',$producto)->with('productos', $productos);
+    }
+
+    public function destroy($id)
+    {
+        $producto = Producto::find($id);
+        $producto->delete();
+        return redirect(route('producto.search'));
+
     }
 
 }
