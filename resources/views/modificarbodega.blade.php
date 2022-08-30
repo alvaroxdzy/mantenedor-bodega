@@ -41,6 +41,8 @@ input[type=number] {
 					<input value="{{$bodega->direccion_bodega}}" type="text" class="form-control" id="direccion_bodega" name="direccion_bodega" placeholder="Ingrese la direccion bodega" required>
 					<small id="dir_bod" class="form-text text-muted">dirección de la bodega bodega.</small>
 				</div>
+
+
 				<div class="form-group">
 					<label for="sucursal_bodega">Sucursal Bodega</label>
 					<select class="form-control" id="sucursal_bodega" name="sucursal_bodega" placeholder="Ingrese sucursal" required>
@@ -49,8 +51,18 @@ input[type=number] {
 
 						<option value="Santiago">Santiago</option>
 					</select> 
-
 				</div>
+				<div class="form-group">
+					<label for="sucursal_bodega">Sucursal Bodega</label>
+					<select class="form-control" id="sucursal_bodega" name="sucursal_bodega" placeholder="Ingrese sucursal" required>
+						<option value="{{$bodega->comuna_bodega}}">{{$bodega->comuna_bodega}}</option>
+						<option value="Antofagasta">Antofagasta</option>
+
+						<option value="Santiago">Santiago</option>
+					</select> 
+				</div>
+
+
 				<div class="form-group">
 					<label for="telefono_bodega">Teléfono</label>
 					<input value="{{$bodega->telefono_bodega}}" type="tel" class="form-control" id="telefono_bodega" name="telefono_bodega" >

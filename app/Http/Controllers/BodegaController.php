@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bodega;
+use App\Models\Regions;
+use App\Models\Communes;
 
 
 
@@ -27,7 +29,10 @@ class BodegaController extends Controller
 
     public function create()
     {
-        return view('crearBodega');
+       $region = Regions::select('id','name')->get();
+       $comuna = Communes::select('id','name')->get();
+
+        return view('crearBodega')->with('region',$region)->with('comuna', $comuna);;
     }
 
     
@@ -41,7 +46,8 @@ class BodegaController extends Controller
        $bodega->codigo_bodega=$request->codigo_bodega; 
        $bodega->nombre_bodega=$request->nombre_bodega; 
        $bodega->direccion_bodega=$request->direccion_bodega; 
-       $bodega->comuna_bodega=$request->sucursal_bodega; 
+       $bodega->comuna_bodega=$request->comuna_bodega; 
+       $bodega->region_bodega=$request->region_bodega;        
        $bodega->telefono_bodega=$request->telefono_bodega; 
        $bodega->save();
 
@@ -71,7 +77,7 @@ class BodegaController extends Controller
        $bodega->codigo_bodega=$request->codigo_bodega; 
        $bodega->nombre_bodega=$request->nombre_bodega; 
        $bodega->direccion_bodega=$request->direccion_bodega; 
-       $bodega->comuna_bodega=$request->sucursal_bodega; 
+       $bodega->comuna_bodega=$request->comuna_bodega; 
        $bodega->telefono_bodega=$request->telefono_bodega; 
        $bodega->save();
        return redirect(route('bodega.search'));

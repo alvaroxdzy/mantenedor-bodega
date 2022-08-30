@@ -44,11 +44,6 @@ input[type=number] {
 		<div class="form-group">
 			<h6> Seleccione sucursal bodega </h6>
 			<select class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required style="max-width:10%;">
-				@foreach($bodega as $bodeguita)
-
-				<option value="{{$bodeguita->codigo_bodega}}">{{$bodeguita->comuna_bodega}} </option>
-
-				@endforeach
 
 			</select>
 			<small class="form-text text-muted"> Seleecione la bodega en la que se encuentra el producto</small>
