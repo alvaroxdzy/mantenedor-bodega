@@ -42,3 +42,5 @@ Route::get('/almacenar-proveedor','ProveedorController@store')->name('proveedor.
 Route::get('/busqueda-proveedores','ProveedorController@search')->name('proveedor.search');
 Route::get('/modificar-proveedor/{id}','ProveedorController@edit')->name('proveedor.edit');
 Route::get('/actualizar-proveedor','ProveedorController@update')->name('proveedor.update');
+Route::get('/eliminar-proveedor/{id}','ProveedorController@destroy')->name('proveedor.destroy');
+

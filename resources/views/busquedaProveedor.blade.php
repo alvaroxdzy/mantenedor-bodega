@@ -47,6 +47,7 @@
           <td>{{$proveedor->n_cta_prov}}</td>
           <td> {{$proveedor->telefono_prov}} </td>
           <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a></td>
+          <td><a class="btn btn-outline-primary btn-sm" onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
         </tr>
         @endforeach
       </table> 
@@ -54,10 +55,38 @@
         var myTable = document.querySelector("#myTable");
         var dataTable = new DataTable(myTable);
       </script>
+      <script type="text/javascript">
+        function eliminar(id){
+         Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href="eliminar-proveedor/"+id;
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+            ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Your imaginary file is safe :)',
+              'error'
+              )
+          }
+        })
 
-    </font>
-    @endif
-  </div> 
+      }
+
+
+    </script>
+  </font>
+  @endif
+</div> 
 </div> 
 </div> 
 </div>      

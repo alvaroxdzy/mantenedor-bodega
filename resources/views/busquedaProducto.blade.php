@@ -27,7 +27,7 @@
         </tr>
         @foreach($productos as $producto) 
         <tr>
-          <td> {{$producto->codigo_producto}} </td>
+          <td>{{$producto->codigo_producto}}</td>
           <td>{{$producto->nombre_producto}}</td>
           <td>{{$producto->observacion_producto}}</td>
           <td>{{$producto->nombre_bodega}}</td>
