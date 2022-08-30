@@ -81,7 +81,7 @@ class ProductoController extends Controller
     {
     $producto = Producto::where('codigo_producto',$id)->first();
 
-    $productos = Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.cod_bod_producto','bodega.comuna_bodega')->get()->unique('comuna_bodega');
+    $productos = Producto::leftjoin('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.cod_bod_producto','bodega.comuna_bodega')->get()->unique('comuna_bodega');
 
     return view('modificarProducto')->with('producto',$producto)->with('productos', $productos);
     }
