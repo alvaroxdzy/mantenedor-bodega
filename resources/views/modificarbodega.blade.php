@@ -44,21 +44,14 @@ input[type=number] {
 
 
 				<div class="form-group">
-					<label for="sucursal_bodega">Sucursal Bodega</label>
-					<select class="form-control" id="sucursal_bodega" name="sucursal_bodega" placeholder="Ingrese sucursal" required>
+					<label for="comuna_bodega">Sucursal Bodega</label>
+					<select class="form-control" id="sucursal_bodega" name="comuna_bodega" placeholder="Seleccione comuna bodega" required>
 						<option value="{{$bodega->comuna_bodega}}">{{$bodega->comuna_bodega}}</option>
-						<option value="Antofagasta">Antofagasta</option>
+						@foreach($comuna as $comunas)
 
-						<option value="Santiago">Santiago</option>
-					</select> 
-				</div>
-				<div class="form-group">
-					<label for="sucursal_bodega">Sucursal Bodega</label>
-					<select class="form-control" id="sucursal_bodega" name="sucursal_bodega" placeholder="Ingrese sucursal" required>
-						<option value="{{$bodega->comuna_bodega}}">{{$bodega->comuna_bodega}}</option>
-						<option value="Antofagasta">Antofagasta</option>
+						<option value="{{$comunas->comuna_bodega}}">{{$comunas->comuna_bodega}} </option>
 
-						<option value="Santiago">Santiago</option>
+						@endforeach
 					</select> 
 				</div>
 

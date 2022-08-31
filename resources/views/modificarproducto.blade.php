@@ -45,13 +45,13 @@ input[type=number] {
 
 
 			<div class="form-group">
-				<label for="cod_bod_producto">Sucursal Bodega</label>
+				<label for="cod_bod_producto">Seleccione Bodega</label>
 				<select class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required>
-					@foreach($productos as $productitos)
+					<option hidden value="{{$cod_bodega->codigo_bodega}}">  {{$cod_bodega->nombre_bodega}}  </option>
+					@foreach($nombre_bodega as $nombre_bodegas)
+						<option value="{{$nombre_bodegas->codigo_bodega}}">{{$nombre_bodegas->nombre_bodega}}</option>
+					@endforeach 
 
-					<option value="{{$productitos->cod_bod_producto}}">{{$productitos->comuna_bodega}} </option>
-
-					@endforeach
 				</select> 
 			</div>
 

@@ -29,10 +29,10 @@ class BodegaController extends Controller
 
     public function create()
     {
-       $region = Regions::select('id','name')->get();
-       $comuna = Communes::select('id','name')->get();
+      // $region = Regions::select('id','name')->get();
+      // $comuna = Communes::select('id','name')->get();
 
-        return view('crearBodega')->with('region',$region)->with('comuna', $comuna);;
+        return view('crearBodega');
     }
 
     
@@ -47,7 +47,7 @@ class BodegaController extends Controller
        $bodega->nombre_bodega=$request->nombre_bodega; 
        $bodega->direccion_bodega=$request->direccion_bodega; 
        $bodega->comuna_bodega=$request->comuna_bodega; 
-       $bodega->region_bodega=$request->region_bodega;        
+       //$bodega->region_bodega=$request->region_bodega;        
        $bodega->telefono_bodega=$request->telefono_bodega; 
        $bodega->save();
 
@@ -63,7 +63,8 @@ class BodegaController extends Controller
     public function edit($id)
     {
         $bodega = Bodega::where('codigo_bodega',$id)->first();
-        return view('modificarbodega')->with('bodega',$bodega) ;
+        $comuna = Bodega::select('comuna_bodega')->get()->unique();
+        return view('modificarbodega')->with('bodega',$bodega)->with('comuna',$comuna);
     }
 
     public function update(Request $request)  

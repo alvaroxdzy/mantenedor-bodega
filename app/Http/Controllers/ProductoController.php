@@ -22,10 +22,8 @@ class ProductoController extends Controller
 
     public function create()
     {
-        $bodega = Bodega::select('codigo_bodega','comuna_bodega')->get()->unique('comuna_bodega'); 
+        $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get()->unique('nombre_bodega'); 
         return view('crearProducto')->with('bodega',$bodega);
-
-
     }    
 
     public function store(Request $request)
@@ -80,10 +78,16 @@ class ProductoController extends Controller
     public function edit($id)
     {
     $producto = Producto::where('codigo_producto',$id)->first();
+    
+    $cod_bodega = Producto::leftjoin('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')
+    ->select('producto.codigo_producto','bodega.codigo_bodega as codigo_bodega','bodega.nombre_bodega as nombre_bodega')
+    ->where('producto.codigo_producto',$id)->first();
 
-    $productos = Producto::leftjoin('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.cod_bod_producto','bodega.comuna_bodega')->get()->unique('comuna_bodega');
+    $nombre_bodega = Bodega::select('codigo_bodega','nombre_bodega')->get()->unique('codigo_bodega','nombre_bodega');
 
-    return view('modificarProducto')->with('producto',$producto)->with('productos', $productos);
+    //$productos = Producto::leftjoin('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.cod_bod_producto','bodega.comuna_bodega')->get()->unique('comuna_bodega');
+
+    return view('modificarProducto')->with('producto',$producto)->with('cod_bodega', $cod_bodega)->with('nombre_bodega', $nombre_bodega);
     }
 
     public function destroy($id)

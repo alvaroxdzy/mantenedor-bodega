@@ -38,27 +38,12 @@ input[type=number] {
 					<small id="dir_bod" class="form-text text-muted">dirección de la bodega.</small>
 				</div>
 
-				<div>
-					<h6 for="sucursal_bodega">Región Bodega</h6>
-					<select  class="form-control" id="region_bodega" name="region_bodega" placeholder="seleccione comuna bodega" required>
-						@foreach($region as $regiones)
-
-						<option value="{{$regiones->id}}">{{$regiones->name}} </option>
-
-						@endforeach
-					</select> 
-				</div>
-
 				<div class="form-group">
 					<h6 for="sucursal_bodega">Comuna Bodega</h6>
-					<select  class="form-control" id="region_bodega" name="region_bodega" placeholder="seleccione region" required>
-						@foreach($comuna as $comunas)
-
-						<option value="{{$comunas->id}}">{{$comunas->name}} </option>
-
-						@endforeach
+					<select  class="form-control" id="comuna_bodega" name="comuna_bodega" placeholder="seleccione comuna" required>
+						<option value="SANTIAGO , REGION METROPOLITANA">SANTIAGO , REGION METROPOLITANA </option>
+						<option value="LA CHIMBA , ANTOFAGASTA">LA CHIMBA , ANTOFAGASTA  </option>
 					</select> 
-
 				</div>
 
 				<div class="form-group">

@@ -42,9 +42,11 @@ input[type=number] {
 		</div>
 
 		<div class="form-group">
-			<h6> Seleccione sucursal bodega </h6>
+			<h6> Seleccione bodega </h6>
 			<select class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required style="max-width:10%;">
-
+             @foreach($bodega as $nombrebodegas)
+             <option value="{{$nombrebodegas->codigo_bodega}}">{{$nombrebodegas->nombre_bodega}} </option>
+             @endforeach
 			</select>
 			<small class="form-text text-muted"> Seleecione la bodega en la que se encuentra el producto</small>
 		</div>
