@@ -22,7 +22,7 @@ input[type=number] {
 				{{ csrf_field() }}
 				<div class="form-group">
 					<h6  for="codigo_bodega">Código Bodega</h6>
-					<input style="text-transform:uppercase" type="text" class="form-control" id="codigo_bodega" name="codigo_bodega" placeholder="Ingrese codigo" minlength="1" maxlength="6" required  onkeyup="javascript:this.value=this.value.toUpperCase();">
+					<input style="text-transform:uppercase" type="text" class="form-control" id="codigo_bodega" name="codigo_bodega" placeholder="Ingrese codigo" minlength="1" maxlength="5" required  onkeyup="javascript:this.value=this.value.toUpperCase();">
 					<small id="cod_bod" class="form-text text-muted">con este codigo identificaras la bodega.</small>
 				</div>
 
