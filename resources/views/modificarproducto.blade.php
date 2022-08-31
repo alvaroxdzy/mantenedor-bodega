@@ -39,7 +39,7 @@ input[type=number] {
 
 			<div class="form-group">
 				<h6 for="observacion_producto">Observacion Producto</h6>
-				<textarea value="{{$producto->observacion_producto}}" style="text-transform:uppercase" type="text-center" class="form-control" id="observacion_producto"  name="observacion_producto" placeholder="Ingrese los detalles del producto" required onkeyup="javascript:this.value=this.value.toUpperCase();" for="observacion_producto"></textarea>
+				<textarea value="{{$producto->observacion_producto}}" style="text-transform:uppercase" type="text" class="form-control" id="observacion_producto"  name="observacion_producto" placeholder="Ingrese los detalles del producto" required onkeyup="javascript:this.value=this.value.toUpperCase();" for="observacion_producto"> {{$producto->observacion_producto}} </textarea>
 				<small id="dir_bod" class="form-text text-muted">detalle productos.</small>
 			</div>
 
