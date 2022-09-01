@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Movimiento extends Model
+class DetalleMovimiento extends Model
 {
-  public $table = 'movimiento';
+  public $table = 'detalle_movimiento';
     
     public $fillable = [
         'Nombre'
     ]
     ;
-    public $timestamps = false;
+    public $timestamps = false;;
 }

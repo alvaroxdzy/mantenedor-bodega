@@ -46,20 +46,20 @@ class ProductoController extends Controller
 
    public function search()
    {
-    if(isset($_GET['query'])){
-        $search_text = $_GET['query'];
-        $productos = Producto::where('nombre_producto','LIKE','%'.$search_text.'%')
-        ->orWhere('codigo_producto','LIKE','%'.$search_text.'%')
-        ->orWhere('observacion_producto','LIKE','%'.$search_text.'%')
-        ->orWhere('cod_bod_producto','LIKE','%'.$search_text.'%')
-        ->get();
-    } else
-    {
+  //if(isset($_GET['query'])){
+  //    $search_text = $_GET['query'];
+  //    $productos = Producto::where('nombre_producto','LIKE','%'.$search_text.'%')
+  //    ->orWhere('codigo_producto','LIKE','%'.$search_text.'%')
+  //    ->orWhere('observacion_producto','LIKE','%'.$search_text.'%')
+  //    ->orWhere('cod_bod_producto','LIKE','%'.$search_text.'%')
+  //    ->get();
+  //} else
+    
         $productos=Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.id','producto.codigo_producto','producto.nombre_producto', 'producto.observacion_producto' , 'bodega.nombre_bodega as nombre_bodega')->get();
 
 
 
-    }
+    
     return view('busquedaProducto',compact('productos'));
     }
 
