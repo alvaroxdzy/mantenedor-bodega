@@ -1232,7 +1232,7 @@ var codigo_bodega = document.getElementById('codigo_bodega');
 var nombre_bodega = document.getElementById('nombre_bodega');
 var direccion_bodega = document.getElementById('direccion_bodega');
 var error = document.getElementById('error');
-error.style.color = 'red';
+
 
 function enviarFormulario(){
   console.log('Enviando formulario...')

@@ -18,29 +18,42 @@
      <div class="row">   
        @if(@Auth::user()->hasRole('colaborador'))
        <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
-        <tr>
-          <th>Codigo</th>
-          <th>Producto</th>
-          <th>Observación</th>
-          <th>Bodega</th>  
-          <th>Gestionar</th>       
-        </tr>
-        @foreach($productos as $producto) 
-        <tr>
-          <td>{{$producto->codigo_producto}}</td>
-          <td>{{$producto->nombre_producto}}</td>
-          <td>{{$producto->observacion_producto}}</td>
-          <td>{{$producto->nombre_bodega}}</td>
-          <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar </a>
-          <a class="btn btn-outline-primary btn-sm" onclick="eliminar({{$producto->id}})"> Eliminar  </a></td>
+        <thead>
+          <tr>
+            <th>Codigo</th>
+            <th>Producto</th>
+            <th>Observación</th>
+            <th>Bodega</th>  
+            <th>Gestionar</th>       
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($productos as $producto) 
+          <tr>
+            <td>{{$producto->codigo_producto}}</td>
+            <td>{{$producto->nombre_producto}}</td>
+            <td>{{$producto->observacion_producto}}</td>
+            <td>{{$producto->nombre_bodega}}</td>
+            <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar </a>
+              <a class="btn btn-outline-primary btn-sm" onclick="eliminar({{$producto->id}})"> Eliminar  </a></td>
 
-        </tr>
-        @endforeach
-      </table>  
-      <script>
-        var myTable = document.querySelector("#myTable");
-        var dataTable = new DataTable(myTable);
+            </tr>
+            @endforeach
+          </tbody>
+        </table>  
+        <script>
+         var dataTable = new DataTable("#myTable", {
+          perPage: 5,
+          sortable: true,
+          labels: {
+            placeholder: "Buscar..",
+            perPage: "{select}     Registros por pagina",
+            noRows: "No se encontraron registros",
+            info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+          }
+        });
       </script>
+
       <script type="text/javascript">
         function eliminar(id){
          Swal.fire({

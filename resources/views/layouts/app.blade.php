@@ -9,20 +9,25 @@
 
         <title> Ingenieria Javier Cortes </title>
 
-        <!-- Scripts -->
+        <!-- Scripts Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-        <!-- Development version -->
+        <!-- Development popperjs version -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"> </script> -->
         <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+        <!-- Production popperjs version -->
+        <!--<script src="https://unpkg.com/@popperjs/core@2"></script>-->
 
-        <!-- Production version -->
-        <script src="https://unpkg.com/@popperjs/core@2"></script>
 
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}"></script>
+
+        <!-- Datatables vanilla -->
         <link href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
         <script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
+
+
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"> </script>
+        
 
         <script
         src="https://code.jquery.com/jquery-3.6.1.js"
@@ -34,16 +39,7 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-
-        <!-- DataTabless -->
-
-
-
-
-        <style type="text/css">
-
-        </style>
+        <style type="text/css"></style>
 
 
         <!-- Head -->

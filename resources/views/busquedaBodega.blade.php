@@ -19,32 +19,45 @@
      <div class="row">   
        @if(@Auth::user()->hasRole('colaborador'))
        <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
-        <tr>
-          <th>Codigo</th>
-          <th>Bodega</th>
-          <th>Dirección</th>
-          <th>Comuna</th>
-          <th>Telefono</th>
-          <th>Gestionar</th>        
-        </tr>
-        @foreach($bodegas as $bodega) 
-        <tr>
-          <td> {{$bodega->codigo_bodega}} </td>
-          <td>{{$bodega->nombre_bodega}}</td>
-          <td>{{$bodega->direccion_bodega}}</td>
-          <td>{{$bodega->comuna_bodega}}</td>
-          <td>{{$bodega->telefono_bodega}}</td>
-          <td><a class="btn btn-outline-primary btn-sm" href="modificar-bodega/{{$bodega->codigo_bodega}}"> Modificar </a></td>
-        </tr>
-        @endforeach
+
+        <thead>
+          <tr>
+            <th>Codigo</th>
+            <th>Bodega</th>
+            <th>Dirección</th>
+            <th>Comuna</th>
+            <th>Telefono</th>
+            <th>Gestionar</th>        
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($bodegas as $bodega) 
+          <tr>
+            <td> {{$bodega->codigo_bodega}} </td>
+            <td>{{$bodega->nombre_bodega}}</td>
+            <td>{{$bodega->direccion_bodega}}</td>
+            <td>{{$bodega->comuna_bodega}}</td>
+            <td>{{$bodega->telefono_bodega}}</td>
+            <td><a class="btn btn-outline-primary btn-sm" href="modificar-bodega/{{$bodega->codigo_bodega}}"> Modificar </a></td>
+          </tr>
+          @endforeach
+        </tbody>
       </table>  
       <script>
-        var dataTable = new DataTable("#myTable");
-        
-      </script>
-      @endif
-    </div> 
+       var dataTable = new DataTable("#myTable", {
+        perPage: 5,
+        sortable: true,
+        labels: {
+          placeholder: "Buscar..",
+          perPage: "{select}     Registros por pagina",
+          noRows: "No se encontraron registros",
+          info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+        }
+      });
+    </script>
+    @endif
   </div> 
+</div> 
 </div> 
 </div>      
 </div>  
