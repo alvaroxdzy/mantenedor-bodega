@@ -120,12 +120,12 @@
     });
 </script>
 
-//<script type="text/javascript">
-//    function multiplicar(valores){
-//    var cantidad = valores.id;
-//    cantidad = cantidad.substring(8);
-//    }
-//</script>
+<script type="text/javascript">
+    function multiplicar(valores){
+    var cantidad = valores.id;
+    cantidad = cantidad.substring(8);
+    }
+</script>
 
 
 

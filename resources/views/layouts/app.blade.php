@@ -22,6 +22,7 @@
         <link href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
         <script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"> </script>
 
         <script
         src="https://code.jquery.com/jquery-3.6.1.js"
@@ -33,6 +34,12 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+        <!-- DataTabless -->
+
+
+
 
         <style type="text/css">
 
@@ -136,9 +143,9 @@
       <div class="clear"></div>
   </footer>
 
-  </body>
+</body>
 </html>
 
 
-  </html>
+</html>
 
