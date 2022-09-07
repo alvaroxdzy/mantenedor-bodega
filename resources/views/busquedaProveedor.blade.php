@@ -17,20 +17,20 @@
    <div class="row">   
      @if(@Auth::user()->hasRole('colaborador'))
      <font size="1" >
-       <table id="myTable" class="table table-striped" style="width:100%">
+       <table id="myTable" class="table dataTable no-footer dtr-inline collapsed" style="width:100%">
         <tr>
-          <th>Rut Proveedor</th>
-          <th>Digito verificador</th>
-          <th>Razon social</th>
-          <th>Giro</th>
-          <th>Dirección</th>
-          <th>Comuna</th>
-          <th>Ciudad</th>
-          <th>Banco</th>
-          <th>Tipo cuenta</th>  
-          <th>Numero cuenta</th> 
-          <th>Telefono proveedor</th>
-          <th>Gestionar</th> 
+          <th class="header" >Rut Proveedor</th>
+          <th class="header" >Digito verificador</th>
+          <th class="header" >Razon social</th>
+          <th class="header" >Giro</th>
+          <th class="header" >Dirección</th>
+          <th class="header" >Comuna</th>
+          <th class="header" >Ciudad</th>
+          <th class="header" >Banco</th>
+          <th class="header" >Tipo cuenta</th>  
+          <th class="header" >Numero cuenta</th> 
+          <th class="header" >Telefono proveedor</th>
+          <th class="header" >Gestionar</th> 
 
         </tr>
         @foreach($proveedores as $proveedor) 
@@ -46,8 +46,8 @@
           <td>{{$proveedor->tipo_cuenta}}</td>
           <td>{{$proveedor->n_cta_prov}}</td>
           <td> {{$proveedor->telefono_prov}} </td>
-          <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a></td>
-          <td><a class="btn btn-outline-primary btn-sm" onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
+          <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a>
+          <a class="btn btn-outline-primary btn-sm" onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
         </tr>
         @endforeach
       </table> 

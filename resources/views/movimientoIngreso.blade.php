@@ -5,7 +5,7 @@
 <div class="card"> 
     <div class="card-body">
         <div>
-           <div class="row">
+         <div class="row">
             <div class="mb-3 col-md-2">
                 <label> TIPO DE DOCUMENTO</label>
                 <select class="form-control"> 
@@ -66,30 +66,25 @@
     <div class="card-body">
 
         <form class="form-inline">  
-         <table class="table table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th>Numero Detalle:</th>
-              <th>Producto:</th>
-              <th>Cantidad:</th>
-              <th>Orden trabajo:</th>
-              <th>Valor:</th>
-              <th>Total:</th>
-          </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="name in getdrugnameNewArray">
-            <td><input class="form-control" type="text" name="num_detalle" required placeholder=""></td>
-            <td><input class="form-control" type="text" name="cod_producto" required placeholder=""></td>
-            <td><input class="form-control" type="text" name="cantidad" required placeholder=""></td>
-            <td><input class="form-control" type="text" name="orden_trabajo" required  placeholder=""></td>
-            <td><input class="form-control" type="text" name="valor" required placeholder=""></td>
-            <td><input class="form-control" type="text" name="total" required placeholder=""></td>
-            <td><button class="btn btn-primary" type="button" id="agregar_btn"  >Agregar  </button></td>
-        </tr>
-    </tbody>
-</table>
-<input type="submit" class="btn btn-primary"  value="Enviar ">  </input>
+           <table class="table table-striped" style="width:100%">
+              <thead>
+                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+                <tr>
+                  <th>Codigo producto:</th>
+                  <th>Producto:</th>
+                  <th>Cantidad:</th>
+                  <th>Orden trabajo:</th>
+                  <th>Valor:</th>
+                  <th>Total:</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="name in getdrugnameNewArray">
+
+            </tr>
+        </tbody>
+    </table>
+    <input type="submit" class="btn btn-primary"  value="GUARDAR MOVIMIENTO ">  </input>
 </form>
 
 
@@ -100,25 +95,52 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        var contador = 0;
         $('#agregar_btn').on('click',function(){
+            contador = contador+1;
             var html = '';
+            
             html+='<tr>';
-            html+='<td><input class="form-control" type="text" name="num_detalle" required placeholder=""></td>';
-            html+='<td><input class="form-control" type="text" name="cod_producto" required placeholder=""></td>';
-            html+='<td><input class="form-control" type="text" name="cantidad" required placeholder=""></td>';
-            html+='<td><input class="form-control" type="text" name="orden_trabajo" required placeholder=""></td>';
-            html+='<td><input class="form-control" type="text" name="valor" required placeholder=""></td>';
-            html+='<td><input class="form-control" type="text" name="total" required placeholder=""></td>';
+            html+='<td> <select id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control"><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos) <option value="{{$productos->id}}"> {{$productos->codigo_producto}} </option> @endforeach </select> </td>';
+            html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required placeholder=""></td>';
+            html+='<td><input id="cantidad'+contador+'" oninput="multiplicar(this)" class="form-control" type="text" name="cantidad" required placeholder=""></td>';
+            html+='<td><input id="orden_trabajo'+contador+'" class="form-control" type="text" name="orden_trabajo" required placeholder=""></td>';
+            html+='<td><input id="valor'+contador+'" oninput="multiplicar(this)" class="form-control" type="text" name="valor" required placeholder=""></td>';
+            html+='<td><input id="total'+contador+'" class="form-control" type="text" name="total" required placeholder=""></td>';
             html+='<td><button class="btn btn-primary" id="borrar_btn" type="button"> Eliminar </button></td>';
             html+='<tr>';       
             $('tbody').append(html);
+            alert(contador);
+
         })
     });
 
     $(document).on('click','#borrar_btn',function(){
         $(this).closest('tr').remove();
     });
+</script>
 
+//<script type="text/javascript">
+//    function multiplicar(valores){
+//    var cantidad = valores.id;
+//    cantidad = cantidad.substring(8);
+//    }
+//</script>
+
+
+
+<script type="text/javascript">
+    function cargarProducto(alvaro) {
+        var numero = alvaro.id;
+        numero = numero.substring(14);
+        id=alvaro.value;
+
+        $.get('productos-movimiento/' + id, function(data){
+
+         $('#nombre_producto'+numero).val(data.nombre_producto);
+         console.log(data);
+     });
+    }
 </script>
 @endsection
 

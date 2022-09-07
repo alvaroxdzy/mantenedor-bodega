@@ -45,5 +45,5 @@ Route::get('/actualizar-proveedor','ProveedorController@update')->name('proveedo
 Route::get('/eliminar-proveedor/{id}','ProveedorController@destroy')->name('proveedor.destroy');
 
 Route::get('crear-movimiento','Movimiento@create')->name('moviemiento.create') ;
-
+Route::get('productos-movimiento/{id}','Movimiento@traerProducto')->name('moviemiento.traer_producto') ;
 
