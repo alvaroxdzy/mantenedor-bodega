@@ -2,10 +2,18 @@
 
 @section('content')
 
+
+
+
+
+
+
+
+
 <div class="card"> 
     <div class="card-body">
         <div>
-         <div class="row">
+           <div class="row">
             <div class="mb-3 col-md-2">
                 <label> TIPO DE DOCUMENTO</label>
                 <select class="form-control"> 
@@ -66,25 +74,25 @@
     <div class="card-body">
 
         <form class="form-inline">  
-           <table class="table table-striped" style="width:100%">
-              <thead>
-                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
-                <tr>
-                  <th>Codigo producto:</th>
-                  <th>Producto:</th>
-                  <th>Cantidad:</th>
-                  <th>Orden trabajo:</th>
-                  <th>Valor:</th>
-                  <th>Total:</th>
-              </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="name in getdrugnameNewArray">
+         <table class="table table-sm" style="width:100%">
+          <thead>
+            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+            <tr>
+              <th>Codigo producto:</th>
+              <th>Producto:</th>
+              <th>Orden trabajo:</th>
+              <th>Cantidad:</th>
+              <th>Valor:</th>
+              <th>Total:</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="name in getdrugnameNewArray">
 
-            </tr>
-        </tbody>
-    </table>
-    <input type="submit" class="btn btn-primary"  value="GUARDAR MOVIMIENTO ">  </input>
+        </tr>
+    </tbody>
+</table>
+<input type="submit" class="btn btn-primary"  value="GUARDAR MOVIMIENTO ">  </input>
 </form>
 
 
@@ -103,27 +111,56 @@
             html+='<tr>';
             html+='<td> <select id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control"><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos) <option value="{{$productos->id}}"> {{$productos->codigo_producto}} </option> @endforeach </select> </td>';
             html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required placeholder=""></td>';
-            html+='<td><input id="cantidad'+contador+'" oninput="multiplicar(this)" class="form-control" type="text" name="cantidad" required placeholder=""></td>';
             html+='<td><input id="orden_trabajo'+contador+'" class="form-control" type="text" name="orden_trabajo" required placeholder=""></td>';
-            html+='<td><input id="valor'+contador+'" oninput="multiplicar(this)" class="form-control" type="text" name="valor" required placeholder=""></td>';
-            html+='<td><input id="total'+contador+'" class="form-control" type="text" name="total" required placeholder=""></td>';
+            html+='<td><input style="width:100px" id="cantidad'+contador+'" class="form-control" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
+            html+='<td><input class="form-control" style="width:100px" id="valoress'+contador+'" oninput="multiplicar(this)"  type="text" name="valor" required onkeypress="return valideKey(event);"></td>';
+            html+='<td><input style="width:100px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
             html+='<td><button class="btn btn-primary" id="borrar_btn" type="button"> Eliminar </button></td>';
             html+='<tr>';       
             $('tbody').append(html);
-            alert(contador);
+            console.log(contador);
 
         })
     });
-
     $(document).on('click','#borrar_btn',function(){
         $(this).closest('tr').remove();
     });
 </script>
 
 <script type="text/javascript">
-    function multiplicar(valores){
-    var cantidad = valores.id;
-    cantidad = cantidad.substring(8);
+    function valideKey(evt){
+
+            // code is the decimal ASCII representation of the pressed key.
+            var code = (evt.which) ? evt.which : evt.keyCode;
+            
+            if(code==8) { // backspace.
+              return true;
+            } else if(code>=48 && code<=57) { // is a number.
+              return true;
+            } else{ // other keys.
+              return false;
+          }
+      }
+  </script>
+
+
+  <script type="text/javascript">
+
+    function multiplicar(sumas){
+        try {
+            var contador2 = sumas.id;
+            contador2 = contador2.substring(8);
+            valor = sumas.value;
+
+            var cantidad = $('#cantidad'+contador2).val();
+            var total = cantidad * valor ;
+
+            console.log(total);
+            $('#total'+contador2).val('$'+total);
+
+
+        } catch (e) {}
+
     }
 </script>
 
@@ -137,9 +174,8 @@
 
         $.get('productos-movimiento/' + id, function(data){
 
-         $('#nombre_producto'+numero).val(data.nombre_producto);
-         console.log(data);
-     });
+           $('#nombre_producto'+numero).val(data.nombre_producto);
+       });
     }
 </script>
 @endsection

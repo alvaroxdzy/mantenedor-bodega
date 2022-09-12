@@ -16,84 +16,83 @@
  <div class="clod-md-6"> 
    <div class="row">   
      @if(@Auth::user()->hasRole('colaborador'))
-     <table id="myTable"  style="width:100%">
+     <table id="myTable" class="table table-sm" style="width:100%" >
       <thead>
         <tr>
-          <th >Rut Proveedor</th>
-          <th >Digito verificador</th>
-          <th >Razon social</th>
-          <th >Giro</th>
-          <th >Dirección</th>
-          <th >Comuna</th>
-          <th >Ciudad</th>
-          <th >Banco</th>
-          <th >Tipo cuenta</th>  
-          <th >Numero cuenta</th> 
-          <th >Telefono proveedor</th>
-          <th >Gestionar</th> 
+          <th style="color:#456789" >Rut</th>
+          <th style="color:#456789" >Razon social</th>
+          <th style="color:#456789" >Giro</th>
+          <th style="color:#456789" >Dirección</th>
+          <th style="color:#456789" >Comuna</th>
+          <th style="color:#456789" >Banco</th>
+          <th style="color:#456789" >Cuenta</th>  
+          <th style="color:#456789" >N°Cuenta</th> 
+          <th style="color:#456789" >Telefono</th>
+          <th style="color:#456789" >Gestionar</th> 
         </thead>
         <tbody>
         </tr>
         @foreach($proveedores as $proveedor) 
         <tr>
-          <td>{{$proveedor->rut_proveedor}} </td>
-          <td>{{$proveedor->dig_rut_prov}}</td>
-          <td>{{$proveedor->razon_social}}</td>
-          <td>{{$proveedor->giro}}</td>
-          <td>{{$proveedor->direccion_prov}}</td>
-          <td>{{$proveedor->comuna_prov}}</td>
-          <td>{{$proveedor->ciudad_prov}}</td>
-          <td>{{$proveedor->banco}}</td>
-          <td>{{$proveedor->tipo_cuenta}}</td>
-          <td>{{$proveedor->n_cta_prov}}</td>
-          <td> {{$proveedor->telefono_prov}} </td>
-          <td><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a>
-            <a class="btn btn-outline-primary btn-sm" onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table> 
+          <td id="td-datatable">{{$proveedor->rut_proveedor}}-{{$proveedor->dig_rut_prov}} </td>
+          <td id="td-datatable">{{$proveedor->razon_social}}</td>
+          <td id="td-datatable" width="125" >{{$proveedor->giro}}</td>
+          <td id="td-datatable">{{$proveedor->direccion_prov}}</td>
+          <td id="td-datatable" width="125">{{$proveedor->comuna_prov}}</td>
+          <td id="td-datatable" width="125">{{$proveedor->banco}}</td>
+          <td id="td-datatable" width="125">{{$proveedor->tipo_cuenta}}</td>
+          <td id="td-datatable" width="125">{{$proveedor->n_cta_prov}}</td>
+          <td id="td-datatable" width="125"> {{$proveedor->telefono_prov}} </td>
+          <td id="td-datatable"><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a></td>
+          <td> <a class="btn btn-outline-danger btn-sm"  onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table> 
 
 
-      <script>
-       var dataTable = new DataTable("#myTable", {
-        perPage: 5,
-        sortable: true,
-        labels: {
-          placeholder: "Buscar..",
-          perPage: "{select}     Registros por pagina",
-          noRows: "No se encontraron registros",
-          info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-        }
-      });
-    </script>
+    <script>
+     var dataTable = new DataTable("#myTable", {
+      perPage: 10,
+      sortable: true,
+      fixedColumns: false,
+      perPageSelect: [10, 25, 50, 100],
+      labels: {
+        placeholder: "Buscar..",
+        perPage: "{select}     Registros por pagina",
+        noRows: "No se encontraron registros",
+        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+      }
 
-    <script type="text/javascript">
-      function eliminar(id){
-       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href="eliminar-proveedor/"+id;
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-          ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
-            )
-        }
-      })
-    }
+    });
   </script>
+
+  <script type="text/javascript">
+    function eliminar(id){
+     Swal.fire({
+      title: 'Está seguro',
+      text: "Al eliminar un producto no podra revertir los cambios",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href="eliminar-proveedor/"+id;
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+        ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+          )
+      }
+    })
+  }
+</script>
 </font>
 @endif
 </div> 

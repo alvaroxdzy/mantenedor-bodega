@@ -35,7 +35,7 @@
             <td>{{$producto->observacion_producto}}</td>
             <td>{{$producto->nombre_bodega}}</td>
             <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar </a>
-              <a class="btn btn-outline-primary btn-sm" onclick="eliminar({{$producto->id}})"> Eliminar  </a></td>
+              <a class="btn btn-outline-danger btn-sm" onclick="eliminar({{$producto->id}})"> Eliminar  </a></td>
 
             </tr>
             @endforeach
@@ -43,26 +43,29 @@
         </table>  
         <script>
          var dataTable = new DataTable("#myTable", {
-          perPage: 5,
-          sortable: true,
-          labels: {
-            placeholder: "Buscar..",
-            perPage: "{select}     Registros por pagina",
-            noRows: "No se encontraron registros",
-            info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-          }
-        });
+        perPage: 10,
+        sortable: true,
+        fixedColumns: true,
+        perPageSelect: [10, 25, 50, 100],
+        labels: {
+          placeholder: "Buscar..",
+          perPage: "{select}     Registros por pagina",
+          noRows: "No se encontraron registros",
+          info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+        }
+
+      });
       </script>
 
       <script type="text/javascript">
         function eliminar(id){
          Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          title: 'Está seguro',
+          text: "Al eliminar un producto no podra revertir los cambios",
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes, delete it!',
-          cancelButtonText: 'No, cancel!',
+          confirmButtonText: 'Eliminar',
+          cancelButtonText: 'Cancelar',
           reverseButtons: true
         }).then((result) => {
           if (result.isConfirmed) {

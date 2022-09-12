@@ -45,14 +45,17 @@
       </table>  
       <script>
        var dataTable = new DataTable("#myTable", {
-        perPage: 5,
+        perPage: 10,
         sortable: true,
+        fixedColumns: true,
+        perPageSelect: [10, 25, 50, 100],
         labels: {
           placeholder: "Buscar..",
           perPage: "{select}     Registros por pagina",
           noRows: "No se encontraron registros",
           info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
         }
+
       });
     </script>
     @endif

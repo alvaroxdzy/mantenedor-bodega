@@ -18,18 +18,18 @@ input[type=number] {
 
 <div class="container">
 	<br>
-	<form  type="get" action="{{ url('/almacenar-producto') }}">
+	<form  class="form-inline" type="get" action="{{ url('/almacenar-producto') }}">
 		{{ csrf_field() }}
-		<div class="form-row">
-			<div class="col-md-3"> 
+		<div class="row">
+			<div class="mb-3 col-md-2"> 
 				<h6 for="codigo_producto">Código Producto</h6>
-				<input style="text-transform:uppercase" type="text" class="form-control" id="codigo_producto" name="codigo_producto" placeholder="Ingrese codigo" minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();">
-				<small id="cod_pro" class="form-text text-muted">Identificación del producto.</small>
+				<input style="width : 200px" style="text-transform:uppercase" type="text" class="form-control" id="codigo_producto" name="codigo_producto"  minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();">
+				<small id="cod_pro" class="form-text text-muted">Ingrese codigo producto.</small>
 			</div>	
-			<div class="col-md-6">
+			<div class="mb-3 col-md-2">
 				<h6 for="nombre_producto">Nombre Producto</h6>
-				<input style="text-transform:uppercase" type="text" class="form-control" id="nombre_producto" name="nombre_producto" placeholder="Ingrese nombre" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
-				<small id="nom_pro" class="form-text text-muted">Nombre del producto.</small>
+				<input style="width : 500px" style="text-transform:uppercase" type="text" class="form-control" id="nombre_producto" name="nombre_producto" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
+				<small id="nom_pro" class="form-text text-muted">Ingrese nombre del producto.</small>
 			</div>
 		</div>
 
@@ -37,13 +37,14 @@ input[type=number] {
 
 		<div class="form-group">
 			<h6> Observaciones productos </h6>
-			<textarea style="text-transform:uppercase" type="text-center" class="form-control" id="observacion_producto"  name="observacion_producto" placeholder="Ingrese los detalles del producto" required onkeyup="javascript:this.value=this.value.toUpperCase();" for="observacion_producto"></textarea>
-			<small id="dir_bod" class="form-text text-muted">Detalles del producto.</small>
+			<textarea style="text-transform:uppercase" type="text-center" class="form-control" id="observacion_producto"  name="observacion_producto"  required onkeyup="javascript:this.value=this.value.toUpperCase();" for="observacion_producto"></textarea>
+			<small id="dir_bod" class="form-text text-muted">Ingrese detalles del producto.</small>
 		</div>
+		<br>
 
 		<div class="form-group">
 			<h6> Seleccione bodega </h6>
-			<select class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required style="max-width:10%;">
+			<select style="width : 300px" class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required style="max-width:10%;">
              @foreach($bodega as $nombrebodegas)
              <option value="{{$nombrebodegas->codigo_bodega}}">{{$nombrebodegas->nombre_bodega}} </option>
              @endforeach
