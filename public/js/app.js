@@ -1276,19 +1276,54 @@ function valideKey(evt){
 
 
 
+
+
 //CANTIDAD POR VALOR EN LOS INGRESOS
 function multiplicar(sumas){
   try {
-    var contador2 = sumas.id;
-    contador2 = contador2.substring(8);
-    var valor = $('#valoress'+contador2).val();
-    var cantidad = $('#cantidad'+contador2).val();
-    var neto = cantidad * valor ;
-    var iva = neto * 0.19 ;
-    var total = neto + iva ;
-    console.log(total);
-    $('#iva'+contador2).val(iva);
-    $('#total'+contador2).val(total);
+    var tipodocumento= $('#selectDocumento').val();
+
+    if (tipodocumento=='FACTURA'){
+
+      var contador2 = sumas.id;
+      contador2 = contador2.substring(8);
+      var valor = $('#valoress'+contador2).val();
+      var cantidad = $('#cantidad'+contador2).val();
+      var neto = cantidad * valor ;
+      var iva = neto * 0.19 ;
+      var total = neto + iva ;
+      console.log(total);
+      $('#iva'+contador2).val(iva);
+      $('#total'+contador2).val(total);
+    } 
+    
+    if (tipodocumento=='GUIA'){
+
+      var contador2 = sumas.id;
+      contador2 = contador2.substring(8);
+      var valor = $('#valoress'+contador2).val();
+      var cantidad = $('#cantidad'+contador2).val();
+      var neto = cantidad * valor ;
+      var iva = neto * 0.19 ;
+      var total = neto + iva ;
+      console.log(total);
+      $('#iva'+contador2).val(iva);
+      $('#total'+contador2).val(total);
+    } 
+
+    if (tipodocumento=='COMPROBANTE DE INGRESO'){
+
+      var contador2 = sumas.id;
+      contador2 = contador2.substring(8);
+      var valor = $('#valoress'+contador2).val();
+      var cantidad = $('#cantidad'+contador2).val();
+      var neto = cantidad * valor ;
+      var iva = 0 ;
+      var total = neto + iva ;
+      console.log(total);
+      $('#iva'+contador2).val(iva);
+      $('#total'+contador2).val(total);
+    } 
 
   } catch (e) {}
 
@@ -1300,14 +1335,14 @@ function multiplicar(sumas){
 //BUSCA EL PRODUCTO POR EL CODIGO, Y CARGA EL NOMBRE.
 function cargarProducto(alvaro) {
   try {
-      var numero = alvaro.id;
-  numero = numero.substring(14);
-  id=alvaro.value;
+    var numero = alvaro.id;
+    numero = numero.substring(14);
+    id=alvaro.value;
 
-  $.get('productos-movimiento/' + id, function(data){
+    $.get('productos-movimiento/' + id, function(data){
 
-   $('#nombre_producto'+numero).val(data.nombre_producto);
- });
+     $('#nombre_producto'+numero).val(data.nombre_producto);
+   });
   } catch (e) {}
 
 }

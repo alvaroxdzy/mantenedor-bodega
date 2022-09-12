@@ -52,7 +52,7 @@ input[type=number] {
 					<small id="suc_bod" class="form-text text-muted">contacto de la bodega.</small>
 				</div>
 
-				<input type="submit" class="btn btn-primary"  value="Enviar "> Guardar </input>
+				<input type="submit" class="btn btn-primary"  value="Enviar "> </input>
 			</form>
 
 			<div id="error"> </div>
