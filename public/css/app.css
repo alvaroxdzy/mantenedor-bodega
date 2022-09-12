@@ -523,9 +523,11 @@ footer{
   min-width: 0;
   word-wrap: break-word;
   background-clip: border-box;
-  border: 1px solid rgba(0,0,0,.125);
+  border: 25px solid rgba(0,0,0,.125);
   border-radius: .25rem;
+  padding: 10px;
 }
+
 .dataTable-sorter::after, .dataTable-sorter::before {
   content: "";
   height: 0;
@@ -559,4 +561,10 @@ thead, tbody, tfoot, tr, td, th {
 div {
     font-size: 15px;
 
+}
+
+.dataTable-table th a {
+  text-decoration: none;
+  color: inherit;
+  padding: 6px;
 }

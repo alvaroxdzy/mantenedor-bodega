@@ -18,7 +18,7 @@
      <div class="row">   
        @if(@Auth::user()->hasRole('colaborador'))
        <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
-        <thead>
+        <thead class="thead-light">
           <tr>
             <th>Codigo</th>
             <th>Producto</th>
