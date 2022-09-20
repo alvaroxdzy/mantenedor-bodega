@@ -32,6 +32,7 @@ input[type=number] {
 					<small id="nom_bod" class="form-text text-muted">con este nombre identificaras la bodega.</small>
 				</div>
 
+				<input value="{{$userId = Auth::user()->name;}}" type="hidden" name="usuario">
 				<div class="form-group">
 					<h6 for="direccion_bodega">Dirección Bodega</h6>
 					<input style="text-transform:uppercase" type="text" class="form-control" id="direccion_bodega" name="direccion_bodega" placeholder="Ingrese la direccion bodega" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 

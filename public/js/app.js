@@ -1347,3 +1347,12 @@ function cargarProducto(alvaro) {
 
 }
 
+//function guardar_movimiento (){
+//  var arrayDatos = Array('cod_producto'=>cod_producto,
+//   'cantidad'=>cantidad,
+//   'orden_trabajo'=>orden_trabajo,
+//   'neto'=>neto,
+//   'total'=>total,
+//   'iva'=>iva,
+//   );
+//}

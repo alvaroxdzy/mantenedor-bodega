@@ -37,7 +37,8 @@ class ProductoController extends Controller
        $producto->codigo_producto=$request->codigo_producto; 
        $producto->nombre_producto=$request->nombre_producto; 
        $producto->observacion_producto=$request->observacion_producto; 
-       $producto->cod_bod_producto=$request->cod_bod_producto;    
+       $producto->cod_bod_producto=$request->cod_bod_producto; 
+       $producto->usuario=$request->usuario;   
        $producto->save();
 
           //  if ($bodega->save()) {

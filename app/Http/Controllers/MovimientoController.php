@@ -42,6 +42,12 @@ class MovimientoController extends Controller
         if ($movimiento_validar) {
            return redirect()->back()->with('error', 'ERROR CODIGO MOVIMIENTO EXISTENTE');
        }
+ 
+       $movimiento = $request->get('arrayDatos');
+
+
+
+
        $movimiento =new Movimiento();
        $movimiento->tipo_documento=$request->tipo_documento;
        $movimiento->num_documento=$request->num_documento;

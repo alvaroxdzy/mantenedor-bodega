@@ -33,7 +33,7 @@ input[type=number] {
 			</div>
 		</div>
 
-
+		<input value="{{$userId = Auth::user()->name;}}" type="hidden" name="usuario">
 
 		<div class="form-group">
 			<h6> Observaciones productos </h6>
@@ -45,9 +45,9 @@ input[type=number] {
 		<div class="form-group">
 			<h6> Seleccione bodega </h6>
 			<select style="width : 300px" class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required style="max-width:10%;">
-             @foreach($bodega as $nombrebodegas)
-             <option value="{{$nombrebodegas->codigo_bodega}}">{{$nombrebodegas->nombre_bodega}} </option>
-             @endforeach
+				@foreach($bodega as $nombrebodegas)
+				<option value="{{$nombrebodegas->codigo_bodega}}">{{$nombrebodegas->nombre_bodega}} </option>
+				@endforeach
 			</select>
 			<small class="form-text text-muted"> Seleecione la bodega en la que se encuentra el producto</small>
 		</div>

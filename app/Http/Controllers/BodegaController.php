@@ -47,7 +47,7 @@ class BodegaController extends Controller
        $bodega->nombre_bodega=$request->nombre_bodega; 
        $bodega->direccion_bodega=$request->direccion_bodega; 
        $bodega->comuna_bodega=$request->comuna_bodega; 
-       //$bodega->region_bodega=$request->region_bodega;        
+       $bodega->usuario=$request->usuario;        
        $bodega->telefono_bodega=$request->telefono_bodega; 
        $bodega->save();
 
