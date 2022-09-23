@@ -2,23 +2,15 @@
 
 @section('content')
 
-
-
-
-
-
-
-
-
 <div class="card"> 
 
     <div class="card-body">
         <div>
-         <div class="row">
+           <div class="row">
             <div class="mb-3 col-md-2">
 
                 <label> TIPO DE DOCUMENTO</label>
-                <select class="form-control" id="selectDocumento" name="tipo_documento"> 
+                <select class="form-control" id="tipo_documento" name="tipo_documento"> 
                     <option>FACTURA </option>
                     <option>GUIA </option>
                     <option>COMPROBANTE DE INGRESO </option>
@@ -26,11 +18,11 @@
             </div>
             <div class="mb-3 col-md-2">
                 <label> NRO DOCUMENTO </label>
-                <input  class="form-control" type="text" name="num_documento" required onkeypress="return valideKey(event);" >
+                <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
             </div>
             <div class="mb-3 col-md-2">
                 <label> PROVEEDOR  </label>
-                <select class="form-control" name="rut_proveedor" required >
+                <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
                     <option value="">----- NO POSEE -----</option>
                     @foreach($proveedor as $proveedores)
                     <option value="{{$proveedores->rut_proveedor}}"> {{$proveedores->razon_social}} </option>
@@ -41,7 +33,7 @@
         <div class="row"> 
             <div class="mb-3 col-md-2">
                 <label> BODEGA  </label>
-                <select class="form-control" name="cod_bodega" required>
+                <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
                     @foreach($bodega as $bodegas)
                     <option value="{{$bodegas->codigo_bodega}}"> {{$bodegas->nombre_bodega}} </option>
@@ -51,20 +43,20 @@
             </div>
             <div class="mb-3 col-md-2">
                 <label> FECHA  </label >
-                <input class="form-control" name="fecha" type="text" size= "10"  id="fecha" value="" / required> 
+                <input class="form-control" name="fecha" type="date" id="fecha" required> 
 
             </div> 
             <div class="mb-3 col-md-2">
                 <label> TIPO DE MOVIMIENTO  </label>
-                <input class="form-control "name="tipo" type="text" value="INGRESO" readonly> 
+                <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
             </div>               
 
 
             <div class="mb-3 col-md-2">
                 <label> ESTADO  </label>
-                <input class="form-control "name="estado" type="text" value="DISPONIBLE" readonly > 
+                <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
             </div>
-            <input value="{{$userId = Auth::user()->name;}}" type="hidden" name="usuario">
+            <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
         </div>
 
     </div>    
@@ -77,29 +69,29 @@
     <div class="card-body">
 
         <form class="form-inline">  
-           <table class="table table-sm" id="tableMovimiento" style="width:100%">
-              <thead>
-                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+         <table class="table table-sm" id="tableMovimiento" style="width:100%">
+          <thead>
+            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+            <br>
+            <tr>
                 <br>
-                <tr>
-                    <br>
-                    <th>Codigo producto:</th>
-                    <th>Producto:</th>
-                    <th>Cantidad:</th>
-                    <th>Valor unitario(neto):</th>
-                    <th>IVA</th>
-                    <th>Total:</th>
-                    <th>Gestionar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="name in getdrugnameNewArray">
+                <th>Codigo producto:</th>
+                <th>Producto:</th>
+                <th>Cantidad:</th>
+                <th>Valor unitario(neto):</th>
+                <th>IVA</th>
+                <th>Total:</th>
+                <th>Gestionar</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                </tr>
-            </tbody>
-        </table>
-        <input type="submit" class="btn btn-primary"  value="GUARDAR MOVIMIENTO ">  </input>
-    </form>
+            <input type="hidden" name="contador" value="0" id="contador">
+
+        </tbody>
+    </table>
+    <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+</form>
 
 
 
@@ -120,6 +112,7 @@
         }
 
         contador = contador+1;
+        $('#contador').val(contador);
         var html = '';
         html+='<tr>';
         html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos) <option value="{{$productos->id}}"> {{$productos->codigo_producto}} </option> @endforeach </select> </td>';
@@ -134,10 +127,11 @@
 
         $('tbody').append(html);
 
-            $(document).on('click','#borrar_btn'+contador,function(){
-            
+        $(document).on('click','#borrar_btn'+contador,function(){
+
             $(this).closest('tr').remove();
             contador = contador-1;
+            $('#contador').val(contador);
             $('#borrar_btn'+contador).attr('hidden',false);
 
         });
@@ -145,6 +139,79 @@
 
     });
 
+</script>
+
+<script>
+    function grabar ()
+    {
+     m = 0;
+     n = $('#contador').val();
+     arrayMovimiento = [];
+
+
+     if (n == 0 ){
+        arrayMovimiento;
+    } else {
+
+        while (m < n) {
+          m ++;
+
+
+          var datos = {
+            'selectProducto':$("#selectProducto"+m+" option:selected").text(),
+            'cantidad':$('#cantidad'+m).val(),
+            'valoress':$('#valoress'+m).val(),
+            'iva':$('#iva'+m).val(),
+            'total':$('#total'+m).val()
+            };
+
+            arrayMovimiento.push(datos);
+
+        }
+    console.log(arrayMovimiento);
+
+    usuario = $('#usuario').val();
+    tipo_documento = $('#tipo_documento').val();
+    fecha = $('#fecha').val();
+    tipo = $('#tipo').val();
+    estado = $('#estado').val();
+    num_documento = $('#num_documento').val();
+    cod_bodega = $('#cod_bodega').val();
+    rut_proveedor = $('#rut_proveedor').val();
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+             "usuario":usuario,
+             "tipo_documento":tipo_documento,
+             "fecha":fecha,
+             "tipo":tipo,
+             "estado":estado,
+             "num_documento":num_documento,
+             "cod_bodega":cod_bodega,
+             "rut_proveedor":rut_proveedor,
+             "arrayMovimiento":arrayMovimiento
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            console.log(data);
+
+            if (data=='LISTASO') {
+                alert('Movimiento registrado');
+                location.reload(); 
+            } else {
+                alert('Ya existe el movimiento');
+            }
+        },
+    });
+}
+}
 </script>
 
 

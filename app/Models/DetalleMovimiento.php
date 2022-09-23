@@ -10,8 +10,14 @@ class DetalleMovimiento extends Model
   public $table = 'detalle_movimiento';
     
     public $fillable = [
-        'Nombre'
+        'nro_documento_mov',
+        'codigo_producto',
+        'cantidad',
+        'orden_trabajo',
+        'valor',
+        'total',
+        'iva'
     ]
     ;
-    public $timestamps = false;;
+    public $timestamps = false;
 }

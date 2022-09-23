@@ -7,6 +7,7 @@ use App\Models\Proveedor;
 use App\Models\Bodega;
 use App\Models\Producto;
 use App\Models\Movimiento;
+use App\Models\DetalleMovimiento;
 use DB;
 
 
@@ -38,28 +39,40 @@ class MovimientoController extends Controller
 
         public function store(Request $request)
     {
-        $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->first();
-        if ($movimiento_validar) {
-           return redirect()->back()->with('error', 'ERROR CODIGO MOVIMIENTO EXISTENTE');
-       }
- 
-       $movimiento = $request->get('arrayDatos');
 
 
+      $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->first();
+      if ($movimiento_validar) {
+    return 'YA ESTA EN USO EL NUMERO DE DOCUMENTO';
+     }
 
+     $movimiento =new Movimiento();
+     $movimiento->tipo_documento=$request->tipo_documento;
+     $movimiento->num_documento=$request->num_documento;
+     $movimiento->rut_proveedor=$request->rut_proveedor; 
+     $movimiento->cod_bodega=$request->cod_bodega;
+     $movimiento->fecha=$request->fecha;     
+     $movimiento->tipo=$request->tipo;
+     $movimiento->estado=$request->estado;
+     $movimiento->usuario=$request->usuario;
+     
+     
+     $arrayDatos = $request->arrayMovimiento;
 
-       $movimiento =new Movimiento();
-       $movimiento->tipo_documento=$request->tipo_documento;
-       $movimiento->num_documento=$request->num_documento;
-       $movimiento->rut_proveedor=$request->rut_proveedor; 
-       $movimiento->cod_bodega=$request->cod_bodega;
-       $movimiento->fecha=$request->fecha;     
-       $movimiento->tipo=$request->tipo;
-       $movimiento->estado=$request->estado;
-       $movimiento->save();
+     foreach ($arrayDatos as $datos) {
 
-          //  if ($bodega->save()) {
-       return redirect()->back()->with('message', 'Movimiento creado correctamente');
+       $detalle = new DetalleMovimiento();
+       $detalle->nro_documento_mov=$request->num_documento;
+       $detalle->cod_producto=$datos['selectProducto'];
+       $detalle->cantidad=$datos['cantidad'];
+       $detalle->neto=$datos['valoress'];
+       $detalle->iva=$datos['iva'];
+       $detalle->total=$datos['total'];
+       $detalle->save();
+     }
+     $movimiento->save();
+
+     return "LISTASO";
    }
 
 }

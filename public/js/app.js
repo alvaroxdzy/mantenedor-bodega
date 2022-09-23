@@ -1281,7 +1281,7 @@ function valideKey(evt){
 //CANTIDAD POR VALOR EN LOS INGRESOS
 function multiplicar(sumas){
   try {
-    var tipodocumento= $('#selectDocumento').val();
+    var tipodocumento= $('#tipo_documento').val();
 
     if (tipodocumento=='FACTURA'){
 
@@ -1292,7 +1292,7 @@ function multiplicar(sumas){
       var neto = cantidad * valor ;
       var iva = neto * 0.19 ;
       var total = neto + iva ;
-      console.log(total);
+
       $('#iva'+contador2).val(iva);
       $('#total'+contador2).val(total);
     } 
@@ -1306,7 +1306,7 @@ function multiplicar(sumas){
       var neto = cantidad * valor ;
       var iva = neto * 0.19 ;
       var total = neto + iva ;
-      console.log(total);
+
       $('#iva'+contador2).val(iva);
       $('#total'+contador2).val(total);
     } 
@@ -1320,7 +1320,7 @@ function multiplicar(sumas){
       var neto = cantidad * valor ;
       var iva = 0 ;
       var total = neto + iva ;
-      console.log(total);
+
       $('#iva'+contador2).val(iva);
       $('#total'+contador2).val(total);
     } 
