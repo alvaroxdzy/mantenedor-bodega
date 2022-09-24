@@ -12,11 +12,13 @@ class DetalleMovimiento extends Model
     public $fillable = [
         'nro_documento_mov',
         'codigo_producto',
+        'nombre_producto',
         'cantidad',
         'orden_trabajo',
         'valor',
         'total',
-        'iva'
+        'iva',
+        'usuario'
     ]
     ;
     public $timestamps = false;

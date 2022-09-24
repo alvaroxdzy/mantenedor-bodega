@@ -64,10 +64,12 @@ class MovimientoController extends Controller
        $detalle = new DetalleMovimiento();
        $detalle->nro_documento_mov=$request->num_documento;
        $detalle->cod_producto=$datos['selectProducto'];
+       $detalle->nombre_producto=$datos['nombre_producto'];
        $detalle->cantidad=$datos['cantidad'];
        $detalle->neto=$datos['valoress'];
        $detalle->iva=$datos['iva'];
        $detalle->total=$datos['total'];
+       $detalle->usuario=$request->usuario;
        $detalle->save();
      }
      $movimiento->save();

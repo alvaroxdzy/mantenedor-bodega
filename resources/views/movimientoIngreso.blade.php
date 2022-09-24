@@ -159,6 +159,7 @@
 
           var datos = {
             'selectProducto':$("#selectProducto"+m+" option:selected").text(),
+            'nombre_producto':$("#nombre_producto"+m).val(),
             'cantidad':$('#cantidad'+m).val(),
             'valoress':$('#valoress'+m).val(),
             'iva':$('#iva'+m).val(),
