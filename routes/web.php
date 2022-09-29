@@ -46,5 +46,6 @@ Route::get('/eliminar-proveedor/{id}','ProveedorController@destroy')->name('prov
 
 Route::get('crear-movimiento','MovimientoController@create')->name('movimiento.create') ;
 Route::get('productos-movimiento/{id}','MovimientoController@traerProducto')->name('movimiento.traer_producto') ;
+Route::get('stock-movimiento/{cod_producto}','MovimientoController@traerStock')->name('movimiento.traer_stock') ;
 Route::get('/almacenar-movimiento','MovimientoController@store')->name('movimiento.store');
-
+Route::get('salida-movimiento','MovimientoController@salida')->name('movimiento.salida') ;

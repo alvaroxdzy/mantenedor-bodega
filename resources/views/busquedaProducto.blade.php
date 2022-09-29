@@ -16,7 +16,7 @@
    <div class="clod-md-4"> </div>
    <div class="clod-md-6"> 
      <div class="row">   
-       @if(@Auth::user()->hasRole('colaborador'))
+
        <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
         <thead class="thead-light">
           <tr>
@@ -86,7 +86,7 @@
 
 
     </script>
-    @endif
+
   </div> 
 </div> 
 </div> 

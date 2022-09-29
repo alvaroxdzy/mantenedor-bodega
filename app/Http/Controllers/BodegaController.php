@@ -48,7 +48,6 @@ class BodegaController extends Controller
        $bodega->direccion_bodega=$request->direccion_bodega; 
        $bodega->comuna_bodega=$request->comuna_bodega; 
        $bodega->usuario=$request->usuario;        
-       $bodega->telefono_bodega=$request->telefono_bodega; 
        $bodega->save();
 
           //  if ($bodega->save()) {
@@ -79,7 +78,6 @@ class BodegaController extends Controller
        $bodega->nombre_bodega=$request->nombre_bodega; 
        $bodega->direccion_bodega=$request->direccion_bodega; 
        $bodega->comuna_bodega=$request->comuna_bodega; 
-       $bodega->telefono_bodega=$request->telefono_bodega; 
        $bodega->save();
        return redirect(route('bodega.search'));
    }
@@ -98,7 +96,6 @@ class BodegaController extends Controller
             ->orWhere('codigo_bodega','LIKE','%'.$search_text.'%')
             ->orWhere('direccion_bodega','LIKE','%'.$search_text.'%')
             ->orWhere('comuna_bodega','LIKE','%'.$search_text.'%')
-            ->orWhere('telefono_bodega','LIKE','%'.$search_text.'%')
             ->get();
         } else
         {

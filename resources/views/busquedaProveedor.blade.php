@@ -15,20 +15,17 @@
  <div class="clod-md-4"> </div>
  <div class="clod-md-6"> 
    <div class="row">   
-     @if(@Auth::user()->hasRole('colaborador'))
      <table id="myTable" class="table table-sm" style="width:100%" >
       <thead>
         <tr>
-          <th style="color:#456789" >Rut</th>
-          <th style="color:#456789" >Razon social</th>
-          <th style="color:#456789" >Giro</th>
-          <th style="color:#456789" >Dirección</th>
-          <th style="color:#456789" >Comuna</th>
-          <th style="color:#456789" >Banco</th>
-          <th style="color:#456789" >Cuenta</th>  
-          <th style="color:#456789" >N°Cuenta</th> 
-          <th style="color:#456789" >Telefono</th>
-          <th style="color:#456789" >Gestionar</th> 
+          <th>Rut</th>
+          <th>Razon social</th>
+          <th>Giro</th>
+          <th>Dirección</th>
+          <th>Banco</th>
+          <th>Cuenta</th>  
+          <th>N°Cuenta</th> 
+          <th>Gestionar</th> 
         </thead>
         <tbody>
         </tr>
@@ -36,13 +33,11 @@
         <tr>
           <td id="td-datatable">{{$proveedor->rut_proveedor}}-{{$proveedor->dig_rut_prov}} </td>
           <td id="td-datatable">{{$proveedor->razon_social}}</td>
-          <td id="td-datatable" width="125" >{{$proveedor->giro}}</td>
+          <td id="td-datatable">{{$proveedor->giro}}</td>
           <td id="td-datatable">{{$proveedor->direccion_prov}}</td>
-          <td id="td-datatable" width="125">{{$proveedor->comuna_prov}}</td>
-          <td id="td-datatable" width="125">{{$proveedor->banco}}</td>
-          <td id="td-datatable" width="125">{{$proveedor->tipo_cuenta}}</td>
-          <td id="td-datatable" width="125">{{$proveedor->n_cta_prov}}</td>
-          <td id="td-datatable" width="125"> {{$proveedor->telefono_prov}} </td>
+          <td id="td-datatable" >{{$proveedor->banco}}</td>
+          <td id="td-datatable" >{{$proveedor->tipo_cuenta}}</td>
+          <td id="td-datatable" >{{$proveedor->n_cta_prov}}</td>
           <td id="td-datatable"><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a></td>
           <td> <a class="btn btn-outline-danger btn-sm"  onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
         </tr>
@@ -71,7 +66,7 @@
     function eliminar(id){
      Swal.fire({
       title: 'Está seguro',
-      text: "Al eliminar un producto no podra revertir los cambios",
+      text: "No podra revertir los cambios",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -94,7 +89,7 @@
   }
 </script>
 </font>
-@endif
+
 </div> 
 </div> 
 </div> 

@@ -1276,6 +1276,18 @@ function valideKey(evt){
 
 
 
+//function stock(){
+//  try {
+//  var stock = 
+//
+//
+//
+//
+//
+//    } catch (e) {}
+//
+//}
+
 
 
 //CANTIDAD POR VALOR EN LOS INGRESOS
@@ -1335,6 +1347,7 @@ function multiplicar(sumas){
 //BUSCA EL PRODUCTO POR EL CODIGO, Y CARGA EL NOMBRE.
 function cargarProducto(alvaro) {
   try {
+    console.log(alvaro);
     var numero = alvaro.id;
     numero = numero.substring(14);
     id=alvaro.value;
@@ -1346,3 +1359,53 @@ function cargarProducto(alvaro) {
   } catch (e) {}
 
 }
+
+function cargarStock(alvaro) {
+  try {
+
+   var numero = alvaro.id;
+   numero = numero.substring(14);
+
+   cod_producto = $("#selectProducto"+numero+" option:selected").text();
+
+   console.log(cod_producto);
+
+   $.get('stock-movimiento/'+cod_producto, function(inventario){
+
+    console.log(inventario[0].stock);
+    console.log(numero);
+    $('#stock'+numero).val(inventario[0].stock);
+
+  });
+ } catch (e) {}
+
+}
+
+
+function calcularSaldo(alvaro){
+
+  var contador = alvaro.id;
+  contador = contador.substring(8);
+
+  var cantidad = $('#cantidad'+contador).val();
+  var stock= $('#stock'+contador).val();
+  var total = stock-cantidad;
+
+  if (total<0){
+   alert('Debe ingresar una cantidad menor o igual al stock disponible...')
+   $('#saldo'+contador).val('ERROR');
+   const a = document.getElementById("grabar-salida")
+   const aa = document.getElementById("agregar_btn")
+   aa.disabled = true;
+   a.disabled = true;
+   return false;
+ } else {
+
+  $('#saldo'+contador).val(total);
+  const b = document.getElementById("grabar-salida")
+  const bb = document.getElementById("agregar_btn")
+  b.disabled = false;
+  bb.disabled = false;
+}
+}
+

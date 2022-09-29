@@ -36,12 +36,10 @@ class ProveedorController extends Controller
        $proveedor->razon_social=$request->razon_social; 
        $proveedor->giro=$request->giro; 
        $proveedor->direccion_prov=$request->direccion_prov;
-       $proveedor->comuna_prov=$request->comuna_prov;
-       $proveedor->ciudad_prov=$request->ciudad_prov;
        $proveedor->banco=$request->banco;
        $proveedor->tipo_cuenta=$request->tipo_cuenta;
        $proveedor->n_cta_prov=$request->n_cta_prov;    
-       $proveedor->telefono_prov=$request->telefono_prov;   
+ 
        $proveedor->save();
 
 
@@ -62,12 +60,9 @@ public function update(Request $request)
     $proveedor->razon_social=$request->razon_social; 
     $proveedor->giro=$request->giro; 
     $proveedor->direccion_prov=$request->direccion_prov;
-    $proveedor->comuna_prov=$request->comuna_prov;
-    $proveedor->ciudad_prov=$request->ciudad_prov;
     $proveedor->banco=$request->banco;
     $proveedor->tipo_cuenta=$request->tipo_cuenta;
     $proveedor->n_cta_prov=$request->n_cta_prov;   
-    $proveedor->telefono_prov=$request->telefono_prov;
     $proveedor->save();
     return redirect(route('proveedor.search'));
 }

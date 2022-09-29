@@ -17,7 +17,7 @@
    <div class="clod-md-4"> </div>
    <div class="clod-md-6"> 
      <div class="row">   
-       @if(@Auth::user()->hasRole('colaborador'))
+
        <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
 
         <thead>
@@ -26,8 +26,6 @@
             <th>Bodega</th>
             <th>Dirección</th>
             <th>Comuna</th>
-            <th>Telefono</th>
-            <th>Gestionar</th>        
           </tr>
         </thead>
         <tbody>
@@ -37,8 +35,6 @@
             <td>{{$bodega->nombre_bodega}}</td>
             <td>{{$bodega->direccion_bodega}}</td>
             <td>{{$bodega->comuna_bodega}}</td>
-            <td>{{$bodega->telefono_bodega}}</td>
-            <td><a class="btn btn-outline-primary btn-sm" href="modificar-bodega/{{$bodega->codigo_bodega}}"> Modificar </a></td>
           </tr>
           @endforeach
         </tbody>
@@ -58,7 +54,7 @@
 
       });
     </script>
-    @endif
+
   </div> 
 </div> 
 </div> 

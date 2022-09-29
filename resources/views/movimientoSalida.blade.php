@@ -6,26 +6,34 @@
 
     <div class="card-body">
         <div>
-         <div class="row">
+           <div class="row">
             <div class="mb-3 col-md-2">
 
                 <label> TIPO DE DOCUMENTO</label>
                 <select class="form-control" id="tipo_documento" name="tipo_documento"> 
-                    <option>FACTURA </option>
-                    <option>GUIA </option>
-                    <option>COMPROBANTE DE INGRESO </option>
+                    <option>ORDEN TRABAJO </option>
+                    <option>COMPROBANTE INTERNO</option>
                 </select>
             </div>
             <div class="mb-3 col-md-2">
                 <label> NRO DOCUMENTO </label>
                 <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
             </div>
-            <div class="mb-3 col-md-5">
-                <label> PROVEEDOR  </label>
-                <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
-                    <option value="0">----- NO POSEE -----</option>
-                    @foreach($proveedor as $proveedores)
-                    <option value="{{$proveedores->rut_proveedor}}"> {{$proveedores->razon_social}} </option>
+            <div class="mb-3 col-md-3">
+                <label> EMPLEADO  </label>
+                <select class="form-control" name="rut" id="rut" required >
+                    <option value="0">----- NO APLICA -----</option>
+                    @foreach($empleado as $empleados)
+                    <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3 col-md-2">
+                <label> PATENTE  </label>
+                <select class="form-control" name="patente" id="patente" required >
+                    <option value="0">----- NO APLICA -----</option>
+                    @foreach($vehiculo as $vehiculos)
+                    <option value="{{$vehiculos->patente}}"> {{$vehiculos->patente}} </option>
                     @endforeach
                 </select>
             </div>
@@ -48,7 +56,7 @@
             </div> 
             <div class="mb-3 col-md-2">
                 <label> TIPO DE MOVIMIENTO  </label>
-                <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
+                <input class="form-control "name="tipo" type="text" id="tipo" value="SALIDA" readonly> 
             </div>               
 
 
@@ -69,29 +77,28 @@
     <div class="card-body">
 
         <form class="form-inline">  
-           <table class="table table-sm" id="tableMovimiento" style="width:100%">
-              <thead>
-                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+         <table class="table table-sm" id="tableMovimiento" style="width:100%">
+          <thead>
+            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+            <br>
+            <tr>
                 <br>
-                <tr>
-                    <br>
-                    <th>Codigo producto:</th>
-                    <th>Producto:</th>
-                    <th>Cantidad:</th>
-                    <th>Valor unitario(neto):</th>
-                    <th>IVA</th>
-                    <th>Total:</th>
-                    <th>Gestionar</th>
-                </tr>
-            </thead>
-            <tbody>
+                <th>Codigo producto:</th>
+                <th>Producto:</th>
+                <th>Cantidad:</th>
+                <th>Stock:</th>
+                <th>Saldo</th>
+                <th>Gestionar</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                <input type="hidden" name="contador" value="0" id="contador">
+            <input type="hidden" name="contador" value="0" id="contador">
 
-            </tbody>
-        </table>
-        <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
-    </form>
+        </tbody>
+    </table>
+    <input id="grabar-salida" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+</form>
 
 
 
@@ -115,12 +122,11 @@
         $('#contador').val(contador);
         var html = '';
         html+='<tr>';
-        html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos) <option value="{{$productos->id}}"> {{$productos->codigo_producto}} </option> @endforeach </select> </td>';
+        html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos)<option value="{{$productos->id}}">{{$productos->codigo_producto}}</option> @endforeach </select> </td>';
         html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
-        html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="multiplicar(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
-        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="valoress'+contador+'" oninput="multiplicar(this)"  type="text" name="neto" required onkeypress="return valideKey(event);"></td>';
-        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="iva'+contador+'" type="text" name="iva" required readonly></td>';
-        html+='<td style="width:200px"><input style="width:200px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
+        html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="calcularSaldo(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
+        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador+'" type="text" name="stock" required readonly></td>';
+        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador+'" type="text" name="saldo" required readonly></td>';
         html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
         html+='<tr>';
         
@@ -144,12 +150,12 @@
 <script>
     function grabar ()
     {
-       m = 0;
-       n = $('#contador').val();
-       arrayMovimiento = [];
+     m = 0;
+     n = $('#contador').val();
+     arrayMovimiento = [];
 
 
-       if (n == 0 ){
+     if (n == 0 ){
         arrayMovimiento;
     } else {
 
@@ -160,14 +166,14 @@
           var datos = {
             'selectProducto':$("#selectProducto"+m+" option:selected").text(),
             'nombre_producto':$("#nombre_producto"+m).val(),
-            'cantidad':$('#cantidad'+m).val(),
-            'valoress':$('#valoress'+m).val(),
-            'iva':$('#iva'+m).val(),
-            'total':$('#total'+m).val(),
-            'stock':0,
-            'saldo':0
+            'cantidad':'-'+$('#cantidad'+m).val(),
+            'stock':$('#stock'+m).val(),
+            'saldo':$('#saldo'+m).val(),
+            'valoress':0,
+            'iva':0,
+            'total':0
         };
-
+        
         arrayMovimiento.push(datos);
 
     }
@@ -175,6 +181,8 @@
 
     usuario = $('#usuario').val();
     tipo_documento = $('#tipo_documento').val();
+    rut= $('#rut').val();
+    patente= $('#patente').val();
     fecha = $('#fecha').val();
     tipo = $('#tipo').val();
     estado = $('#estado').val();
@@ -192,15 +200,17 @@
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "usuario":usuario,
-           "tipo_documento":tipo_documento,
-           "fecha":fecha,
-           "tipo":tipo,
-           "estado":estado,
-           "num_documento":num_documento,
-           "cod_bodega":cod_bodega,
-           "rut_proveedor":rut_proveedor,
-           "arrayMovimiento":arrayMovimiento
+             "usuario":usuario,
+             "tipo_documento":tipo_documento,
+             "rut":rut,
+             "patente":patente,
+             "fecha":fecha,
+             "tipo":tipo,
+             "estado":estado,
+             "num_documento":num_documento,
+             "cod_bodega":cod_bodega,
+             "rut_proveedor":rut_proveedor,
+             "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -216,6 +226,7 @@
 }
 }
 </script>
+
 
 
 @endsection
