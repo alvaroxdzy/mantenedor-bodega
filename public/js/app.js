@@ -1302,7 +1302,7 @@ function multiplicar(sumas){
       var valor = $('#valoress'+contador2).val();
       var cantidad = $('#cantidad'+contador2).val();
       var neto = cantidad * valor ;
-      var iva = neto * 0.19 ;
+      var iva = parseInt(neto * 0.19) ;
       var total = neto + iva ;
 
       $('#iva'+contador2).val(iva);
@@ -1316,7 +1316,7 @@ function multiplicar(sumas){
       var valor = $('#valoress'+contador2).val();
       var cantidad = $('#cantidad'+contador2).val();
       var neto = cantidad * valor ;
-      var iva = neto * 0.19 ;
+      var iva = parseInt(neto * 0.19) ;
       var total = neto + iva ;
 
       $('#iva'+contador2).val(iva);
@@ -1368,12 +1368,10 @@ function cargarStock(alvaro) {
 
    cod_producto = $("#selectProducto"+numero+" option:selected").text();
 
-   console.log(cod_producto);
+
 
    $.get('stock-movimiento/'+cod_producto, function(inventario){
 
-    console.log(inventario[0].stock);
-    console.log(numero);
     $('#stock'+numero).val(inventario[0].stock);
 
   });

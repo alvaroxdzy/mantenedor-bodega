@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="container">
 <div class="card border-warning mb-3"> 
 
     <div class="card-body">
@@ -105,7 +105,7 @@
 
 </div>
 </div>
-
+</div>
 <script type="text/javascript">
     $(document).ready(function(){
         var contador = 0;
@@ -125,7 +125,7 @@
         html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos)<option value="{{$productos->id}}">{{$productos->codigo_producto}}</option> @endforeach </select> </td>';
         html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
         html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="calcularSaldo(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
-        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador+'" type="text" name="stock" required readonly></td>';
+        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador+'" type="text" name="stock" required value="0" readonly></td>';
         html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador+'" type="text" name="saldo" required readonly></td>';
         html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
         html+='<tr>';
@@ -173,7 +173,7 @@
             'iva':0,
             'total':0
         };
-        
+
         arrayMovimiento.push(datos);
 
     }

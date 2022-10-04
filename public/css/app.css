@@ -560,3 +560,21 @@ div {
   background-color: #e9ecef4a;
   opacity: 1;
 }
+
+
+.py-4 {
+  padding-top: 0.7rem !important;
+
+}
+
+.dataTable-selector {
+  padding: 3px;
+}
+.dataTable-input {
+  padding: 2px 10px;
+}
+
+.dataTable-table > tbody > tr > td, .dataTable-table > tbody > tr > th, .dataTable-table > tfoot > tr > td, .dataTable-table > tfoot > tr > th, .dataTable-table > thead > tr > td, .dataTable-table > thead > tr > th {
+  vertical-align: top;
+  padding: 1px 1px;
+}

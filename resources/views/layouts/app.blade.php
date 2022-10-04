@@ -56,10 +56,10 @@
                     <ul class="nav justify-content-end" id="ul_layout">
 
                       <li id="li_layout" class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas">Movimientos </a>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" >Movimientos </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/crear-movimiento"> Ingreso bodega  </a> 
-                            <a class="dropdown-item" href="/home"> Salida bodega </a> 
+                            <a class="dropdown-item" href="/salida-movimiento"> Salida bodega </a> 
                         </div>
 
                         <li id="li_layout" class="nav-item dropdown">

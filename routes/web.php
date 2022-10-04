@@ -35,6 +35,9 @@ Route::get('/busqueda-productos','ProductoController@search')->name('producto.se
 Route::get('/modificar-producto/{id}','ProductoController@edit')->name('producto.edit');
 Route::get('/actualizar-producto','ProductoController@update')->name('producto.update');
 Route::get('/eliminar-producto/{id}','ProductoController@destroy')->name('producto.destroy');
+Route::get('/stock-productos','ProductoController@inventario')->name('producto.inventario');
+Route::get('/filtrar-productos','ProductoController@filtrarInventario')->name('producto.filtrarInventario');
+Route::get('/historial-producto/{cod_producto}','ProductoController@productoHistorial')->name('producto.historial');
 
 Route::get('/proveedores', 'ProveedorController@consultaProveedor')->name('proveedores');
 Route::get('crear-proveedor','ProveedorController@create')->name('proveedor.create') ;

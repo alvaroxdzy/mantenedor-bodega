@@ -20,7 +20,7 @@ input[type=number] {
 	<br>
 	<div  style="width:100%" >
 
-		<form  class="form-inline" type="get" action="{{ url('/almacenar-producto') }}">
+		<form  class="form-inline" type="get" action="{{ url('/almacenar-producto') }}" enctype="multipart/form-data">
 			<div class="card border-warning mb-3">
 				{{ csrf_field() }}
 				<div class="row">
@@ -44,15 +44,16 @@ input[type=number] {
 					<small id="dir_bod" class="form-text text-muted">Ingrese detalles del producto.</small>
 				</div>
 				<br>
-
-				<div class="form-group">
-					<h6> Seleccione bodega </h6>
-					<select style="width : 300px" class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required style="max-width:10%;">
-						@foreach($bodega as $nombrebodegas)
-						<option value="{{$nombrebodegas->codigo_bodega}}">{{$nombrebodegas->nombre_bodega}} </option>
-						@endforeach
-					</select>
-					<small class="form-text text-muted"> Seleecione la bodega en la que se encuentra el producto</small>
+				<div class="row">
+					<div class="mb-3 col-md-3">
+						<h6> Seleccione bodega </h6>
+						<select style="width : 300px" class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required style="max-width:10%;">
+							@foreach($bodega as $nombrebodegas)
+							<option value="{{$nombrebodegas->codigo_bodega}}">{{$nombrebodegas->nombre_bodega}} </option>
+							@endforeach
+						</select>
+						<small class="form-text text-muted"> Seleecione la bodega en la que se encuentra el producto</small>
+					</div>
 				</div>
 
 				<div class="row mb-0">

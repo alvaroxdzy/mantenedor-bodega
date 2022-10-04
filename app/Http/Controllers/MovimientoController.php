@@ -43,6 +43,7 @@ public function traerProducto($id)
 {
   $producto =Producto::find($id);
   return $producto;
+
 }
 
 public function traerStock($cod_producto){
