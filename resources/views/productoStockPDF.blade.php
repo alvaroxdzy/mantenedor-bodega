@@ -53,8 +53,8 @@
     <tr>
       <td>{{$productos->cod_producto}}</td>
       <td>{{$productos->nombre_producto}}</td>
-      <td>{{$productos->precio}}</td>
-      <td>{{$productos->stock}}</td>
+      <td style="text-align:right;">${{$productos->precio}}</td>
+      <td style="text-align:right;">{{$productos->stock}}</td>
       <td>{{$productos->nombre_bodega}}</td>
     </tr>
     @endforeach
