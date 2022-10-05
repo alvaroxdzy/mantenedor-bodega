@@ -1366,11 +1366,11 @@ function cargarStock(alvaro) {
    var numero = alvaro.id;
    numero = numero.substring(14);
 
-   cod_producto = $("#selectProducto"+numero+" option:selected").text();
+   $cod_producto = $("#selectProducto"+numero+" option:selected").text();
 
 
 
-   $.get('stock-movimiento/'+cod_producto, function(inventario){
+   $.get('stock-movimiento/'+$cod_producto, function(inventario){
 
     $('#stock'+numero).val(inventario[0].stock);
 
