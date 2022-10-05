@@ -538,7 +538,7 @@ footer{
 
 
 div {
-    font-size: 15px;
+  font-size: 15px;
 
 }
 
@@ -550,7 +550,7 @@ div {
   word-wrap: break-word;
   background-clip: border-box;
   
-    border: 1px solid ;
+  border: 1px solid ;
   
   border-radius: .25rem;
   padding: 10px;
@@ -576,5 +576,10 @@ div {
 
 .dataTable-table > tbody > tr > td, .dataTable-table > tbody > tr > th, .dataTable-table > tfoot > tr > td, .dataTable-table > tfoot > tr > th, .dataTable-table > thead > tr > td, .dataTable-table > thead > tr > th {
   vertical-align: top;
-  padding: 1px 1px;
+  padding: 2px 2px;
+}
+
+nav {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+  font-size: 17px;
 }

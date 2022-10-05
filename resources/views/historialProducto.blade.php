@@ -5,31 +5,35 @@
 
 
 <div  class="container"> 
-  <h4>Listado de productos</h4>
+  <h5>HISTORIAL MOVIMIENTOS </h5>
 
+  <B>CODIGO PRODUCTO : {{$producto}}  </B>   
 
-
-  <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed">
+  <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped">
     <thead class="thead-light">
       <tr>
-        <th>tipo documento</th> 
-        <th>nro documento</th>
-        <th>identificacion producto</th>
-        <th>tipo</th>  
-        <th>fecha</th>  
-        <th>cantidad</th>        
+        <th>Producto</th>
+        <th>Documento</th> 
+        <th>Numero</th>
+        <th>Tipo</th>  
+        <th>Fecha</th>  
+        <th>Cantidad</th>   
+        <th>Estado</th>
+        <th>Usuario</th>     
 
       </tr>
     </thead>
     <tbody>
       @foreach($movimiento as $movimientos) 
       <tr>
+        <td>{{$movimientos->nombre_producto}}</td>
         <td>{{$movimientos->tipo_documento}}</td>
         <td>{{$movimientos->nro_documento_mov}}</td>
-        <td>{{$movimientos->cod_producto}} {{$movimientos->nombre_producto}}</td>
         <td>{{$movimientos->tipo}}</td>
         <td>{{$movimientos->fecha}}</td>
         <td>{{$movimientos->cantidad}}</td>
+        <td>{{$movimientos->estado}} </td>
+        <td>{{$movimientos->usuario}} </td>
 
       </tr>
       @endforeach
@@ -49,6 +53,9 @@
     }
   });
 </script>
+  <div class="mb-4 d-flex justify-content-end">
+    <a class="btn btn-primary" href="/historial-producto-pdf/{{$producto}}">Convertir a PDF</a>
+  </div>
 </div> 
 
 

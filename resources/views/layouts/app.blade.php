@@ -47,7 +47,7 @@
     </head>
     <body id="cuepo_base">
         <div id="app">
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav class="navbar navbar-expand-md navbar-light ">
                 <div class="container" id="app">
                     <a class="navbar-brand" href="{{ url('/home') }}">
                         <img src="{{ asset('/img/logo.PNG')}}" style="width:150px;" />    
@@ -56,7 +56,7 @@
                     <ul class="nav justify-content-end" id="ul_layout">
 
                       <li id="li_layout" class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" >Movimientos </a>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown" aria-haspopup="true" >Movimientos </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/crear-movimiento"> Ingreso bodega  </a> 
                             <a class="dropdown-item" href="/salida-movimiento"> Salida bodega </a> 
@@ -69,6 +69,8 @@
                                 <a class="dropdown-item" href="/busqueda-productos"> Productos </a> 
                                 <a class="dropdown-item" href="/busqueda-proveedores"> Proveedores </a> 
                             </div>
+
+                             <li id="li_layout"><a class="nav-link" id="linkLayout" href="/stock-productos">Inventario</a></li>
 
                             <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Reportes</a></li>
                             <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">Salir</a></li>                     

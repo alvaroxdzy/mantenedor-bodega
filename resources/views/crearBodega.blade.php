@@ -15,21 +15,24 @@ input[type=number] {
 @section('content')
 
 <div class="container">
+	<div class="card border-primary mb-3">
+		<h5 style="text-align:center;"> CREACION DE BODEGA</h5>
+	</div>
 	<div  style="width:100%" >
 		<form class="form-inline" type="get" action="{{ url('/almacenar-bodega') }}">
-			<div class="card border-warning mb-3">
+			<div class="card border-primary mb-3">
 
 				{{ csrf_field() }}
 				<div class="row">
 					<div class="mb-3 col-md-3"> 
 						<h6  for="codigo_bodega">Código Bodega</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="codigo_bodega" name="codigo_bodega" placeholder="Ingrese codigo" minlength="1" maxlength="5" required  onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<input style="text-transform:uppercase" type="text" class="form-control" id="codigo_bodega" name="codigo_bodega" minlength="1" maxlength="5" required  onkeyup="javascript:this.value=this.value.toUpperCase();">
 						<small id="cod_bod" class="form-text text-muted">con este codigo identificaras la bodega.</small>
 					</div>
 
 					<div class="mb-3 col-md-6"> 
 						<h6 for="nombre_bodega">Nombre Bodega</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="nombre_bodega" name="nombre_bodega" placeholder="Ingrese nombre" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<input style="text-transform:uppercase" type="text" class="form-control" id="nombre_bodega" name="nombre_bodega" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();">
 						<small id="nom_bod" class="form-text text-muted">con este nombre identificaras la bodega.</small>
 					</div>
 				</div>
@@ -39,7 +42,7 @@ input[type=number] {
 				<div class="row">
 					<div class="mb-3 col-md-6"> 
 						<h6 for="direccion_bodega">Dirección Bodega</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="direccion_bodega" name="direccion_bodega" placeholder="Ingrese la direccion bodega" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
+						<input style="text-transform:uppercase" type="text" class="form-control" id="direccion_bodega" name="direccion_bodega" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
 						<small id="dir_bod" class="form-text text-muted">dirección de la bodega.</small>
 					</div>
 
@@ -53,8 +56,8 @@ input[type=number] {
 				</div>
 				<div class="row mb-0">
 					<div class="col-md-6 offset-md-0">
-					
-						<input type="submit"  style="width:40%" class="btn btn-outline-warning"  value="Crear bodega "> </input>
+
+						<input type="submit"  style="width:40%" class="btn btn-outline-primary"  value="Crear bodega "> </input>
 					</div>
 				</div>
 			</div>

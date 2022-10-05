@@ -47,8 +47,15 @@ Route::get('/modificar-proveedor/{id}','ProveedorController@edit')->name('provee
 Route::get('/actualizar-proveedor','ProveedorController@update')->name('proveedor.update');
 Route::get('/eliminar-proveedor/{id}','ProveedorController@destroy')->name('proveedor.destroy');
 
+//Route::get('/modal', 'ProveedorController@modal')->name('proveedores');
+
+
 Route::get('crear-movimiento','MovimientoController@create')->name('movimiento.create') ;
 Route::get('productos-movimiento/{id}','MovimientoController@traerProducto')->name('movimiento.traer_producto') ;
 Route::get('stock-movimiento/{cod_producto}','MovimientoController@traerStock')->name('movimiento.traer_stock') ;
 Route::get('/almacenar-movimiento','MovimientoController@store')->name('movimiento.store');
 Route::get('salida-movimiento','MovimientoController@salida')->name('movimiento.salida') ;
+
+//RUTAS PARA REPORTES
+Route::get('historial-producto-pdf/{cod_producto}','ProductoController@productoMovimientoPDF')->name('producto.pdf');
+Route::get('stock-producto-pdf/{cod_bodega}','ProductoController@InventarioBodegaPDF')->name('producto.pdf');

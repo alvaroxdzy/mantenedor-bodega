@@ -1,13 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="card border-primary mb-3">
+        <h4 style="text-align:center;"> INGRESO A BODEGA</h4>
+    </div>
+        
+<div class="card border-primary mb-3"> 
 
-<div class="card border-warning mb-3"> 
+    <!-- <marquee > Ingreso de movimientos </marquee >  -->
 
     <div class="card-body">
         <div>
-         <div class="row">
-            <div class="mb-3 col-md-2">
+           <div class="row">
+            <div class="mb-3 col-md-3">
 
                 <label> TIPO DE DOCUMENTO</label>
                 <select class="form-control" id="tipo_documento" name="tipo_documento"> 
@@ -16,7 +22,7 @@
                     <option>COMPROBANTE DE INGRESO </option>
                 </select>
             </div>
-            <div class="mb-3 col-md-2">
+            <div class="mb-3 col-md-3">
                 <label> NRO DOCUMENTO </label>
                 <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
             </div>
@@ -31,7 +37,7 @@
             </div>
         </div>
         <div class="row"> 
-            <div class="mb-3 col-md-3">
+            <div class="mb-3 col-md-3" style="width: 22.2%;">
                 <label> BODEGA  </label>
                 <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
@@ -41,18 +47,18 @@
                 </select>
 
             </div>
-            <div class="mb-3 col-md-2">
+            <div class="mb-3 col-md-2" style="width: 22.2%;">
                 <label> FECHA  </label >
-                <input class="form-control" name="fecha" type="date" id="fecha" required> 
+                <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
 
             </div> 
-            <div class="mb-3 col-md-2">
+            <div class="mb-3 col-md-2" style="width: 23.2%;">
                 <label> TIPO DE MOVIMIENTO  </label>
                 <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
             </div>               
 
 
-            <div class="mb-3 col-md-2">
+            <div class="mb-3 col-md-2" style="width: 24.2%;">
                 <label> ESTADO  </label>
                 <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
             </div>
@@ -65,39 +71,54 @@
 </div>
 
 
-<div class="card border-warning mb-3"> 
+<div class="card border-primary mb-3"> 
     <div class="card-body">
 
         <form class="form-inline">  
-           <table class="table table-sm" id="tableMovimiento" style="width:100%">
-              <thead>
-                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+         <table class="table table-sm" id="tableMovimiento" style="width:100%">
+          <thead>
+            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+            <br>
+            <tr>
                 <br>
-                <tr>
-                    <br>
-                    <th>Codigo producto:</th>
-                    <th>Producto:</th>
-                    <th>Cantidad:</th>
-                    <th>Valor unitario(neto):</th>
-                    <th>IVA</th>
-                    <th>Total:</th>
-                    <th>Gestionar</th>
-                </tr>
-            </thead>
-            <tbody>
+                <th>Codigo producto:</th>
+                <th>Producto:</th>
+                <th>Cantidad:</th>
+                <th>Valor unitario(neto):</th>
+                <th>IVA</th>
+                <th>Total:</th>
+                <th>Gestionar</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                <input type="hidden" name="contador" value="0" id="contador">
+            <input type="hidden" name="contador" value="0" id="contador">
 
-            </tbody>
-        </table>
-        <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
-    </form>
-
+        </tbody>
+    </table>
+    <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+</form>
 
 
 
 </div>
 </div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
+}
+</script>
+
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -144,12 +165,12 @@
 <script>
     function grabar ()
     {
-       m = 0;
-       n = $('#contador').val();
-       arrayMovimiento = [];
+     m = 0;
+     n = $('#contador').val();
+     arrayMovimiento = [];
 
 
-       if (n == 0 ){
+     if (n == 0 ){
         arrayMovimiento;
     } else {
 
@@ -192,15 +213,15 @@
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "usuario":usuario,
-           "tipo_documento":tipo_documento,
-           "fecha":fecha,
-           "tipo":tipo,
-           "estado":estado,
-           "num_documento":num_documento,
-           "cod_bodega":cod_bodega,
-           "rut_proveedor":rut_proveedor,
-           "arrayMovimiento":arrayMovimiento
+             "usuario":usuario,
+             "tipo_documento":tipo_documento,
+             "fecha":fecha,
+             "tipo":tipo,
+             "estado":estado,
+             "num_documento":num_documento,
+             "cod_bodega":cod_bodega,
+             "rut_proveedor":rut_proveedor,
+             "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);

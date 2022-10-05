@@ -28,26 +28,26 @@ class ProveedorController extends Controller
     {
         $proveedorcheck = Proveedor::where('rut_proveedor',$request->rut_proveedor)->first();
         if ($proveedorcheck) {
-           return redirect()->back()->with('error', 'ERROR RUT PROVEEDOR EXISTENTE');
-       }
-       $proveedor =new Proveedor();
-       $proveedor->rut_proveedor=$request->rut_proveedor; 
-       $proveedor->dig_rut_prov=$request->dig_rut_prov; 
-       $proveedor->razon_social=$request->razon_social; 
-       $proveedor->giro=$request->giro; 
-       $proveedor->direccion_prov=$request->direccion_prov;
-       $proveedor->banco=$request->banco;
-       $proveedor->tipo_cuenta=$request->tipo_cuenta;
-       $proveedor->n_cta_prov=$request->n_cta_prov;    
- 
-       $proveedor->save();
+         return redirect()->back()->with('error', 'ERROR RUT PROVEEDOR EXISTENTE');
+     }
+     $proveedor =new Proveedor();
+     $proveedor->rut_proveedor=$request->rut_proveedor; 
+     $proveedor->dig_rut_prov=$request->dig_rut_prov; 
+     $proveedor->razon_social=$request->razon_social; 
+     $proveedor->giro=$request->giro; 
+     $proveedor->direccion_prov=$request->direccion_prov;
+     $proveedor->banco=$request->banco;
+     $proveedor->tipo_cuenta=$request->tipo_cuenta;
+     $proveedor->n_cta_prov=$request->n_cta_prov;    
+
+     $proveedor->save();
 
 
-       return redirect()->back()->with('message', 'Proveedor creado correctamente');
-   }
+     return redirect()->back()->with('message', 'Proveedor creado correctamente');
+ }
 
-   public function edit($id)
-   {
+ public function edit($id)
+ {
     $proveedor = Proveedor::where('rut_proveedor',$id)->first();
     return view('modificarProveedor')->with('proveedor',$proveedor) ;
 }
@@ -81,5 +81,11 @@ public function destroy($id)
     return redirect(route('proveedor.search'));
 
 }    
+
+public function modal(){
+    $proveedor=Proveedor::all();
+    return view('modelProveedor',compact('proveedor'));
+}
+
 
 }

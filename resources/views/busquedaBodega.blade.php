@@ -18,7 +18,7 @@
    <div class="clod-md-6"> 
      <div class="row">   
 
-       <table id="myTable" class="table dataTable no-footer dtr-inline collapsed">
+       <table id="myTable" class="table dataTable no-footer dtr-inline collapsed table-striped">
 
         <thead>
           <tr>

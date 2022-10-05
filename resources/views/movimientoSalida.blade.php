@@ -2,78 +2,81 @@
 
 @section('content')
 <div class="container">
-<div class="card border-warning mb-3"> 
+    <div class="card border-primary mb-3">
+        <h4 style="text-align:center;"> SALIDA DE BODEGA</h4>
+    </div>
+    <div class="card border-primary mb-3"> 
 
-    <div class="card-body">
-        <div>
-           <div class="row">
-            <div class="mb-3 col-md-2">
+        <div class="card-body">
+            <div>
+               <div class="row">
+                <div class="mb-3 col-md-3">
 
-                <label> TIPO DE DOCUMENTO</label>
-                <select class="form-control" id="tipo_documento" name="tipo_documento"> 
-                    <option>ORDEN TRABAJO </option>
-                    <option>COMPROBANTE INTERNO</option>
-                </select>
+                    <label> TIPO DE DOCUMENTO</label>
+                    <select class="form-control" id="tipo_documento" name="tipo_documento"> 
+                        <option>ORDEN TRABAJO </option>
+                        <option>COMPROBANTE INTERNO</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label> NRO DOCUMENTO </label>
+                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label> EMPLEADO  </label>
+                    <select class="form-control" name="rut" id="rut" required >
+                        <option value="0">----- NO APLICA -----</option>
+                        @foreach($empleado as $empleados)
+                        <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3 col-md-2">
+                    <label> PATENTE  </label>
+                    <select class="form-control" name="patente" id="patente" required >
+                        <option value="0">----- NO APLICA -----</option>
+                        @foreach($vehiculo as $vehiculos)
+                        <option value="{{$vehiculos->patente}}"> {{$vehiculos->patente}} </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-            <div class="mb-3 col-md-2">
-                <label> NRO DOCUMENTO </label>
-                <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
+            <div class="row"> 
+                <div class="mb-3 col-md-3">
+                    <label> BODEGA  </label>
+                    <select class="form-control" name="cod_bodega" id="cod_bodega" required>
+
+                        @foreach($bodega as $bodegas)
+                        <option value="{{$bodegas->codigo_bodega}}"> {{$bodegas->nombre_bodega}} </option>
+                        @endforeach
+                    </select>
+
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label> FECHA  </label >
+                    <input class="form-control" name="fecha" type="date" id="fecha" required> 
+
+                </div> 
+                <div class="mb-3 col-md-3">
+                    <label> TIPO DE MOVIMIENTO  </label>
+                    <input class="form-control "name="tipo" type="text" id="tipo" value="SALIDA" readonly> 
+                </div>               
+
+
+                <div class="mb-3 col-md-3">
+                    <label> ESTADO  </label>
+                    <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
+                </div>
+                <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
             </div>
-            <div class="mb-3 col-md-3">
-                <label> EMPLEADO  </label>
-                <select class="form-control" name="rut" id="rut" required >
-                    <option value="0">----- NO APLICA -----</option>
-                    @foreach($empleado as $empleados)
-                    <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="mb-3 col-md-2">
-                <label> PATENTE  </label>
-                <select class="form-control" name="patente" id="patente" required >
-                    <option value="0">----- NO APLICA -----</option>
-                    @foreach($vehiculo as $vehiculos)
-                    <option value="{{$vehiculos->patente}}"> {{$vehiculos->patente}} </option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="row"> 
-            <div class="mb-3 col-md-3">
-                <label> BODEGA  </label>
-                <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
-                    @foreach($bodega as $bodegas)
-                    <option value="{{$bodegas->codigo_bodega}}"> {{$bodegas->nombre_bodega}} </option>
-                    @endforeach
-                </select>
+        </div>    
+    </div>
 
-            </div>
-            <div class="mb-3 col-md-2">
-                <label> FECHA  </label >
-                <input class="form-control" name="fecha" type="date" id="fecha" required> 
-
-            </div> 
-            <div class="mb-3 col-md-2">
-                <label> TIPO DE MOVIMIENTO  </label>
-                <input class="form-control "name="tipo" type="text" id="tipo" value="SALIDA" readonly> 
-            </div>               
-
-
-            <div class="mb-3 col-md-2">
-                <label> ESTADO  </label>
-                <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
-            </div>
-            <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
-        </div>
-
-    </div>    
 </div>
 
-</div>
 
-
-<div class="card border-warning mb-3"> 
+<div class="card border-primary mb-3"> 
     <div class="card-body">
 
         <form class="form-inline">  
@@ -106,6 +109,21 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+    window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
+}
+</script>
+
 <script type="text/javascript">
     $(document).ready(function(){
         var contador = 0;

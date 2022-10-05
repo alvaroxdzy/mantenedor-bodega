@@ -5,8 +5,8 @@
 
 
 <div  class="container"> 
-  <h4>Proveedores</h4>
-  <div id="div-buscar-proveedor" class=""> 
+  <h5>LISTADO PROVEEDORES</h5>
+  <div > 
    <form class="form-text-input" type="get">
     <a href="crear-proveedor" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
   </form>
@@ -15,16 +15,13 @@
  <div class="clod-md-4"> </div>
  <div class="clod-md-6"> 
    <div class="row">   
-     <table id="myTable" class="table table-sm" style="width:100%" >
-      <thead>
+     <table id="myTable" class="table table-sm "  style="width:100%" >
+      <thead >
         <tr>
           <th>Rut</th>
-          <th>Razon social</th>
+          <th>Razón</th>
           <th>Giro</th>
           <th>Dirección</th>
-          <th>Banco</th>
-          <th>Cuenta</th>  
-          <th>N°Cuenta</th> 
           <th>Gestionar</th> 
         </thead>
         <tbody>
@@ -35,9 +32,7 @@
           <td id="td-datatable">{{$proveedor->razon_social}}</td>
           <td id="td-datatable">{{$proveedor->giro}}</td>
           <td id="td-datatable">{{$proveedor->direccion_prov}}</td>
-          <td id="td-datatable" >{{$proveedor->banco}}</td>
-          <td id="td-datatable" >{{$proveedor->tipo_cuenta}}</td>
-          <td id="td-datatable" >{{$proveedor->n_cta_prov}}</td>
+
           <td id="td-datatable"><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a></td>
           <td> <a class="btn btn-outline-danger btn-sm"  onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
         </tr>

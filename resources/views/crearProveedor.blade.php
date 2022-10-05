@@ -15,9 +15,12 @@ input[type=number] {
 @section('content')
 
 <div class="container">
+	<div class="card border-primary mb-3">
+		<h5 style="text-align:center;"> CREACION DE PROVEEDORES</h5>
+	</div>
 	<div  style="width:100%" >
 		<form class="form-inline" type="get" action="{{ url('/almacenar-proveedor') }}">
-			<div class="card border-warning mb-3">
+			<div class="card border-primary mb-3">
 				{{ csrf_field() }}
 				<div class="row" > 
 					<div class="mb-3 col-md-2">
@@ -53,7 +56,7 @@ input[type=number] {
 				</div>
 				<br>
 
-				<div class="row" > 
+			<!--	<div class="row" > 
 					<div class="mb-3 col-md-4">
 						<label for="banco">Banco</label>
 						<select class="form-control" id="banco" name="banco" placeholder="Seleccione su banco">
@@ -99,13 +102,13 @@ input[type=number] {
 						<input style="text-transform:uppercase" type="text" class="form-control" id="n_cta_prov" name="n_cta_prov"  onkeyup="javascript:this.value=this.value.toUpperCase();">
 						<small id="dir_bod" class="form-text text-muted">numero de la cuenta</small>
 					</div>
-				</div>
+				</div> -->
 				<div class="row mb-0">
 					<div class="col-md-6 offset-md-0">
 						<br>
-				<input type="submit"  style="width:30%;" class="btn btn-outline-warning"  value=" Crear proveedor "> </input>
-			</div>
-						</div>
+						<input type="submit"  style="width:30%;" class="btn btn-outline-primary"  value=" Crear proveedor "> </input>
+					</div>
+				</div>
 			</div>
 		</div>
 	</form>
