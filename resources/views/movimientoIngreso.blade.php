@@ -1,4 +1,4 @@
-1@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -134,6 +134,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         contador = contador+1;
         $('#contador').val(contador);
+
+
         var html = '';
         html+='<tr>';
         html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos) <option value="{{$productos->id}}"> {{$productos->codigo_producto}} </option> @endforeach </select> </td>';
