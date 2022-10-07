@@ -22,11 +22,18 @@ class MovimientoController extends Controller
       // $region = Regions::select('id','name')->get();
    $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
    $proveedor= Proveedor::select(DB::raw("CONCAT(rut_proveedor,'-',dig_rut_prov)as rut_proveedor"),'razon_social')->orderBy('razon_social')->get();
-   $producto= Producto::select('id','codigo_producto','nombre_producto')->get();
+   //$producto= Producto::select('id','codigo_producto','nombre_producto')->get();
    $empleado = Empleado::select('rut','nombres')->get();
 
-   return view('movimientoIngreso')->with('proveedor',$proveedor)->with('bodega',$bodega)->with('producto',$producto)->with('empleado',$empleado);
+
+   return view('movimientoIngreso')->with('proveedor',$proveedor)->with('bodega',$bodega)->with('empleado',$empleado);
  }
+
+public function productosBodega(Request $request){
+  $producto = Producto::where('cod_bod_producto',$request->cod_bodega)->get();
+  return $producto;
+}
+
 
  public function salida()
  {
@@ -36,7 +43,9 @@ class MovimientoController extends Controller
   $vehiculo = Vehiculo::select('patente')->get();
 
 
-  return view('movimientoSalida')->with('empleado',$empleado)->with('producto',$producto)->with('bodega',$bodega)->with('vehiculo',$vehiculo);
+  return view('movimientoSalida')->with('empleado',$empleado)
+  //->with('producto',$producto)
+  ->with('bodega',$bodega)->with('vehiculo',$vehiculo);
 }
 
 public function traerProducto($id)

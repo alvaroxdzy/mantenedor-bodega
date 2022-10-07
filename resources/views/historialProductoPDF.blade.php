@@ -10,6 +10,7 @@
     body {
       margin: 1cm 2cm 2cm;
     }
+
     footer {
       position: fixed;
       bottom: 0cm;
@@ -27,51 +28,56 @@
     th {
       text-align: left;
     }
+
+
   </style>
 </head>
 <body>
   <main>
     <div  class="container"> 
-     <div class="card" >
-      <h3 style="width:30%"> Ingeniería de transportes JAVIER CORTES</h3>
+      <img src="./img/logo.PNG"/>
+      <div class="card" >
+        <h3 style="width:30%"> Ingeniería de transportes JAVIER CORTES</h3>
+      </div>
+
+      <h2 style="text-align: center;"> Historial de producto  </h2>
+
+
+      <div class="card" style="width: 30%;">
+        <h3> Codigo de producto : {{$producto->codigo_producto}} 
+          Nombre : {{$producto->nombre_producto}} </h3> 
+      </div>
+
+      <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
+        <thead class="thead-light">
+          <tr>
+            <th>Documento</th> 
+            <th>Numero</th>
+            <th>Tipo</th>  
+            <th>Fecha</th>  
+            <th>Cantidad</th>   
+            <th>Estado</th>
+            <th>Usuario</th>     
+
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($movimiento as $movimientos) 
+          <tr>
+            <td>{{$movimientos->tipo_documento}}</td>
+            <td>{{$movimientos->nro_documento_mov}}</td>
+            <td>{{$movimientos->tipo}}</td>
+            <td>{{$movimientos->fecha}}</td>
+            <td>{{$movimientos->cantidad}}</td>
+            <td>{{$movimientos->estado}} </td>
+            <td>{{$movimientos->usuario}} </td>
+
+          </tr>
+          @endforeach
+        </tbody>
+      </table>  
     </div>
-
-    <h2> Historial de productos </h2>
-
-    <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
-      <thead class="thead-light">
-        <tr>
-          <th>Codigo</th>
-          <th>Producto</th>
-          <th>Documento</th> 
-          <th>Numero</th>
-          <th>Tipo</th>  
-          <th>Fecha</th>  
-          <th>Cantidad</th>   
-          <th>Estado</th>
-          <th>Usuario</th>     
-
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($movimiento as $movimientos) 
-        <tr>
-          <td>{{$movimientos->cod_producto}}</td>
-          <td>{{$movimientos->nombre_producto}}</td>
-          <td>{{$movimientos->tipo_documento}}</td>
-          <td>{{$movimientos->nro_documento_mov}}</td>
-          <td>{{$movimientos->tipo}}</td>
-          <td>{{$movimientos->fecha}}</td>
-          <td>{{$movimientos->cantidad}}</td>
-          <td>{{$movimientos->estado}} </td>
-          <td>{{$movimientos->usuario}} </td>
-
-        </tr>
-        @endforeach
-      </tbody>
-    </table>  
-  </div>
-</main>
+  </main>
 
 </body>
 <script>

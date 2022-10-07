@@ -5,68 +5,68 @@
     <div class="card border-primary mb-3">
         <h4 style="text-align:center;"> INGRESO A BODEGA</h4>
     </div>
-        
-<div class="card border-primary mb-3"> 
 
-    <!-- <marquee > Ingreso de movimientos </marquee >  -->
+    <div class="card border-primary mb-3"> 
 
-    <div class="card-body">
-        <div>
-           <div class="row">
-            <div class="mb-3 col-md-3">
+        <!-- <marquee > Ingreso de movimientos </marquee >  -->
 
-                <label> TIPO DE DOCUMENTO</label>
-                <select class="form-control" id="tipo_documento" name="tipo_documento"> 
-                    <option>FACTURA </option>
-                    <option>GUIA </option>
-                    <option>COMPROBANTE DE INGRESO </option>
-                </select>
+        <div class="card-body">
+            <div>
+               <div class="row">
+                <div class="mb-3 col-md-3">
+
+                    <label> TIPO DE DOCUMENTO</label>
+                    <select class="form-control" id="tipo_documento" name="tipo_documento"> 
+                        <option>FACTURA </option>
+                        <option>GUIA </option>
+                        <option>COMPROBANTE DE INGRESO </option>
+                    </select>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label> NRO DOCUMENTO </label>
+                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
+                </div>
+                <div class="mb-3 col-md-5">
+                    <label> PROVEEDOR  </label>
+                    <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
+                        <option value="0">----- NO POSEE -----</option>
+                        @foreach($proveedor as $proveedores)
+                        <option value="{{$proveedores->rut_proveedor}}"> {{$proveedores->razon_social}} </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-            <div class="mb-3 col-md-3">
-                <label> NRO DOCUMENTO </label>
-                <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
+            <div class="row"> 
+                <div class="mb-3 col-md-3" style="width: 22.2%;">
+                    <label> BODEGA  </label>
+                    <select class="form-control" name="cod_bodega" id="cod_bodega" required>
+
+                        @foreach($bodega as $bodegas)
+                        <option value="{{$bodegas->codigo_bodega}}"> {{$bodegas->nombre_bodega}} </option>
+                        @endforeach
+                    </select>
+
+                </div>
+                <div class="mb-3 col-md-2" style="width: 22.2%;">
+                    <label> FECHA  </label >
+                    <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
+
+                </div> 
+                <div class="mb-3 col-md-2" style="width: 23.2%;">
+                    <label> TIPO DE MOVIMIENTO  </label>
+                    <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
+                </div>               
+
+
+                <div class="mb-3 col-md-2" style="width: 24.2%;">
+                    <label> ESTADO  </label>
+                    <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
+                </div>
+                <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
             </div>
-            <div class="mb-3 col-md-5">
-                <label> PROVEEDOR  </label>
-                <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
-                    <option value="0">----- NO POSEE -----</option>
-                    @foreach($proveedor as $proveedores)
-                    <option value="{{$proveedores->rut_proveedor}}"> {{$proveedores->razon_social}} </option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="row"> 
-            <div class="mb-3 col-md-3" style="width: 22.2%;">
-                <label> BODEGA  </label>
-                <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
-                    @foreach($bodega as $bodegas)
-                    <option value="{{$bodegas->codigo_bodega}}"> {{$bodegas->nombre_bodega}} </option>
-                    @endforeach
-                </select>
-
-            </div>
-            <div class="mb-3 col-md-2" style="width: 22.2%;">
-                <label> FECHA  </label >
-                <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
-
-            </div> 
-            <div class="mb-3 col-md-2" style="width: 23.2%;">
-                <label> TIPO DE MOVIMIENTO  </label>
-                <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
-            </div>               
-
-
-            <div class="mb-3 col-md-2" style="width: 24.2%;">
-                <label> ESTADO  </label>
-                <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
-            </div>
-            <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
-        </div>
-
-    </div>    
-</div>
+        </div>    
+    </div>
 
 </div>
 
@@ -136,19 +136,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         $('#contador').val(contador);
 
 
-        var html = '';
-        html+='<tr>';
-        html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos) <option value="{{$productos->id}}"> {{$productos->codigo_producto}} </option> @endforeach </select> </td>';
-        html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
-        html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="multiplicar(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
-        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="valoress'+contador+'" oninput="multiplicar(this)"  type="text" name="neto" required onkeypress="return valideKey(event);"></td>';
-        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="iva'+contador+'" type="text" name="iva" required readonly></td>';
-        html+='<td style="width:200px"><input style="width:200px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
-        html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
-        html+='<tr>';
-        
-
-        $('tbody').append(html);
+        productoBodegas();
+        $('#cod_bodega').attr("disabled", true);
 
         $(document).on('click','#borrar_btn'+contador,function(){
 
@@ -163,6 +152,60 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
     });
 
 </script>
+
+
+<script type="text/javascript">
+    function productoBodegas () {
+
+        cod_bodega =  $('#cod_bodega option:selected').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
+         data:{
+             "cod_bodega":cod_bodega
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            console.log(data);
+
+            contador = $('#contador').val();
+
+            var html = '';
+            html+='<tr>';
+            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            data.forEach(function(producto) {
+                html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
+            });
+            html+='</select> </td>' ;
+            html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
+            html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="multiplicar(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
+            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="valoress'+contador+'" oninput="multiplicar(this)"  type="text" name="neto" required onkeypress="return valideKey(event);"></td>';
+            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="iva'+contador+'" type="text" name="iva" required readonly></td>';
+            html+='<td style="width:200px"><input style="width:200px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
+            html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
+            html+='<tr>';
+
+
+
+            $('tbody').append(html);
+
+
+        },
+    });
+
+
+    }
+
+
+</script>
+
+
+
 
 <script>
     function grabar ()

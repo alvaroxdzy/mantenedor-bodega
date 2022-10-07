@@ -9,7 +9,7 @@
 
         <div class="card-body">
             <div>
-               <div class="row">
+             <div class="row">
                 <div class="mb-3 col-md-3">
 
                     <label> TIPO DE DOCUMENTO</label>
@@ -80,28 +80,28 @@
     <div class="card-body">
 
         <form class="form-inline">  
-         <table class="table table-sm" id="tableMovimiento" style="width:100%">
-          <thead>
-            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
-            <br>
-            <tr>
+           <table class="table table-sm" id="tableMovimiento" style="width:100%">
+              <thead>
+                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
                 <br>
-                <th>Codigo producto:</th>
-                <th>Producto:</th>
-                <th>Cantidad:</th>
-                <th>Stock:</th>
-                <th>Saldo</th>
-                <th>Gestionar</th>
-            </tr>
-        </thead>
-        <tbody>
+                <tr>
+                    <br>
+                    <th>Codigo producto:</th>
+                    <th>Producto:</th>
+                    <th>Cantidad:</th>
+                    <th>Stock:</th>
+                    <th>Saldo</th>
+                    <th>Gestionar</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <input type="hidden" name="contador" value="0" id="contador">
+                <input type="hidden" name="contador" value="0" id="contador">
 
-        </tbody>
-    </table>
-    <input id="grabar-salida" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
-</form>
+            </tbody>
+        </table>
+        <input id="grabar-salida" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+    </form>
 
 
 
@@ -138,18 +138,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         contador = contador+1;
         $('#contador').val(contador);
-        var html = '';
-        html+='<tr>';
-        html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option> @foreach($producto as $productos)<option value="{{$productos->id}}">{{$productos->codigo_producto}}</option> @endforeach </select> </td>';
-        html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
-        html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="calcularSaldo(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
-        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador+'" type="text" name="stock" required value="0" readonly></td>';
-        html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador+'" type="text" name="saldo" required readonly></td>';
-        html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
-        html+='<tr>';
-        
 
-        $('tbody').append(html);
+        productoBodegas();
+        $('#cod_bodega').attr("disabled", true);
 
         $(document).on('click','#borrar_btn'+contador,function(){
 
@@ -165,15 +156,61 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
 </script>
 
+<script type="text/javascript">
+    function productoBodegas () {
+
+        cod_bodega =  $('#cod_bodega option:selected').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
+         data:{
+           "cod_bodega":cod_bodega
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            console.log(data);
+
+            contador = $('#contador').val();
+
+            var html = '';
+            html+='<tr>';
+            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            data.forEach(function(producto) {
+                html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
+            });
+            html+='</select> </td>' ;
+            html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
+            html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="calcularSaldo(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
+            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador+'" type="text" name="stock" required value="0" readonly></td>';
+            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador+'" type="text" name="saldo" required readonly></td>';
+            html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
+            html+='<tr>';
+
+            $('tbody').append(html);
+
+        },
+    });
+
+    }
+
+
+</script>
+
+
 <script>
     function grabar ()
     {
-     m = 0;
-     n = $('#contador').val();
-     arrayMovimiento = [];
+       m = 0;
+       n = $('#contador').val();
+       arrayMovimiento = [];
 
 
-     if (n == 0 ){
+       if (n == 0 ){
         arrayMovimiento;
     } else {
 
@@ -218,17 +255,17 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "usuario":usuario,
-             "tipo_documento":tipo_documento,
-             "rut":rut,
-             "patente":patente,
-             "fecha":fecha,
-             "tipo":tipo,
-             "estado":estado,
-             "num_documento":num_documento,
-             "cod_bodega":cod_bodega,
-             "rut_proveedor":rut_proveedor,
-             "arrayMovimiento":arrayMovimiento
+           "usuario":usuario,
+           "tipo_documento":tipo_documento,
+           "rut":rut,
+           "patente":patente,
+           "fecha":fecha,
+           "tipo":tipo,
+           "estado":estado,
+           "num_documento":num_documento,
+           "cod_bodega":cod_bodega,
+           "rut_proveedor":rut_proveedor,
+           "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);

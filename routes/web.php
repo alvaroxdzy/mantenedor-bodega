@@ -55,6 +55,10 @@ Route::get('productos-movimiento/{id}','MovimientoController@traerProducto')->na
 Route::get('stock-movimiento/{cod_producto}','MovimientoController@traerStock')->name('movimiento.traer_stock') ;
 Route::get('/almacenar-movimiento','MovimientoController@store')->name('movimiento.store');
 Route::get('salida-movimiento','MovimientoController@salida')->name('movimiento.salida') ;
+Route::get('producto-bodega/{cod_bodega}','MovimientoController@productosBodega')->name('producto.bodega');
+
+
+
 
 //RUTAS PARA REPORTES
 Route::get('historial-producto-pdf/{cod_producto}','ProductoController@productoMovimientoPDF')->name('producto.pdf');

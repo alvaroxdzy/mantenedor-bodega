@@ -146,15 +146,18 @@ public function productoMovimientoPDF($cod_producto){
   $movimiento = DB::select('SELECT nro_documento_mov ,movimiento.tipo_documento, cod_producto , nombre_producto , detalle_movimiento.tipo , detalle_movimiento.fecha, detalle_movimiento.cantidad , detalle_movimiento.usuario , movimiento.estado FROM detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov WHERE cod_producto =  "'.$cod_producto.'"
     order by detalle_movimiento.id');
 
+$producto = Producto::where('codigo_producto',$cod_producto)->first();
 
   $data = [
-    'movimiento' => $movimiento
+    'movimiento' => $movimiento,
+    'producto' => $producto
 ];
 
 $pdf = PDF::loadView('historialProductoPDF',$data)->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
 
 
 return $pdf->download('archivo-pdf.pdf');
+
 }
 
 
