@@ -54,11 +54,6 @@ class BodegaController extends Controller
      return redirect()->back()->with('message', 'Bodega creada correctamente');
  }
 
- public function show($id)
- {
-        //
- }
-
  public function edit($id)
  {
     $bodega = Bodega::where('codigo_bodega',$id)->first();
@@ -68,10 +63,6 @@ class BodegaController extends Controller
 
 public function update(Request $request)  
 {
-      // $bodegaprueba = Bodega::where('codigo_bodega',$request->codigo_bodega)->first();
-      // if ($bodegaprueba) {
-      //    return redirect()->back()->with('error', 'ERROR CODIGO BODEGA EXISTENTE');
-      //}
 
  $bodega =Bodega::find($request->id);
  $bodega->codigo_bodega=$request->codigo_bodega; 

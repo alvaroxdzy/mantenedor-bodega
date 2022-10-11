@@ -20,7 +20,7 @@
                 </div>
                 <div class="mb-3 col-md-3">
                     <label> NRO DOCUMENTO </label>
-                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
+                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" required>
                 </div>
                 <div class="mb-3 col-md-4">
                     <label> EMPLEADO  </label>
@@ -179,7 +179,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
             var html = '';
             html+='<tr>';
-            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
             data.forEach(function(producto) {
                 html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
             });

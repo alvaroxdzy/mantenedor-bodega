@@ -55,12 +55,6 @@
                     </a>
                     <ul class="nav justify-content-end" id="ul_layout">
 
-                      <li id="li_layout" class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown" aria-haspopup="true" >Movimientos </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/crear-movimiento"> Ingreso bodega  </a> 
-                            <a class="dropdown-item" href="/salida-movimiento"> Salida bodega </a> 
-                        </div>
 
                         <li id="li_layout" class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle font-small"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" href="/bodegas"> Mantenedores  </a>
@@ -68,82 +62,95 @@
                                 <a class="dropdown-item" href="/busqueda-bodegas"> Bodegas </a> 
                                 <a class="dropdown-item" href="/busqueda-productos"> Productos </a> 
                                 <a class="dropdown-item" href="/busqueda-proveedores"> Proveedores </a> 
+                                <a class="dropdown-item" href="/busqueda-empleado"> Empleados </a> 
                             </div>
 
-                             <li id="li_layout"><a class="nav-link" id="linkLayout" href="/stock-productos">Inventario</a></li>
+                            <li id="li_layout" class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown" aria-haspopup="true" >Inventario </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/crear-movimiento"> Ingreso bodega  </a> 
+                                    <a class="dropdown-item" href="/salida-movimiento"> Salida bodega </a> 
+                                    <a class="dropdown-item" href="/stock-productos"> Reporte Inventario </a> 
+                                    <a class="dropdown-item" href="/inventario-empleados"> Reporte Prevención </a> 
 
-                            <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Reportes</a></li>
-                            <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">Salir</a></li>                     
-                        </ul>
+                                </div>
 
 
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <!-- Left Side Of Navbar -->
-                            <ul class="navbar-nav me-auto" id="ul_layout">
+                                <li id="li_layout"><a class="nav-link" id="linkLayout" >Orden de Reparación</a></li>
 
+                                <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Reportes</a></li>
+                                <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">Salir</a></li>                     
                             </ul>
 
-                            <!-- Right Side Of Navbar -->
-                            <ul class="navbar-nav ms-auto" id="ul_layout">
-                                <!-- Authentication Links -->
-                                @guest
-                                @if (Route::has('login'))
-                                <li id="li_layout" class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <!-- Left Side Of Navbar -->
+                                <ul class="navbar-nav me-auto" id="ul_layout">
+
+                                </ul>
+
+                                <!-- Right Side Of Navbar -->
+                                <ul class="navbar-nav ms-auto" id="ul_layout">
+                                    <!-- Authentication Links -->
+                                    @guest
+                                    @if (Route::has('login'))
+                                    <li id="li_layout" class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+                                    </li>
+                                    @endif
+
+                                    @if (Route::has('register'))
+                                    <li id="li_layout" class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                                    </li>
+                                    @endif
+                                    @else
+                                    <li id="li_layout" class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ Auth::user()->name }}
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                            {{ __('Cerrar sesión') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </li>
-                                @endif
-
-                                @if (Route::has('register'))
-                                <li id="li_layout" class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                                </li>
-                                @endif
-                                @else
-                                <li id="li_layout" class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-                                    </a>
-
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar sesión') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                            @endguest
-                        </ul>
+                                @endguest
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
 
-            <main class="py-4" >
-                @yield('content')
-            </main>
-        </div>
+                <main class="py-4" >
+                    @yield('content')
+                </main>
+            </div>
 
-    </body>
+        </body>
 
-    <footer class="page-footer font-small blue">
-        <div class="pie">
-          <p><strong>Santiago:</strong> Lincoyan 9780, Quilicura, Santiago, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 27207900 / <strong>Fax:</strong> (+56 2) 2720 79 50 / <strong>transportes@javiercortes.com</strong></p>
-          <p><strong>Antofagasta:</strong> Acantitita 425, Sector La Chimba, Antofagasta, Chile  / <strong>Tel&eacute;fono: </strong>(+56 55) 2552100</strong></p>
-      </div>
-      <div class="clear"></div>
-  </footer>
+        <footer class="page-footer font-small blue">
+            <div class="pie">
+              <p><strong>Santiago:</strong> Lincoyan 9780, Quilicura, Santiago, Chile  / <strong>Tel&eacute;fono: </strong>(+56 2) 27207900 / <strong>Fax:</strong> (+56 2) 2720 79 50 / <strong>transportes@javiercortes.com</strong></p>
+              <p><strong>Antofagasta:</strong> Acantitita 425, Sector La Chimba, Antofagasta, Chile  / <strong>Tel&eacute;fono: </strong>(+56 55) 2552100</strong></p>
+          </div>
+          <div class="clear"></div>
+      </footer>
 
-</body>
-</html>
+  </body>
+  </html>
 
 
-</html>
+  </html>
 

@@ -24,7 +24,7 @@
                 </div>
                 <div class="mb-3 col-md-3">
                     <label> NRO DOCUMENTO </label>
-                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
+                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" required>
                 </div>
                 <div class="mb-3 col-md-5">
                     <label> PROVEEDOR  </label>

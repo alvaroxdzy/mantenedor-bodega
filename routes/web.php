@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//RUTAS PARA BODEGAS
 Route::get('/bodegas', 'BodegaController@consulta')->name('bodegas');
 Route::get('/busqueda-bodegas','BodegaController@search')->name('bodega.search');
 Route::get('/crear-bodega','BodegaController@create')->name('bodega.create');
@@ -28,6 +29,7 @@ Route::get('/almacenar-bodega','BodegaController@store')->name('bodega.store');
 Route::get('/modificar-bodega/{id}','BodegaController@edit')->name('bodega.edit');
 Route::get('/actualizar-bodega','BodegaController@update')->name('bodega.update');
 
+//RUTAS PARA PRODUCTOS
 Route::get('/productos', 'ProductoController@consultaProductos')->name('productos');
 Route::get('crear-producto','ProductoController@create')->name('producto.create') ;
 Route::get('/almacenar-producto','ProductoController@store')->name('producto.store');
@@ -39,6 +41,7 @@ Route::get('/stock-productos','ProductoController@inventario')->name('producto.i
 Route::get('/filtrar-productos','ProductoController@filtrarInventario')->name('producto.filtrarInventario');
 Route::get('/historial-producto/{cod_producto}','ProductoController@productoHistorial')->name('producto.historial');
 
+//RUTAS PARA PROVEEDORES
 Route::get('/proveedores', 'ProveedorController@consultaProveedor')->name('proveedores');
 Route::get('crear-proveedor','ProveedorController@create')->name('proveedor.create') ;
 Route::get('/almacenar-proveedor','ProveedorController@store')->name('proveedor.store');
@@ -49,7 +52,7 @@ Route::get('/eliminar-proveedor/{id}','ProveedorController@destroy')->name('prov
 
 //Route::get('/modal', 'ProveedorController@modal')->name('proveedores');
 
-
+//RUTAS PARA MOVIMIENTOS
 Route::get('crear-movimiento','MovimientoController@create')->name('movimiento.create') ;
 Route::get('productos-movimiento/{id}','MovimientoController@traerProducto')->name('movimiento.traer_producto') ;
 Route::get('stock-movimiento/{cod_producto}','MovimientoController@traerStock')->name('movimiento.traer_stock') ;
@@ -57,9 +60,18 @@ Route::get('/almacenar-movimiento','MovimientoController@store')->name('movimien
 Route::get('salida-movimiento','MovimientoController@salida')->name('movimiento.salida') ;
 Route::get('producto-bodega/{cod_bodega}','MovimientoController@productosBodega')->name('producto.bodega');
 
-
-
+//RUTAS PARA EMPLEADOS
+Route::get('/busqueda-empleado','EmpleadoController@search')->name('empleado.search');
+Route::get('/crear-empleado','EmpleadoController@create')->name('empleado.create');
+Route::get('/almacenar-empleado','EmpleadoController@store')->name('empleado.store');
+Route::get('/modificar-empleado/{id}','EmpleadoController@edit')->name('empleado.edit');
+Route::get('/actualizar-empleado','EmpleadoController@update')->name('empleado.update');
+Route::get('/inventario-empleados','EmpleadoController@inventarioEmpleados')->name('empleado.inventarioEmpleados');
+Route::get('/filtrar-empleados','EmpleadoController@filtrarInventario')->name('empleado.filtrarInventario');
+Route::get('/historial-empleado/{rut}','EmpleadoController@productoHistorial')->name('producto.historial');
 
 //RUTAS PARA REPORTES
 Route::get('historial-producto-pdf/{cod_producto}','ProductoController@productoMovimientoPDF')->name('producto.pdf');
 Route::get('stock-producto-pdf/{cod_bodega}','ProductoController@InventarioBodegaPDF')->name('producto.pdf');
+Route::get('inventario-empleado-pdf/{cod_bodega}','EmpleadoController@InventarioBodegaPDF')->name('empleado.pdf');
+Route::get('historial-empleado-pdf/{rut}','EmpleadoController@empleadoMovimientoPDF')->name('producto.pdf');

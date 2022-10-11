@@ -43,41 +43,43 @@
       <h2 style="text-align: center;"> Historial de producto  </h2>
 
 
-      <div class="card" style="width: 30%;">
-        <h3> Codigo de producto : {{$producto->codigo_producto}} 
-          Nombre : {{$producto->nombre_producto}} </h3> 
+      <div class="card d-flex justify-content-end" style="width: 30%;">
+        <h3 > Codigo de producto : {{$producto->codigo_producto}} </h3>
       </div>
+      <div >
+       <h3>  Nombre : {{$producto->nombre_producto}}</h3> 
+     </div>
 
-      <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
-        <thead class="thead-light">
-          <tr>
-            <th>Documento</th> 
-            <th>Numero</th>
-            <th>Tipo</th>  
-            <th>Fecha</th>  
-            <th>Cantidad</th>   
-            <th>Estado</th>
-            <th>Usuario</th>     
+     <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
+      <thead class="thead-light">
+        <tr>
+          <th>Documento</th> 
+          <th>Numero</th>
+          <th>Tipo</th>  
+          <th>Fecha</th>  
+          <th>Cantidad</th>   
+          <th>Estado</th>
+          <th>Usuario</th>     
 
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($movimiento as $movimientos) 
-          <tr>
-            <td>{{$movimientos->tipo_documento}}</td>
-            <td>{{$movimientos->nro_documento_mov}}</td>
-            <td>{{$movimientos->tipo}}</td>
-            <td>{{$movimientos->fecha}}</td>
-            <td>{{$movimientos->cantidad}}</td>
-            <td>{{$movimientos->estado}} </td>
-            <td>{{$movimientos->usuario}} </td>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($movimiento as $movimientos) 
+        <tr>
+          <td>{{$movimientos->tipo_documento}}</td>
+          <td>{{$movimientos->nro_documento_mov}}</td>
+          <td>{{$movimientos->tipo}}</td>
+          <td>{{$movimientos->fecha}}</td>
+          <td>{{$movimientos->cantidad}}</td>
+          <td>{{$movimientos->estado}} </td>
+          <td>{{$movimientos->usuario}} </td>
 
-          </tr>
-          @endforeach
-        </tbody>
-      </table>  
-    </div>
-  </main>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>  
+  </div>
+</main>
 
 </body>
 <script>

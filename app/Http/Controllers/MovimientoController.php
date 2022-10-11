@@ -17,17 +17,21 @@ use DB;
 class MovimientoController extends Controller
 {
 
-  public function create()
-  {
+ public function __construct()
+ {
+  $this->middleware('auth');
+}
+public function create()
+{
       // $region = Regions::select('id','name')->get();
-   $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
-   $proveedor= Proveedor::select(DB::raw("CONCAT(rut_proveedor,'-',dig_rut_prov)as rut_proveedor"),'razon_social')->orderBy('razon_social')->get();
+ $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
+ $proveedor= Proveedor::select(DB::raw("CONCAT(rut_proveedor,'-',dig_rut_prov)as rut_proveedor"),'razon_social')->orderBy('razon_social')->get();
    //$producto= Producto::select('id','codigo_producto','nombre_producto')->get();
-   $empleado = Empleado::select('rut','nombres')->get();
+ $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
 
 
-   return view('movimientoIngreso')->with('proveedor',$proveedor)->with('bodega',$bodega)->with('empleado',$empleado);
- }
+ return view('movimientoIngreso')->with('proveedor',$proveedor)->with('bodega',$bodega)->with('empleado',$empleado);
+}
 
 public function productosBodega(Request $request){
   $producto = Producto::where('cod_bod_producto',$request->cod_bodega)->get();
@@ -35,10 +39,10 @@ public function productosBodega(Request $request){
 }
 
 
- public function salida()
- {
+public function salida()
+{
   $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
-  $empleado = Empleado::select('rut','nombres')->get();
+  $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
   $producto= Producto::select('id','codigo_producto','nombre_producto')->get();
   $vehiculo = Vehiculo::select('patente')->get();
 
@@ -58,9 +62,9 @@ public function traerProducto($id)
 public function traerStock($cod_producto){
 
   $stock = DB::table('detalle_movimiento')
-    ->select(array( DB::raw('(SUM(cantidad)) as stock')))->Where('cod_producto',$cod_producto)
-    ->get();
-    return $stock;
+  ->select(array( DB::raw('(SUM(cantidad)) as stock')))->Where('cod_producto',$cod_producto)
+  ->get();
+  return $stock;
 }
 
 
@@ -100,6 +104,8 @@ public function store(Request $request)
    $detalle->fecha=$request->fecha;  
    $detalle->tipo=$request->tipo;
    $detalle->usuario=$request->usuario;
+   $detalle->rut=$request->rut;
+   $detalle->patente=$request->patente;
    $detalle->save();
  }
  $movimiento->save();

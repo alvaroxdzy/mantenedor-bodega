@@ -9,7 +9,7 @@
 
   <B>CODIGO PRODUCTO : {{$producto}}  </B>   
 
-  <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped">
+  <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
     <thead class="thead-light">
       <tr>
         <th>Producto</th>
