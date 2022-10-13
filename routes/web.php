@@ -59,6 +59,9 @@ Route::get('stock-movimiento/{cod_producto}','MovimientoController@traerStock')-
 Route::get('/almacenar-movimiento','MovimientoController@store')->name('movimiento.store');
 Route::get('salida-movimiento','MovimientoController@salida')->name('movimiento.salida') ;
 Route::get('producto-bodega/{cod_bodega}','MovimientoController@productosBodega')->name('producto.bodega');
+Route::get('/busqueda-movimiento','MovimientoController@buscarMovimiento')->name('movimiento.buscarMovimiento');
+Route::get('/detalle-movimiento/{num_documento}','MovimientoController@cargarDetalleMovimiento')->name('movimiento.cargarDetalleMovimiento');
+
 
 //RUTAS PARA EMPLEADOS
 Route::get('/busqueda-empleado','EmpleadoController@search')->name('empleado.search');

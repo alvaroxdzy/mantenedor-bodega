@@ -583,3 +583,7 @@ nav {
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
   font-size: 17px;
 }
+
+.form-control {
+  padding: .190rem .37rem;
+}

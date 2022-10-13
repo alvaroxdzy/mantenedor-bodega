@@ -11,6 +11,7 @@
         <!-- <marquee > Ingreso de movimientos </marquee >  -->
 
         <div class="card-body">
+          <form class="form-inline">  
             <div>
                <div class="row">
                 <div class="mb-3 col-md-3">
@@ -24,7 +25,7 @@
                 </div>
                 <div class="mb-3 col-md-3">
                     <label> NRO DOCUMENTO </label>
-                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" required>
+                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
                 </div>
                 <div class="mb-3 col-md-5">
                     <label> PROVEEDOR  </label>
@@ -65,7 +66,7 @@
                 <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
             </div>
 
-        </div>    
+        </div> 
     </div>
 
 </div>
@@ -74,29 +75,28 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-        <form class="form-inline">  
-         <table class="table table-sm" id="tableMovimiento" style="width:100%">
-          <thead>
-            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+     <table class="table table-sm" id="tableMovimiento" style="width:100%">
+      <thead>
+        <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+        <br>
+        <tr>
             <br>
-            <tr>
-                <br>
-                <th>Codigo producto:</th>
-                <th>Producto:</th>
-                <th>Cantidad:</th>
-                <th>Valor unitario(neto):</th>
-                <th>IVA</th>
-                <th>Total:</th>
-                <th>Gestionar</th>
-            </tr>
-        </thead>
-        <tbody>
+            <th>Codigo producto:</th>
+            <th>Producto:</th>
+            <th>Cantidad:</th>
+            <th>Valor unitario(neto):</th>
+            <th>IVA</th>
+            <th>Total:</th>
+            <th>Gestionar</th>
+        </tr>
+    </thead>
+    <tbody>
 
-            <input type="hidden" name="contador" value="0" id="contador">
+        <input type="hidden" name="contador" value="0" id="contador">
 
-        </tbody>
-    </table>
-    <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+    </tbody>
+</table>
+<input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
 </form>
 
 
@@ -136,7 +136,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         $('#contador').val(contador);
 
 
-        productoBodegas();
+        productoBodegas(); 
+
         $('#cod_bodega').attr("disabled", true);
 
         $(document).on('click','#borrar_btn'+contador,function(){
@@ -177,7 +178,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
             var html = '';
             html+='<tr>';
-            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            html+='<td style="width:90px"> <select style="width:90px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
             data.forEach(function(producto) {
                 html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
             });
@@ -189,8 +190,6 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<td style="width:200px"><input style="width:200px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
             html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
-
-
 
             $('tbody').append(html);
 
@@ -204,7 +203,20 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
 </script>
 
+<script type="text/javascript">
+    function validarMovimientoIngreso()
+    {
+        var num_documento = $('num_documento').val();
+        if (num_documento == ''){
+            alert('PORFAVOR INGRESE NUMERO DOCUMENTO');
+            num_documento.focus();
+            return false;
+        }
+        return true;
+    }
 
+
+</script>
 
 
 <script>
@@ -248,6 +260,10 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
     cod_bodega = $('#cod_bodega').val();
     rut_proveedor = $('#rut_proveedor').val();
 
+    if (num_documento == ''){
+        alert('PORFAVOR INGRESE NUMERO DOCUMENTO');
+        $('#num_documento').focus();
+    }
 
     $.ajaxSetup({
         headers: {
@@ -271,11 +287,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
 
+
             if (data=='LISTASO') {
-                alert('Movimiento registrado');
+                alert('MOVIMIENTO REGISTRADO');
                 location.reload(); 
             } else {
-                alert('Ya existe el movimiento');
+                alert('YA EXISTE UN MOVIMIENTO CON ESTE CODIGO');
             }
         },
     });

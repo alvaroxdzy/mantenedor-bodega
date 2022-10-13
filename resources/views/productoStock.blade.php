@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div  class="container"> 
 
  <div class="card-header">
@@ -45,8 +43,8 @@
   <tbody id="trTable">
     @foreach($producto as $productos) 
     <tr>
-      <td><a class="nav-link" style="color:black " href="/historial-producto/{{$productos->cod_producto}}" id="btn-revisar" type="button">{{$productos->cod_producto}}</a></td>
-      <td><a class="nav-link" style="color:black " href="/historial-producto/{{$productos->cod_producto}}" id="btn-revisar" type="button">  {{$productos->nombre_producto}}</a> </td>
+      <td><a style="color:black " href="/historial-producto/{{$productos->cod_producto}}">{{$productos->cod_producto}}</a></td>
+      <td><a style="color:black " href="/historial-producto/{{$productos->cod_producto}}">{{$productos->nombre_producto}}</a> </td>
       <td>{{intval($productos->precio)}} </td>
       <td>{{$productos->stock}}</td>
 
@@ -56,6 +54,10 @@
     @endforeach
   </tbody>
 </table>  
+
+
+
+
 
 
 <script type="text/javascript">
@@ -113,8 +115,8 @@ $cod_bodega = $("#seleccionar-bodega option:selected").val();
           data.forEach(function(detalle) {
 
               $('#trTable').append('<tr>'+
-                                  '<td><a class="nav-link" style="color:black " href="/historial-producto/'+detalle.cod_producto+'" id="btn-revisar" type="button">'+detalle.cod_producto+'</a></td>'+
-                                  '<td><a class="nav-link" style="color:black " href="/historial-producto/'+detalle.cod_producto+'" id="btn-revisar" type="button">'+detalle.nombre_producto+'</a></td>'+
+                                  '<td><a style="color:black " href="/historial-producto/'+detalle.cod_producto+'">'+detalle.cod_producto+'</a></td>'+
+                                  '<td><a style="color:black " href="/historial-producto/'+detalle.cod_producto+'">'+detalle.nombre_producto+'</a></td>'+
                                   '<td>'+parseInt(detalle.neto)+'</td>'+
                                   '<td>'+detalle.cantidad+'</td>'+
                                   '<td>'+detalle.nombre_bodega+'</td>'+

@@ -41,8 +41,8 @@
   <tbody id="trTable">
     @foreach($inventarioEmpleado as $inventarioEmpleados) 
     <tr>
-      <td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button">{{$inventarioEmpleados->rut}}</a></td>
-      <td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button">{{$inventarioEmpleados->nombres}}</a> </td>
+      <td><a style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}">{{$inventarioEmpleados->rut}}</a></td>
+      <td><a style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}">{{$inventarioEmpleados->nombres}}</a> </td>
       <td>{{intval($inventarioEmpleados->productos_entregados)}} </td>
       <td>{{$inventarioEmpleados->nombre_bodega}}</td>
 

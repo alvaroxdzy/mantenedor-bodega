@@ -60,6 +60,7 @@ public function update(Request $request)
 
 public function inventarioEmpleados()
 {
+  
  $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get()->unique('codigo_bodega','nombre_bodega');
 
  $inventarioEmpleado = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 

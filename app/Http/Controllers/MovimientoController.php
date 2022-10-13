@@ -11,6 +11,7 @@ use App\Models\Empleado;
 use App\Models\DetalleMovimiento;
 use App\Models\Vehiculo;
 use DB;
+use App\Models\Folios;
 
 
 
@@ -30,6 +31,7 @@ public function create()
  $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
 
 
+
  return view('movimientoIngreso')->with('proveedor',$proveedor)->with('bodega',$bodega)->with('empleado',$empleado);
 }
 
@@ -45,11 +47,11 @@ public function salida()
   $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
   $producto= Producto::select('id','codigo_producto','nombre_producto')->get();
   $vehiculo = Vehiculo::select('patente')->get();
-
+   $folios = Folios::select('folio')->first();
 
   return view('movimientoSalida')->with('empleado',$empleado)
   //->with('producto',$producto)
-  ->with('bodega',$bodega)->with('vehiculo',$vehiculo);
+  ->with('bodega',$bodega)->with('vehiculo',$vehiculo)->with('folios',$folios);
 }
 
 public function traerProducto($id)
@@ -75,22 +77,22 @@ public function store(Request $request)
 
   $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->first();
   if ($movimiento_validar) {
-    return 'YA ESTA EN USO EL NUMERO DE DOCUMENTO';
-  }
+   return back()->with('error', 'ERROR CODIGO MOVIMIENTO EXISTENTE');
+ }
 
-  $movimiento =new Movimiento();
-  $movimiento->tipo_documento=$request->tipo_documento;
-  $movimiento->num_documento=$request->num_documento;
-  $movimiento->cod_bodega=$request->cod_bodega;
-  $movimiento->fecha=$request->fecha;     
-  $movimiento->tipo=$request->tipo;
-  $movimiento->estado=$request->estado;
-  $movimiento->usuario=$request->usuario;
+ $movimiento =new Movimiento();
+ $movimiento->tipo_documento=$request->tipo_documento;
+ $movimiento->num_documento=$request->num_documento;
+ $movimiento->cod_bodega=$request->cod_bodega;
+ $movimiento->fecha=$request->fecha;     
+ $movimiento->tipo=$request->tipo;
+ $movimiento->estado=$request->estado;
+ $movimiento->usuario=$request->usuario;
 
 
-  $arrayDatos = $request->arrayMovimiento;
+ $arrayDatos = $request->arrayMovimiento;
 
-  foreach ($arrayDatos as $datos) {
+ foreach ($arrayDatos as $datos) {
 
    $detalle = new DetalleMovimiento();
    $detalle->nro_documento_mov=$request->num_documento;
@@ -110,7 +112,30 @@ public function store(Request $request)
  }
  $movimiento->save();
 
+
+
+ $folio = DB::table('folios')->where('folio',$request->num_documento)->update(['folio' => $request->num_documento+1]);
+
+
  return "LISTASO";
 }
+
+public function buscarMovimiento(){
+  $movimiento = Movimiento::join('bodega','movimiento.cod_bodega', '=','bodega.codigo_bodega')->select('movimiento.num_documento','movimiento.tipo_documento','movimiento.tipo', 'movimiento.fecha' , 'movimiento.estado' , 'movimiento.usuario' , 'bodega.nombre_bodega as nombre_bodega')->get();
+
+  return view('busquedaMovimiento')->with('movimiento',$movimiento);
+}
+
+public function cargarDetalleMovimiento($num_documento)
+{
+  $detalleMovimiento = DetalleMovimiento::All()->where('nro_documento_mov',$num_documento);
+
+  $movimiento = Movimiento::join('bodega','movimiento.cod_bodega', '=','bodega.codigo_bodega')->select('movimiento.num_documento','movimiento.tipo_documento','movimiento.tipo', 'movimiento.fecha' , 'movimiento.estado' , 'movimiento.usuario' , 'bodega.nombre_bodega as nombre_bodega')->where('num_documento',$num_documento)->first();
+
+  return view('busquedaDetalleMovimiento')->with('detalleMovimiento',$detalleMovimiento)->with('movimiento',$movimiento);
+
+}
+
+
 
 }

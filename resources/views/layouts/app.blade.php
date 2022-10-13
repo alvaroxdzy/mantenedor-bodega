@@ -70,6 +70,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/crear-movimiento"> Ingreso bodega  </a> 
                                     <a class="dropdown-item" href="/salida-movimiento"> Salida bodega </a> 
+                                    <a class="dropdown-item" href="/busqueda-movimiento"> Movimientos </a> 
                                     <a class="dropdown-item" href="/stock-productos"> Reporte Inventario </a> 
                                     <a class="dropdown-item" href="/inventario-empleados"> Reporte Prevención </a> 
 

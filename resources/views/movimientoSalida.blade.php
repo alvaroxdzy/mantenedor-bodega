@@ -13,11 +13,15 @@
                 <div class="mb-3 col-md-3">
 
                     <label> TIPO DE DOCUMENTO</label>
-                    <select class="form-control" id="tipo_documento" name="tipo_documento"> 
+                    <select class="form-control" id="tipo_documento" name="tipo_documento" onchange="cargarFolio()"> 
                         <option>ORDEN TRABAJO </option>
                         <option>COMPROBANTE INTERNO</option>
                     </select>
                 </div>
+
+                <input type="hidden" name="folios" value="{{$folios->folio}}" id="folios">
+
+
                 <div class="mb-3 col-md-3">
                     <label> NRO DOCUMENTO </label>
                     <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" required>
@@ -31,6 +35,7 @@
                         @endforeach
                     </select>
                 </div>
+
                 <div class="mb-3 col-md-2">
                     <label> PATENTE  </label>
                     <select class="form-control" name="patente" id="patente" required >
@@ -42,7 +47,7 @@
                 </div>
             </div>
             <div class="row"> 
-                <div class="mb-3 col-md-3">
+                <div class="mb-3 col-md-4">
                     <label> BODEGA  </label>
                     <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
@@ -52,7 +57,7 @@
                     </select>
 
                 </div>
-                <div class="mb-3 col-md-3">
+                <div class="mb-3 col-md-2">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required> 
 
@@ -202,6 +207,27 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 </script>
 
 
+<script type="text/javascript">
+    function cargarFolio() 
+    {
+        var tipo_documento = $('#tipo_documento').val();
+
+        if( tipo_documento =='COMPROBANTE INTERNO'){
+          var folio =  $('#folios').val();
+          console.log(folio);
+          $('#num_documento').val(folio);
+      $('#num_documento').attr("disabled", true);
+  } else {
+     $('#num_documento').val('');
+     $('#num_documento').attr("disabled", false);
+ }
+
+}
+
+
+</script>
+
+
 <script>
     function grabar ()
     {
@@ -246,6 +272,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
     rut_proveedor = $('#rut_proveedor').val();
 
 
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -273,8 +300,16 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             if (data=='LISTASO') {
                 alert('Movimiento registrado');
                 location.reload(); 
+
+
+
             } else {
-                alert('Ya existe el movimiento');
+                alert('FOLIO VENCIDO INTENTE NUEVAMENTE');
+
+                var num = document.getElementById("num_documento");
+                console.log(num.value);
+                num.value = parseInt(num.value,10)+1;
+
             }
         },
     });
