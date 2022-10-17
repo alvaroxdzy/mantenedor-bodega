@@ -27,7 +27,7 @@ input[type=number] {
 					<div class="mb-3 col-md-2"> 
 						<h6  for="codigo_bodega">Rut Empleado</h6>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="rut" name="rut" minlength="1" maxlength="12" required  onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small class="form-text text-muted">Formato 11.111.111-1</small>
+						<small class="form-text text-muted">Formato 11111111-1</small>
 					</div>
 
 					<div class="mb-3 col-md-5"> 

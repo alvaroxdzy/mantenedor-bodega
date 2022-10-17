@@ -1435,6 +1435,26 @@ function calcularSaldoOT(alvaro){
  // b.disabled = false;
   bb.disabled = false;
 }
+}
+
+
+
+function promedioNeto(alvaro) {
+  try {
+    console.log(alvaro);
+    var numero = alvaro.id;
+    numero = numero.substring(14);
+    codigo_producto=$('#selectProducto'+numero+' option:selected').text();
+
+    console.log(codigo_producto);
+    $.get('neto-productos/' + codigo_producto, function(data){
+      console.log(data)
+     $('#neto'+numero).val(data);
+   });
+  } catch (e) {}
 
 }
+
+
+
 

@@ -47,7 +47,7 @@ public function salida()
   $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
   $producto= Producto::select('id','codigo_producto','nombre_producto')->get();
   $vehiculo = Vehiculo::select('patente')->get();
-   $folios = Folios::select('folio')->first();
+   $folios = Folios::select('folio','tipo')->where('tipo','S')->first();
 
   return view('movimientoSalida')->with('empleado',$empleado)
   //->with('producto',$producto)
@@ -114,7 +114,7 @@ public function store(Request $request)
 
 
 
- $folio = DB::table('folios')->where('folio',$request->num_documento)->update(['folio' => $request->num_documento+1]);
+ $folio = DB::table('folios')->where('folio',$request->num_documento)->where('tipo','S')->update(['folio' => $request->num_documento+1]);
 
 
  return "LISTASO";

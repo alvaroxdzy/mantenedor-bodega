@@ -29,8 +29,8 @@
 </div>
 </div>
 
-<table id="myTable" class="table dataTable no-footer dtr-inline collapsed table-striped">
-  <thead class="thead-light">
+<table id="myTable" class="table table-sm table-striped  " style="width:100%;" >
+  <thead >
     <tr>
       <th>rut</th>
       <th>nombres</th>
@@ -81,7 +81,7 @@
  var dataTable = new DataTable("#myTable", {
   perPage: 25,
   sortable: true,
-  fixedColumns: true,
+  fixedColumns: false,
   perPageSelect: [ 50, 100],
   labels: {
     placeholder: "Buscar..",

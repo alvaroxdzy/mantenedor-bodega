@@ -13,8 +13,7 @@
                 <div class="mb-3 col-md-3">
 
                     <label> TIPO DE DOCUMENTO</label>
-                    <select class="form-control" id="tipo_documento" name="tipo_documento" onchange="cargarFolio()"> 
-                        <option>ORDEN TRABAJO </option>
+                    <select class="form-control" id="tipo_documento" name="tipo_documento" onblur="cargarFolio()" onclick="cargarFolio();" readonly> 
                         <option>COMPROBANTE INTERNO</option>
                     </select>
                 </div>
@@ -184,7 +183,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
             var html = '';
             html+='<tr>';
-            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">--------</option>' ; 
             data.forEach(function(producto) {
                 html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
             });
@@ -210,18 +209,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function cargarFolio() 
     {
-        var tipo_documento = $('#tipo_documento').val();
-
-        if( tipo_documento =='COMPROBANTE INTERNO'){
           var folio =  $('#folios').val();
           console.log(folio);
           $('#num_documento').val(folio);
-      $('#num_documento').attr("disabled", true);
-  } else {
-     $('#num_documento').val('');
-     $('#num_documento').attr("disabled", false);
- }
-
 }
 
 

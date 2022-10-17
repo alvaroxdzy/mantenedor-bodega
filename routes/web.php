@@ -85,3 +85,4 @@ Route::get('/crear-orden','OrdenTrabajoController@create')->name('orden.create')
 Route::get('/traer-vehiculo/{patente}','OrdenTrabajoController@traerVehiculo')->name('orden.traerVehiculo');
 Route::get('/traer-empleados','OrdenTrabajoController@traerEmpleados')->name('orden.traerEmpleados');
 Route::get('traer-empleado/{nombres}','OrdenTrabajoController@traerDetalleEmpleado')->name('orden.traerDetallEmpleado') ;
+Route::get('neto-productos/{codigo_producto}','OrdenTrabajoController@promedioNeto')->name('orden.promedioNeto') ;

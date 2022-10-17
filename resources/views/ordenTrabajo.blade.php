@@ -6,13 +6,15 @@
         <h4 style="text-align:center;"> ORDEN DE TRABAJO</h4>
     </div>
 
+    <input type="hidden" name="folios" value="{{$folios->folio}}" id="folios">
+
     <div class="card border-primary mb-3">
         <div class="row"> 
 
             <div class="mb-3 col-md-4"> 
 
                 <label> Solicitante </label>
-                <select class="form-control"> 
+                <select class="form-control" onchange="cargarFolio()" onclick="cargarFolio();"> 
                     @foreach($empleado as $empleados)
                     <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
                     @endforeach
@@ -20,7 +22,7 @@
             </div>
             <div class="mb-3 col-md-2" style="width: 22.2%;">
                 <label> FOLIO  </label >
-                <input class="form-control" name="codigo" type="text" id="codigo" required readonly> 
+                <input class="form-control" name="num_documento" type="text" id="num_documento" required readonly> 
             </div> 
         </div>
     </div>
@@ -33,7 +35,7 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-               <div class="row">
+             <div class="row">
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
@@ -96,24 +98,24 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-     <table class="table table-sm" id="tablaEmpleados" style="width:100%">
-      <thead>
-        <h5> PERSONAL ASIGNADO</h5>
-        <tr>
-            <th>EMPLEADO</th>
-            <th>RUT</th>
-            <th>CARGO</th>
-            <th>FECHA INICIO</th>
-            <th>FECHA TERMINO</th>
-            <th>DESCRIPCION</th>
-            <th>GESTIONAR</th>
-        </tr>
-    </thead>
-    <tbody id="tbodyEmpleado">
-        <input type="hidden" name="contador" value="0" id="contador">
-    </tbody>
-</table>
-<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+       <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+          <thead>
+            <h5> PERSONAL ASIGNADO</h5>
+            <tr>
+                <th>EMPLEADO</th>
+                <th>RUT</th>
+                <th>CARGO</th>
+                <th>FECHA INICIO</th>
+                <th>FECHA TERMINO</th>
+                <th>DESCRIPCION</th>
+                <th>GESTIONAR</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyEmpleado">
+            <input type="hidden" name="contador" value="0" id="contador">
+        </tbody>
+    </table>
+    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
 </div>
 </div>
 
@@ -129,25 +131,44 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" style="width:100%">
-          <thead>
-            <h5> PRESUPUESTO ASIGNADO</h5>
-            <tr>
-                <th>Codigo producto:</th>
-                <th>Producto:</th>
-                <th>Cantidad:</th>
-                <th>Stock:</th>
-                <th>Saldo</th>
-                <th>Gestionar</th>
-            </tr>
-        </thead>
-        <tbody id="tbodyProductos">
+     <table class="table table-sm" style="width:100%">
+      <thead>
+        <h5> PRESUPUESTO ASIGNADO</h5>
+        <tr>
+            <th>CODIGO PRODUCTO</th>
+            <th>PRODUCTO</th>
+            <th>CANTIDAD</th>
+            <th>STOCK</th>
+            <th>SALDO</th>
+            <th>PRECIO UNITARIO</th>
+            <th>GESTIONAR</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyProductos">
 
-            <input type="hidden" name="contador2" value="0" id="contador2">
+        <input type="hidden" name="contador2" value="0" id="contador2">
 
-        </tbody>
-    </table>
-    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR PRESUPUESTO </button>
+    </tbody>
+</table>
+<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
+
+</div>
+
+<div class="card-body">
+ <table class="table table-sm" style="width:100%">
+  <thead>
+    <tr>
+        <th>SERVICIOS</th>
+        <th>DESCRIPCION:</th>
+        <th>VALOR:</th>
+        <th>GESTIONAR</th>
+    </tr>
+</thead>
+<tbody id="tbodyServicios">
+    <input type="hidden" name="contador3" value="0" id="contador3">
+</tbody>
+</table>
+<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_serv"  > AGREGAR SERVICIOS </button>
 
 </div>
 </div>
@@ -167,7 +188,7 @@
 </div>
 
 <div class="row">
-   <div class="mb-3 col-md-3" style="width: 25%;">
+ <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button"> Guardar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
@@ -183,6 +204,17 @@
 
 </form>
 </div>
+
+
+
+<script type="text/javascript">
+    function cargarFolio() 
+    {
+      var folio =  $('#folios').val();
+      console.log(folio);
+      $('#num_documento').val(folio);
+  }
+</script>
 
 <script type="text/javascript">
     window.onload = function(){
@@ -207,11 +239,11 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-vehiculo/' + patente, function(data){
 
-           $('#tipo_camion').val(data.tipo_camion);
-           $('#marca').val(data.marca);
-           $('#modelo').val(data.modelo);
-           $('#anio').val(data.anio);
-       });
+         $('#tipo_camion').val(data.tipo_camion);
+         $('#marca').val(data.marca);
+         $('#modelo').val(data.modelo);
+         $('#anio').val(data.anio);
+     });
     } catch (e) {}
 
 }
@@ -254,9 +286,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-empleado/' + nombres, function(data){
 
-           $('#rut'+numero).val(data.rut);
-           $('#cargo'+numero).val(data.cargo);
-       });
+         $('#rut'+numero).val(data.rut);
+         $('#cargo'+numero).val(data.cargo);
+     });
     } catch (e) {}
 }
 </script>
@@ -284,8 +316,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td > <select id="selectEmpleado'+contador+'" onchange="cargarEmpleado(this)" class="form-control" required><option value="">---SELECCIONE EMPLEADO---</option>' ; 
             data.forEach(function(empleado) {
-             html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
-         });
+               html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
+           });
             html+='</select> </td>' ;
             html+='<td><input id="rut'+contador+'" class="form-control" type="text" name="rut" required readonly></td>';
             html+='<td><input id="cargo'+contador+'" class="form-control"  type="text" name="cargo" required readonly></td>';
@@ -351,7 +383,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "cod_bodega":cod_bodega
+             "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -360,7 +392,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
             var html = '';
             html+='<tr>';
-            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador2+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador2+'" onchange="cargarProducto(this),cargarStock(this),promedioNeto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
             data.forEach(function(producto) {
                 html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
             });
@@ -369,6 +401,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador2+'" class="form-control" oninput="calcularSaldoOT(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
             html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador2+'" type="text" name="stock" required value="0" readonly></td>';
             html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador2+'" type="text" name="saldo" required readonly></td>';
+            html+='<td><input id="neto'+contador2+'" class="form-control" type="text" name="neto" readonly></td>';
             html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador2+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 
@@ -376,6 +409,55 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         },
     });
     }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var contador3 = 0;
+        $('#agregar_serv').on('click',function(){
+
+            if (contador3==0){
+
+            } else {
+                $('#borrar_btn'+contador3).attr('hidden',true);
+            }
+
+            contador3 = contador3+1;
+            $('#contador3').val(contador3);
+
+            servicios();
+            $('#cod_bodega').attr("disabled", true);
+
+            $(document).on('click','#borrar_btn'+contador3,function(){
+
+                $(this).closest('tr').remove();
+                contador3 = contador3-1;
+                $('#contador3').val(contador3);
+                $('#borrar_btn'+contador3).attr('hidden',false);
+
+            });
+        })
+
+    });
+
+</script>
+
+<script type="text/javascript">
+    function servicios() {
+
+     contador3 = $('#contador3').val();
+
+     var html = '';
+     html+='<tr>';
+     html+='<td><input id="servicio'+contador3+'" class="form-control" type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
+     html+='<td><input id="descripcion_servicio'+contador3+'" class="form-control" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
+     html+='<td><input id="valor_servicio'+contador3+'" class="form-control" type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
+     html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador3+'" type="button"> Eliminar </button> </td>';
+     html+='<tr>';
+
+     $('#tbodyServicios').append(html);
+ };
 
 </script>
 
