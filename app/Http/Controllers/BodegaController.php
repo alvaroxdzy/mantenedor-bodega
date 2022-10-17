@@ -18,9 +18,6 @@ class BodegaController extends Controller
 
     public function create()
     {
-      // $region = Regions::select('id','name')->get();
-      // $comuna = Communes::select('id','name')->get();
-
         return view('crearBodega');
     }
     public function index(Request $request)

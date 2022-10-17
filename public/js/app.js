@@ -1360,6 +1360,8 @@ function cargarProducto(alvaro) {
 
 }
 
+
+
 function cargarStock(alvaro) {
   try {
 

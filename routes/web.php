@@ -78,3 +78,10 @@ Route::get('historial-producto-pdf/{cod_producto}','ProductoController@productoM
 Route::get('stock-producto-pdf/{cod_bodega}','ProductoController@InventarioBodegaPDF')->name('producto.pdf');
 Route::get('inventario-empleado-pdf/{cod_bodega}','EmpleadoController@InventarioBodegaPDF')->name('empleado.pdf');
 Route::get('historial-empleado-pdf/{rut}','EmpleadoController@empleadoMovimientoPDF')->name('producto.pdf');
+
+
+//RUTAS PARA ORDENES DE TRABAJO
+Route::get('/crear-orden','OrdenTrabajoController@create')->name('orden.create');
+Route::get('/traer-vehiculo/{patente}','OrdenTrabajoController@traerVehiculo')->name('orden.traerVehiculo');
+Route::get('/traer-empleados','OrdenTrabajoController@traerEmpleados')->name('orden.traerEmpleados');
+Route::get('traer-empleado/{nombres}','OrdenTrabajoController@traerDetalleEmpleado')->name('orden.traerDetallEmpleado') ;

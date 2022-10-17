@@ -8,13 +8,13 @@
 
  <div class="card-header">
   <div class="row">
-     <h3>Entrega de productos por empleado</h3>
-   </div>
-<div class="row">
- <div class=" mb-3 col-md-3"> 
+   <h3>Entrega de productos por empleado</h3>
+ </div>
+ <div class="row">
+   <div class=" mb-3 col-md-3"> 
     <select class="form-select form-select-sm " id="seleccionar-bodega">
       <option value="TODAS LAS BODEGAS">TODAS LAS BODEGAS</option>
-      <option value="003">BODEGA PREVENCION</option>
+      <option value="003">BODEGA PREVENCION SANTIAGO</option>
     </select>
 
   </div>
@@ -51,19 +51,30 @@
   </tbody>
 </table>  
 
+<div id="error"> </div>
+@if(session()->has('message'))
+<div class="alert alert-success">
+  {{ session()->get('message') }}
+</div>
+@endif
+@if(session()->has('error'))
+<div class="alert alert-danger">
+  {{ session()->get('error') }}
+</div>
+@endif
 
 <script type="text/javascript">
 
  $(document).ready(function(){
-        $('#generar-pdf').on('click',function(){
+  $('#generar-pdf').on('click',function(){
 
-$cod_bodega = $("#seleccionar-bodega option:selected").val();
- location.href = "inventario-empleado-pdf/"+$cod_bodega;
+    $cod_bodega = $("#seleccionar-bodega option:selected").val();
+    location.href = "inventario-empleado-pdf/"+$cod_bodega;
 
-})
+  })
 });
 
-  </script>
+</script>
 
 
 <script>
@@ -106,12 +117,12 @@ $cod_bodega = $("#seleccionar-bodega option:selected").val();
           //$('#trTable').empty();
           data.forEach(function(detalle) {
 
-              $('#trTable').append('<tr>'+
-                                  '<td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button">'+detalle.rut+'</a></td>'+
-                                  '<td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button"> '+detalle.nombres+'</a></td>'+
-                                  '<td style="width:25%" >'+detalle.productos_entregados+'</td>'+
-                                  '<td>'+detalle.nombre_bodega+'</td>'+
-                                  '</tr>');
+            $('#trTable').append('<tr>'+
+              '<td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button">'+detalle.rut+'</a></td>'+
+              '<td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button"> '+detalle.nombres+'</a></td>'+
+              '<td style="width:25%" >'+detalle.productos_entregados+'</td>'+
+              '<td>'+detalle.nombre_bodega+'</td>'+
+              '</tr>');
 
           });
 
