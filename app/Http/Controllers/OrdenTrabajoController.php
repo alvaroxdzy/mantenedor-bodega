@@ -15,9 +15,10 @@ class OrdenTrabajoController extends Controller
     public function create()
 
     {
+        $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
         $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
         $vehiculo = Vehiculo::select('patente')->get();
-        return view('OrdenTrabajo')->with('vehiculo',$vehiculo)->with('bodega',$bodega);
+        return view('OrdenTrabajo')->with('vehiculo',$vehiculo)->with('bodega',$bodega)->with('empleado',$empleado);
 
     }
 

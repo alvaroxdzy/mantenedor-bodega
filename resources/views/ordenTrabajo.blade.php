@@ -6,6 +6,26 @@
         <h4 style="text-align:center;"> ORDEN DE TRABAJO</h4>
     </div>
 
+    <div class="card border-primary mb-3">
+        <div class="row"> 
+
+            <div class="mb-3 col-md-4"> 
+
+                <label> Solicitante </label>
+                <select class="form-control"> 
+                    @foreach($empleado as $empleados)
+                    <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3 col-md-2" style="width: 22.2%;">
+                <label> FOLIO  </label >
+                <input class="form-control" name="codigo" type="text" id="codigo" required readonly> 
+            </div> 
+        </div>
+    </div>
+
+
     <div class="card border-primary mb-3"> 
 
         <!-- <marquee > Ingreso de movimientos </marquee >  -->
@@ -13,7 +33,7 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-             <div class="row">
+               <div class="row">
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
@@ -73,37 +93,95 @@
 
 </div>
 
+<div class="card border-primary mb-3"> 
+    <div class="card-body">
+
+     <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+      <thead>
+        <h5> PERSONAL ASIGNADO</h5>
+        <tr>
+            <th>EMPLEADO</th>
+            <th>RUT</th>
+            <th>CARGO</th>
+            <th>FECHA INICIO</th>
+            <th>FECHA TERMINO</th>
+            <th>DESCRIPCION</th>
+            <th>GESTIONAR</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyEmpleado">
+        <input type="hidden" name="contador" value="0" id="contador">
+    </tbody>
+</table>
+<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+</div>
+</div>
+
+
+<div class="card border-primary mb-3"> 
+    <div class="card-body">
+        <h5> DIAGNOSTICO </h5>
+        <textarea style="text-transform:uppercase" type="text-center" class="form-control" id="diagnostico"  name="diganostico"  onkeyup="javascript:this.value=this.value.toUpperCase();" for="diagnostico"></textarea>
+    </div>
+</div>
+
 
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+       <table class="table table-sm" style="width:100%">
           <thead>
-            <h5> PERSONAL ASIGNADO</h5>
+            <h5> PRESUPUESTO ASIGNADO</h5>
             <tr>
-                <br>
-                <th>EMPLEADO</th>
-                <th>RUT</th>
-                <th>CARGO</th>
-                <th>FECHA INICIO</th>
-                <th>FECHA TERMINO</th>
-                <th>DESCRIPCION</th>
-                <th>GESTIONAR</th>
+                <th>Codigo producto:</th>
+                <th>Producto:</th>
+                <th>Cantidad:</th>
+                <th>Stock:</th>
+                <th>Saldo</th>
+                <th>Gestionar</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tbodyProductos">
 
-            <input type="hidden" name="contador" value="0" id="contador">
+            <input type="hidden" name="contador2" value="0" id="contador2">
 
         </tbody>
     </table>
-    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR PRESUPUESTO </button>
+
+</div>
+</div>
+
+<div class="card border-primary mb-3"> 
+    <div class="card-body">
+        <h5> TRABAJOS REALIZADOS </h5>
+        <textarea style="text-transform:uppercase" type="text-center" class="form-control" id="trabajos_realizados"  name="trabajos_realizados"  onkeyup="javascript:this.value=this.value.toUpperCase();" for="trabajos_realizados"></textarea>
+    </div>
+</div>
+
+<div class="card border-primary mb-3"> 
+    <div class="card-body">
+        <h5> OBSERVACIONES SUPERVISOR </h5>
+        <textarea style="text-transform:uppercase" type="text-center" class="form-control" id="observaciones"  name="observaciones"  onkeyup="javascript:this.value=this.value.toUpperCase();" for="observaciones"></textarea>
+    </div>
+</div>
+
+<div class="row">
+   <div class="mb-3 col-md-3" style="width: 25%;">
+    <button class="btn btn-primary btn-sm" type="button"> Guardar </button>
+</div>
+<div class="mb-3 col-md-3" style="width: 25%;">
+    <button class="btn btn-primary btn-sm" type="button"> Imprimir </button>
+</div>
+<div class="mb-3 col-md-3" style="width: 25%;">
+    <button class="btn btn-primary btn-sm" type="button"> Cerrar </button>
+</div>
+<div class="mb-3 col-md-3" style="width: 25%;">
+    <button class="btn btn-primary btn-sm" type="button"> Anular </button>
+</div>
+</div>
+
 </form>
-
-
-
-</div>
-</div>
 </div>
 
 <script type="text/javascript">
@@ -129,11 +207,11 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-vehiculo/' + patente, function(data){
 
-         $('#tipo_camion').val(data.tipo_camion);
-         $('#marca').val(data.marca);
-         $('#modelo').val(data.modelo);
-         $('#anio').val(data.anio);
-     });
+           $('#tipo_camion').val(data.tipo_camion);
+           $('#marca').val(data.marca);
+           $('#modelo').val(data.modelo);
+           $('#anio').val(data.anio);
+       });
     } catch (e) {}
 
 }
@@ -176,9 +254,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-empleado/' + nombres, function(data){
 
-         $('#rut'+numero).val(data.rut);
-         $('#cargo'+numero).val(data.cargo);
-     });
+           $('#rut'+numero).val(data.rut);
+           $('#cargo'+numero).val(data.cargo);
+       });
     } catch (e) {}
 }
 </script>
@@ -206,8 +284,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td > <select id="selectEmpleado'+contador+'" onchange="cargarEmpleado(this)" class="form-control" required><option value="">---SELECCIONE EMPLEADO---</option>' ; 
             data.forEach(function(empleado) {
-               html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
-           });
+             html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
+         });
             html+='</select> </td>' ;
             html+='<td><input id="rut'+contador+'" class="form-control" type="text" name="rut" required readonly></td>';
             html+='<td><input id="cargo'+contador+'" class="form-control"  type="text" name="cargo" required readonly></td>';
@@ -217,13 +295,87 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 
-            $('tbody').append(html);
+            $('#tbodyEmpleado').append(html);
         },
     });
 
 
     }
 
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var contador2 = 0;
+        $('#agregar_prod').on('click',function(){
+        //    $('#selectDocumento').attr("disabled", true);
+
+        if (contador2==0){
+
+        } else {
+            $('#borrar_btn'+contador2).attr('hidden',true);
+        }
+
+        contador2 = contador2+1;
+        $('#contador2').val(contador2);
+
+        productoBodegas();
+        $('#cod_bodega').attr("disabled", true);
+
+        $(document).on('click','#borrar_btn'+contador2,function(){
+
+            $(this).closest('tr').remove();
+            contador2 = contador2-1;
+            $('#contador2').val(contador2);
+            $('#borrar_btn'+contador2).attr('hidden',false);
+
+        });
+    })
+
+    });
+
+</script>
+
+<script type="text/javascript">
+    function productoBodegas () {
+
+        cod_bodega =  $('#cod_bodega option:selected').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
+         data:{
+           "cod_bodega":cod_bodega
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            console.log(data);
+
+            contador2 = $('#contador2').val();
+
+            var html = '';
+            html+='<tr>';
+            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador2+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            data.forEach(function(producto) {
+                html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
+            });
+            html+='</select> </td>' ;
+            html+='<td><input id="nombre_producto'+contador2+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
+            html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador2+'" class="form-control" oninput="calcularSaldoOT(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
+            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador2+'" type="text" name="stock" required value="0" readonly></td>';
+            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador2+'" type="text" name="saldo" required readonly></td>';
+            html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador2+'" type="button"> Eliminar </button> </td>';
+            html+='<tr>';
+
+            $('#tbodyProductos').append(html);
+        },
+    });
+    }
 
 </script>
 

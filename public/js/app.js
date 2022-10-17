@@ -1409,3 +1409,32 @@ function calcularSaldo(alvaro){
 }
 }
 
+
+function calcularSaldoOT(alvaro){
+
+  var contador = alvaro.id;
+  contador = contador.substring(8);
+
+  var cantidad = $('#cantidad'+contador).val();
+  var stock= $('#stock'+contador).val();
+  var total = stock-cantidad;
+
+  if (total<0){
+   alert('Debe ingresar una cantidad menor o igual al stock disponible...')
+   $('#saldo'+contador).val('ERROR');
+   //const a = document.getElementById("grabar-salida")
+   const aa = document.getElementById("agregar_prod")
+   aa.disabled = true;
+  // a.disabled = true;
+   return false;
+ } else {
+
+  $('#saldo'+contador).val(total);
+  //const b = document.getElementById("grabar-salida")
+  const bb = document.getElementById("agregar_prod")
+ // b.disabled = false;
+  bb.disabled = false;
+}
+
+}
+
