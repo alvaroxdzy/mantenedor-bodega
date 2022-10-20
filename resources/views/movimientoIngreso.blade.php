@@ -81,10 +81,10 @@
         <br>
         <tr>
             <br>
-            <th>Codigo producto:</th>
-            <th>Producto:</th>
-            <th>Cantidad:</th>
-            <th>Valor unitario(neto):</th>
+            <th>Codigo </th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Valor unitario(neto)</th>
             <th>IVA</th>
             <th>Total:</th>
             <th>Gestionar</th>
@@ -178,16 +178,16 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
             var html = '';
             html+='<tr>';
-            html+='<td style="width:90px"> <select style="width:90px" id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            html+='<td> <select  id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">------</option>' ; 
             data.forEach(function(producto) {
                 html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
             });
             html+='</select> </td>' ;
-            html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
-            html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador+'" class="form-control" oninput="multiplicar(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
-            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="valoress'+contador+'" oninput="multiplicar(this)"  type="text" name="neto" required onkeypress="return valideKey(event);"></td>';
-            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="iva'+contador+'" type="text" name="iva" required readonly></td>';
-            html+='<td style="width:200px"><input style="width:200px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
+            html+='<td><input style="width:600px" id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
+            html+='<td ><input style="width:75px" id="cantidad'+contador+'" class="form-control" oninput="multiplicar(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
+            html+='<td><input style="width:120px" class="form-control"  id="valoress'+contador+'" oninput="multiplicar(this)"  type="text" name="neto" required onkeypress="return valideKey(event);"></td>';
+            html+='<td ><input style="width:100px" class="form-control"  id="iva'+contador+'" type="text" name="iva" required readonly></td>';
+            html+='<td ><input style="width:100px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
             html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 

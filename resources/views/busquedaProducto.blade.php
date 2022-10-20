@@ -35,8 +35,8 @@
             <td>{{$producto->observacion_producto}}</td>
             <td>{{$producto->nombre_bodega}}</td>
             <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar </a>
-              <a class="btn btn-outline-danger btn-sm" onclick="eliminar({{$producto->id}})"> Eliminar  </a></td>
-
+              </td>
+<!-- <a class="btn btn-outline-danger btn-sm" onclick="eliminar({{$producto->id}})"> Eliminar  </a>  -->
             </tr>
             @endforeach
           </tbody>
