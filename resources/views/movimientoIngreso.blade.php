@@ -103,7 +103,71 @@
 
 </div>
 </div>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Modal Header</h2>
+  </div>
+  <div class="modal-body">
+
+    <table id="myTable" class="table table-sm table-striped  " style="width:100%;" >
+  <thead >
+    <tr>
+      <th>codigo</th>
+      <th>producto</th>
+    </tr>
+  </thead>
+  <tbody id="trTable">
+  </tbody>
+</table>  
+
 </div>
+<div class="modal-footer">
+  <h3>Modal Footer</h3>
+</div>
+</div>
+
+</div>
+
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+}
+}
+</script>
+
 
 <script type="text/javascript">
     window.onload = function(){
@@ -180,6 +244,13 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td> <select  id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">------</option>' ; 
             data.forEach(function(producto) {
+
+            $('#trTable').append('<tr>'+
+              '<td>'+producto.codigo_producto+'</td>'+
+              '<td>'+producto.nombre_producto+'</td>'+
+              '</tr>');
+
+
                 html+='<option value="'+producto.codigo_producto+'">'+producto.nombre_producto+'</option>'; 
             });
             html+='</select> </td>' ;

@@ -27,12 +27,12 @@ public function create()
       // $region = Regions::select('id','name')->get();
  $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
  $proveedor= Proveedor::select(DB::raw("CONCAT(rut_proveedor,'-',dig_rut_prov)as rut_proveedor"),'razon_social')->orderBy('razon_social')->get();
-   //$producto= Producto::select('id','codigo_producto','nombre_producto')->get();
+ $productos=Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.codigo_producto','producto.nombre_producto', 'producto.observacion_producto' , 'bodega.nombre_bodega as nombre_bodega' , 'bodega.codigo_bodega as cod_bodega')->get();
  $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
 
 
 
- return view('movimientoIngreso')->with('proveedor',$proveedor)->with('bodega',$bodega)->with('empleado',$empleado);
+ return view('movimientoIngreso')->with('proveedor',$proveedor)->with('bodega',$bodega)->with('empleado',$empleado)->with('productos',$productos);
 }
 
 public function productosBodega(Request $request){
@@ -107,7 +107,7 @@ public function store(Request $request)
  }
  $movimiento->save();
 
-$folio = DB::table('folios')->update(['folio' => $request->num_documento+1]);
+ $folio = DB::table('folios')->update(['folio' => $request->num_documento+1]);
 
  return "LISTASO";
 }
