@@ -185,7 +185,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">--------</option>' ; 
             data.forEach(function(producto) {
-                html+='<option value="'+producto.id+'">'+producto.codigo_producto+'</option>'; 
+                html+='<option value="'+producto.codigo_producto+'">'+producto.nombre_producto+'</option>'; 
             });
             html+='</select> </td>' ;
             html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';

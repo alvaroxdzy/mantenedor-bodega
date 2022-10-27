@@ -1346,18 +1346,31 @@ function multiplicar(sumas){
 
 //BUSCA EL PRODUCTO POR EL CODIGO, Y CARGA EL NOMBRE.
 function cargarProducto(alvaro) {
-  try {
     console.log(alvaro);
     var numero = alvaro.id;
     numero = numero.substring(14);
-    id=alvaro.value;
-    console.log(numero , id );
-    $.get('productos-movimiento/' + id, function(data){
+    var cod_producto=alvaro.value;
+    var cod_bodega = $('#cod_bodega').val();
+    console.log(numero , cod_producto , cod_bodega );
 
-     $('#nombre_producto'+numero).val(data.nombre_producto);
-   });
-  } catch (e) {}
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      }); 
 
+      $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/traer-producto", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+          "cod_bodega":cod_bodega,
+          "cod_producto":cod_producto
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+          console.log(data);
+          $('#nombre_producto'+numero).val(data.nombre_producto);
+         },
+     });
 }
 
 

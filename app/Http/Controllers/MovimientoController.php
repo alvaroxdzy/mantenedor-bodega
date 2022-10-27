@@ -45,7 +45,7 @@ public function salida()
 {
   $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
   $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
-  $producto= Producto::select('id','codigo_producto','nombre_producto')->get();
+  $producto= Producto::select('codigo_producto','nombre_producto')->get();
   $vehiculo = Vehiculo::select('patente')->get();
   $folios = Folios::select('folio')->first();
 
@@ -56,8 +56,8 @@ public function salida()
 
 public function traerProducto($cod_producto,$cod_bodega)
 {
-  $producto =Producto::where($id);
-  return $producto;
+  $producto =Producto::where('codigo_producto',$cod_producto)->where('cod_bod_producto',$cod_bodega)->get();
+  return view('welcome');
 
 }
 
