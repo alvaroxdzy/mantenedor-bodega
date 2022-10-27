@@ -50,12 +50,8 @@ input[type=number] {
 					<div class="mb-3 col-md-4">
 						<label for="comuna_bodega">Sucursal Bodega</label>
 						<select class="form-control" id="sucursal_bodega" name="comuna_bodega" placeholder="Seleccione comuna bodega" required>
-							<option value="{{$bodega->comuna_bodega}}">{{$bodega->comuna_bodega}}</option>
-							@foreach($comuna as $comunas)
-
-							<option value="{{$comunas->comuna_bodega}}">{{$comunas->comuna_bodega}} </option>
-
-							@endforeach
+							<option value="SANTIAGO , REGION METROPOLITANA">SANTIAGO , REGION METROPOLITANA</option>
+							<option value="LA CHIMBA , ANTOFAGASTA">LA CHIMBA , ANTOFAGASTA </option>			
 						</select> 
 					</div>
 				</div>

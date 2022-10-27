@@ -14,7 +14,7 @@
             <div class="mb-3 col-md-4"> 
 
                 <label> Solicitante </label>
-                <select class="form-control" onchange="cargarFolio()" onclick="cargarFolio();"> 
+                <select class="form-control" onchange="cargarFolio()" onclick="cargarFolio()" id="solicitante" name="solicitante" > 
                     @foreach($empleado as $empleados)
                     <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
                     @endforeach
@@ -189,7 +189,7 @@
 
 <div class="row">
  <div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button"> Guardar </button>
+    <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> Guardar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button"> Imprimir </button>
@@ -279,7 +279,6 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function cargarEmpleado(empleados) {
       try {
-        console.log(empleados);
         var numero = empleados.id;
         numero = numero.substring(14);
         nombres=empleados.value;
@@ -308,7 +307,6 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          data:{
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-            console.log(data);
 
             contador = $('#contador').val();
 
@@ -323,7 +321,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<td><input id="cargo'+contador+'" class="form-control"  type="text" name="cargo" required readonly></td>';
             html+='<td><input class="form-control" id="fecha_inicio'+contador+'" type="date" name="fecha_inicio" required ></td>';
             html+='<td><input class="form-control" id="fecha_termino'+contador+'" type="date" name="fecha_termino"  ></td>';
-            html+='<td><input id="descripcion'+contador+'" class="form-control" type="text" name="descripcion"></td>';
+            html+='<td><input id="detalle'+contador+'" class="form-control" type="text" name="detalle"></td>';
             html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 
@@ -346,7 +344,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         if (contador2==0){
 
         } else {
-            $('#borrar_btn'+contador2).attr('hidden',true);
+            $('#borrar_btn2'+contador2).attr('hidden',true);
         }
 
         contador2 = contador2+1;
@@ -355,12 +353,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         productoBodegas();
         $('#cod_bodega').attr("disabled", true);
 
-        $(document).on('click','#borrar_btn'+contador2,function(){
+        $(document).on('click','#borrar_btn2'+contador2,function(){
 
             $(this).closest('tr').remove();
             contador2 = contador2-1;
             $('#contador2').val(contador2);
-            $('#borrar_btn'+contador2).attr('hidden',false);
+            $('#borrar_btn2'+contador2).attr('hidden',false);
 
         });
     })
@@ -398,11 +396,11 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             });
             html+='</select> </td>' ;
             html+='<td><input id="nombre_producto'+contador2+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
-            html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador2+'" class="form-control" oninput="calcularSaldoOT(this)" type="text" name="cantidad" required placeholder="" onkeypress="return valideKey(event);"></td>';
+            html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador2+'" class="form-control" oninput="calcularSaldoOT(this)" type="text" name="cantidad" value="0" onkeypress="return valideKey(event);"></td>';
             html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador2+'" type="text" name="stock" required value="0" readonly></td>';
             html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador2+'" type="text" name="saldo" required readonly></td>';
             html+='<td><input id="neto'+contador2+'" class="form-control" type="text" name="neto" readonly></td>';
-            html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador2+'" type="button"> Eliminar </button> </td>';
+            html+='<td><button class="btn btn-primary"  id="borrar_btn2'+contador2+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 
             $('#tbodyProductos').append(html);
@@ -412,6 +410,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
 </script>
 
+
+
+
 <script type="text/javascript">
     $(document).ready(function(){
         var contador3 = 0;
@@ -420,7 +421,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             if (contador3==0){
 
             } else {
-                $('#borrar_btn'+contador3).attr('hidden',true);
+                $('#borrar_btn3'+contador3).attr('hidden',true);
             }
 
             contador3 = contador3+1;
@@ -429,12 +430,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             servicios();
             $('#cod_bodega').attr("disabled", true);
 
-            $(document).on('click','#borrar_btn'+contador3,function(){
+            $(document).on('click','#borrar_btn3'+contador3,function(){
 
                 $(this).closest('tr').remove();
                 contador3 = contador3-1;
                 $('#contador3').val(contador3);
-                $('#borrar_btn'+contador3).attr('hidden',false);
+                $('#borrar_btn3'+contador3).attr('hidden',false);
 
             });
         })
@@ -453,11 +454,216 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
      html+='<td><input id="servicio'+contador3+'" class="form-control" type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
      html+='<td><input id="descripcion_servicio'+contador3+'" class="form-control" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
      html+='<td><input id="valor_servicio'+contador3+'" class="form-control" type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
-     html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador3+'" type="button"> Eliminar </button> </td>';
+     html+='<td><button class="btn btn-primary"  id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
      html+='<tr>';
 
      $('#tbodyServicios').append(html);
  };
+
+</script>
+
+
+<script type="text/javascript">
+    function grabarOrden()
+    {
+       m = 0;
+       e = $('#contador').val();
+       arrayPersonal = [];
+
+
+       if (e == 0 ){
+        arrayPersonal;
+    } else {
+
+        while (m < e) {
+          m ++;
+
+          var datos = {
+            'empleado':$("#selectEmpleado"+m+" option:selected").text(),
+            'rut':$("#rut"+m).val(),
+            'cargo':$('#cargo'+m).val(),
+            'fecha_inicio':$('#fecha_inicio'+m).val(),
+            'fecha_termino':$('#fecha_termino'+m).val(),
+            'detalle':$('#detalle'+m).val()
+        };
+
+        arrayPersonal.push(datos);
+
+    }
+}
+
+n = 0;
+p = $('#contador2').val();
+arrayProductos = [];
+
+
+if (p == 0 ){
+    arrayProductos;
+} else {
+
+    while (n < p) {
+      n ++;
+
+      var datos2 = {
+        'cod_producto':$("#selectProducto"+n+" option:selected").text(),
+        'producto':$("#nombre_producto"+n).val(),
+        'cantidad':'-'+$('#cantidad'+n).val(),
+        'precio':$('#neto'+n).val()
+    };
+    arrayProductos.push(datos2);
+
+}
+}
+
+o = 0;
+s = $('#contador3').val();
+arrayServicios = [];
+
+
+if (s == 0 ){
+    arrayServicios;
+} else {
+
+    while (o < s) {
+      o ++;
+
+      var datos3 = {
+        'servicio':$("#servicio"+o).val(),
+        'descripcion_servicio':$("#descripcion_servicio"+o).val(),
+        'valor_servicio':$('#valor_servicio'+o).val()
+    };
+    arrayServicios.push(datos3);
+}
+}
+   //console.log(arrayServicios);
+   console.log(arrayProductos);
+   //console.log(arrayPersonal);
+   num_documento = $('#num_documento').val();
+   usuario = $('#usuario').val();
+   solicitante = $('#solicitante').val();
+   fecha= $('#fecha').val();
+   patente= $('#patente').val();
+   tipo_camion = $('#tipo_camion').val();
+   marca = $('#marca').val();
+   modelo = $('#modelo').val();
+   anio = $('#anio').val();
+   cod_bodega = $('#cod_bodega').val();
+   diagnostico = $('#diagnostico').val();
+   trabajos_realizados = $('#trabajos_realizados').val();
+   observaciones = $('#observaciones').val();
+
+   console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
+
+
+   $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+   $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/almacenar-orden-trabajo", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+            "solicitante":solicitante,
+            "usuario":usuario,
+            "patente":patente,
+            "tipo_camion":tipo_camion,
+            "marca":marca,
+            "modelo":modelo,
+            "anio":anio,
+            "fecha":fecha,
+            "num_documento":num_documento,
+            "cod_bodega":cod_bodega,
+            "diagnostico":diagnostico,
+            "trabajos_realizados":trabajos_realizados,
+            "observaciones":observaciones,
+            "arrayServicios":arrayServicios,
+            "arrayPersonal":arrayPersonal,
+            "arrayProductos":arrayProductos
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            console.log(data);
+
+            if (data=='LISTASO') {
+                alert('ORDEN REGISTRADA');
+                location.reload(); 
+
+            } else {
+                alert('FOLIO  VENCIDO INTENTE NUEVAMENTE');
+                var num = document.getElementById("num_documento");
+                console.log(num.value);
+                num.value = parseInt(num.value,10)+1;      
+            }
+        },
+    });
+GrabarSalidaOT()
+}
+
+</script>
+
+
+<script type="text/javascript">
+function GrabarSalidaOT()
+{
+    n = 0;
+    p = $('#contador2').val();
+    arrayProductos = [];
+
+
+    if (p == 0 ){
+        arrayProductos;
+    } else {
+
+        while (n < p) {
+          n ++;
+
+          var datos2 = {
+            'cod_producto':$("#selectProducto"+n+" option:selected").text(),
+            'producto':$("#nombre_producto"+n).val(),
+            'cantidad':'-'+$('#cantidad'+n).val(),
+            'precio':$('#neto'+n).val()
+        };
+        arrayProductos.push(datos2);
+
+    }
+}
+num_documento = $('#num_documento').val();
+usuario = $('#usuario').val();
+fecha= $('#fecha').val();
+patente= $('#patente').val();
+cod_bodega = $('#cod_bodega').val();
+
+ $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+   $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/almacenar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+           "usuario":usuario,
+           "patente":patente,
+           "fecha":fecha,
+           "num_documento":num_documento,
+           "cod_bodega":cod_bodega,
+           "arrayProductos":arrayProductos
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            console.log(data);
+
+            if (data=='ARREGLO VACIO') {
+                console.log('arreglo vacio');
+            }
+
+            if (data=='LISTASO') {
+                console.log('Movimiento registrado');    
+            }
+         
+        },
+    });
+
+}
 
 </script>
 

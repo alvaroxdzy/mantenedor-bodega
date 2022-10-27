@@ -47,16 +47,16 @@ public function salida()
   $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
   $producto= Producto::select('id','codigo_producto','nombre_producto')->get();
   $vehiculo = Vehiculo::select('patente')->get();
-   $folios = Folios::select('folio','tipo')->where('tipo','S')->first();
+  $folios = Folios::select('folio')->first();
 
   return view('movimientoSalida')->with('empleado',$empleado)
   //->with('producto',$producto)
   ->with('bodega',$bodega)->with('vehiculo',$vehiculo)->with('folios',$folios);
 }
 
-public function traerProducto($id)
+public function traerProducto($cod_producto,$cod_bodega)
 {
-  $producto =Producto::find($id);
+  $producto =Producto::where($id);
   return $producto;
 
 }
@@ -74,11 +74,6 @@ public function traerStock($cod_producto){
 
 public function store(Request $request)
 {
-
-  $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->first();
-  if ($movimiento_validar) {
-   return back()->with('error', 'ERROR CODIGO MOVIMIENTO EXISTENTE');
- }
 
  $movimiento =new Movimiento();
  $movimiento->tipo_documento=$request->tipo_documento;
@@ -112,10 +107,7 @@ public function store(Request $request)
  }
  $movimiento->save();
 
-
-
- $folio = DB::table('folios')->where('folio',$request->num_documento)->where('tipo','S')->update(['folio' => $request->num_documento+1]);
-
+$folio = DB::table('folios')->update(['folio' => $request->num_documento+1]);
 
  return "LISTASO";
 }

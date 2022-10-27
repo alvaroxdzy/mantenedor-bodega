@@ -1351,7 +1351,7 @@ function cargarProducto(alvaro) {
     var numero = alvaro.id;
     numero = numero.substring(14);
     id=alvaro.value;
-
+    console.log(numero , id );
     $.get('productos-movimiento/' + id, function(data){
 
      $('#nombre_producto'+numero).val(data.nombre_producto);

@@ -7,12 +7,9 @@
 <div  class="container"> 
   <h4>Listado de productos</h4>
   <div id="div-buscar-bodega" class=""> 
-   <form class="form-text-input" type="get">
-     <a href="crear-producto" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
 
-   </form>
- </div>
- <div class="row"> 
+  </div>
+  <div class="row"> 
    <div class="clod-md-4"> </div>
    <div class="clod-md-6"> 
      <div class="row">   
@@ -23,30 +20,34 @@
             <th>Codigo</th>
             <th>Producto</th>
             <th>Observación</th>
-            <th>Bodega</th>  
-            <th>Gestionar</th>       
+            <th>Bodega</th>        
           </tr>
         </thead>
         <tbody>
           @foreach($productos as $producto) 
           <tr>
-            <td>{{$producto->codigo_producto}}</td>
-            <td>{{$producto->nombre_producto}}</td>
+
+            <td><a style="color:black " href="/modificar-producto/{{$producto->codigo_producto}}/{{$producto->cod_bodega}}">{{$producto->codigo_producto}}</a> </td>          
+            <td><a style="color:black " href="/modificar-producto/{{$producto->codigo_producto}}/{{$producto->cod_bodega}}">{{$producto->nombre_producto}}</a> </td>
             <td>{{$producto->observacion_producto}}</td>
             <td>{{$producto->nombre_bodega}}</td>
-            <td><a class="btn btn-outline-primary btn-sm" href="modificar-producto/{{$producto->codigo_producto}}"> Modificar </a>
-              </td>
-<!-- <a class="btn btn-outline-danger btn-sm" onclick="eliminar({{$producto->id}})"> Eliminar  </a>  -->
-            </tr>
-            @endforeach
-          </tbody>
-        </table>  
-        <script>
-         var dataTable = new DataTable("#myTable", {
+            <td style="visibility:hidden;"> {{$producto->cod_bodega}} </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table> 
+      <form class="form-text-input" type="get">
+       <a href="crear-producto" class="btn btn-outline-primary btn-sm" role="button">AGREGAR PRODUCTO</a>
+
+     </form> 
+
+     <script>
+       var dataTable = new DataTable("#myTable", {
         perPage: 10,
         sortable: true,
         fixedColumns: true,
         perPageSelect: [10, 25, 50, 100],
+        info: false,
         labels: {
           placeholder: "Buscar..",
           perPage: "{select}     Registros por pagina",
@@ -55,38 +56,7 @@
         }
 
       });
-      </script>
-
-      <script type="text/javascript">
-        function eliminar(id){
-         Swal.fire({
-          title: 'Está seguro',
-          text: "Al eliminar un producto no podra revertir los cambios",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Eliminar',
-          cancelButtonText: 'Cancelar',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href="eliminar-producto/"+id;
-          } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-            ) {
-            swalWithBootstrapButtons.fire(
-              'Cancelled',
-              'Your imaginary file is safe :)',
-              'error'
-              )
-          }
-        })
-
-      }
-
-
     </script>
-
   </div> 
 </div> 
 </div> 

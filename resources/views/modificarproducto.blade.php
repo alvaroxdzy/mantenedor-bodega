@@ -24,42 +24,46 @@ input[type=number] {
 			<div class="card border-primary mb-3">
 				{{ csrf_field() }}    
 				<div class="row">
+					<br>
+					<div class="mb-3 col-md-3">
+						<h6> Seleccione bodega </h6>
+						<select style="width : 300px" class="form-control" id="cod_bod_producto" name="cod_bod_producto"  required style="max-width:10%;" readonly>
+							<option value="{{$producto->cod_bod_producto}}">{{$producto->nombre_bodega}} </option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<br>
 					<div class="mb-3 col-md-2"> 
 						<h6 for="codigo_producto">Código Producto</h6>
-						<input style="width : 200px" value="{{$producto->codigo_producto}}" type="text" class="form-control" id="codigo_producto" name="codigo_producto" placeholder="Ingrese codigo" minlength="1" maxlength="6" required readonly>
-					</div>
+						<input style="width : 200px" style="text-transform:uppercase" type="text" class="form-control" id="codigo_producto" name="codigo_producto"  minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();" value="{{$producto->codigo_producto}}" readonly>
 
-					<input value="{{$producto->id}}" type="hidden" name="id">
-
-					<div class="mb-3 col-md-6">
+					</div>	
+					<div class="mb-3 col-md-8">
 						<h6 for="nombre_producto">Nombre Producto</h6>
-						<input style="text-transform:uppercase"  value="{{$producto->nombre_producto}}" type="text" class="form-control" id="nombre_producto" name="nombre_producto" onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="50" >
+						<input style="width : 750px" style="text-transform:uppercase" type="text" class="form-control" id="nombre_producto" name="nombre_producto" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();" value="{{$producto->nombre_producto}}">
 					</div>
-					<div class="row">
-						<div class="mb-3 col-md-6" >
-							<h6 for="observacion_producto">Observacion Producto</h6>
-							<textarea value="{{$producto->observacion_producto}}" style="text-transform:uppercase" type="text" class="form-control" id="observacion_producto"  name="observacion_producto" placeholder="Ingrese los detalles del producto" required onkeyup="javascript:this.value=this.value.toUpperCase();" for="observacion_producto"> {{$producto->observacion_producto}} </textarea>
-						</div>
-					</div>
+				</div>
 
-					<div class="form-group">
-						<label for="cod_bod_producto">Seleccione Bodega</label>
-						<select style="width : 300px" class="form-control" id="cod_bod_producto" name="cod_bod_producto" placeholder="Ingrese sucursal" required>
-							<option hidden value="{{$cod_bodega->codigo_bodega}}">  {{$cod_bodega->nombre_bodega}}  </option>
-							@foreach($nombre_bodega as $nombre_bodegas)
-							<option value="{{$nombre_bodegas->codigo_bodega}}">{{$nombre_bodegas->nombre_bodega}}</option>
-							@endforeach 
-						</select> 
+				<input value="{{$userId = Auth::user()->name;}}" type="hidden" name="usuario">
 
-
+				<div class="row">
+					<br>
+					<div class="mb-3 col-md-10">
+						<h6> Observaciones productos </h6>
+						<input style="width : 965px" style="text-transform:uppercase" value="{{$producto->observacion_producto}}" type="text" class="form-control" id="observacion_producto" name="observacion_producto" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					</div>
 
-					<div class="row mb-0">
-						<div class="col-md-6 offset-md-0">
-							<br>
-							<input style="width : 300px" type="submit" class="btn btn-outline-primary"  value="Actualizar producto">  </input>
-						</div>
+				</div>
+				
+				<div class="row mb-0">
+					<br>
+					<div class="col-md-6 offset-md-0">
+						<br>
+						<input type="submit" style="width:40%" class="btn btn-outline-primary"  value=" Grabar producto ">  </input>
 					</div>
+				</div>
 				</div>
 			</form>
 		</div>

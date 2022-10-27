@@ -51,9 +51,9 @@ class BodegaController extends Controller
      return redirect()->back()->with('message', 'Bodega creada correctamente');
  }
 
- public function edit($id)
+ public function edit($codigo_bodega)
  {
-    $bodega = Bodega::where('codigo_bodega',$id)->first();
+    $bodega = Bodega::where('codigo_bodega',$codigo_bodega)->first();
     $comuna = Bodega::select('comuna_bodega')->get()->unique();
     return view('modificarbodega')->with('bodega',$bodega)->with('comuna',$comuna);
 }
@@ -61,19 +61,13 @@ class BodegaController extends Controller
 public function update(Request $request)  
 {
 
- $bodega =Bodega::find($request->id);
+ $bodega =Bodega::find($request->codigo_bodega);
  $bodega->codigo_bodega=$request->codigo_bodega; 
  $bodega->nombre_bodega=$request->nombre_bodega; 
  $bodega->direccion_bodega=$request->direccion_bodega; 
  $bodega->comuna_bodega=$request->comuna_bodega; 
  $bodega->save();
  return redirect(route('bodega.search'));
-}
-
-
-public function destroy($id)
-{
-        //
 }
 
 public function search()

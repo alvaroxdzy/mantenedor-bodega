@@ -10,7 +10,7 @@
   <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
     <thead class="thead-light">
       <tr>
-        <th>Numero Documento</th>
+        <th>Numero Movimiento</th>
         <th>Tipo documento</th> 
         <th >Tipo</th>
         <th>Fecha</th>  

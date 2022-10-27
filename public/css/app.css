@@ -587,3 +587,7 @@ nav {
 .form-control {
   padding: .190rem .37rem;
 }
+
+div.dataTable-info {
+  display: none;
+}

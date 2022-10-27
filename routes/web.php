@@ -26,7 +26,7 @@ Route::get('/bodegas', 'BodegaController@consulta')->name('bodegas');
 Route::get('/busqueda-bodegas','BodegaController@search')->name('bodega.search');
 Route::get('/crear-bodega','BodegaController@create')->name('bodega.create');
 Route::get('/almacenar-bodega','BodegaController@store')->name('bodega.store');
-Route::get('/modificar-bodega/{id}','BodegaController@edit')->name('bodega.edit');
+Route::get('/modificar-bodega/{codigo_bodega}','BodegaController@edit')->name('bodega.edit');
 Route::get('/actualizar-bodega','BodegaController@update')->name('bodega.update');
 
 //RUTAS PARA PRODUCTOS
@@ -34,12 +34,13 @@ Route::get('/productos', 'ProductoController@consultaProductos')->name('producto
 Route::get('crear-producto','ProductoController@create')->name('producto.create') ;
 Route::get('/almacenar-producto','ProductoController@store')->name('producto.store');
 Route::get('/busqueda-productos','ProductoController@search')->name('producto.search');
-Route::get('/modificar-producto/{id}','ProductoController@edit')->name('producto.edit');
+Route::get('/modificar-producto/{cod_producto}/{cod_bodega}','ProductoController@edit')->name('producto.edit');
 Route::get('/actualizar-producto','ProductoController@update')->name('producto.update');
 Route::get('/eliminar-producto/{id}','ProductoController@destroy')->name('producto.destroy');
 Route::get('/stock-productos','ProductoController@inventario')->name('producto.inventario');
 Route::get('/filtrar-productos','ProductoController@filtrarInventario')->name('producto.filtrarInventario');
 Route::get('/historial-producto/{cod_producto}','ProductoController@productoHistorial')->name('producto.historial');
+Route::get('/traer-producto','ProductoController@traerProducto')->name('producto.traerProducto');
 
 //RUTAS PARA PROVEEDORES
 Route::get('/proveedores', 'ProveedorController@consultaProveedor')->name('proveedores');
@@ -54,7 +55,7 @@ Route::get('/eliminar-proveedor/{id}','ProveedorController@destroy')->name('prov
 
 //RUTAS PARA MOVIMIENTOS
 Route::get('crear-movimiento','MovimientoController@create')->name('movimiento.create') ;
-Route::get('productos-movimiento/{id}','MovimientoController@traerProducto')->name('movimiento.traer_producto') ;
+Route::get('productos-movimiento/{$od_producto}/{cod_bodega}','MovimientoController@traerProducto')->name('movimiento.traer_producto') ;
 Route::get('stock-movimiento/{cod_producto}','MovimientoController@traerStock')->name('movimiento.traer_stock') ;
 Route::get('/almacenar-movimiento','MovimientoController@store')->name('movimiento.store');
 Route::get('salida-movimiento','MovimientoController@salida')->name('movimiento.salida') ;
@@ -86,3 +87,5 @@ Route::get('/traer-vehiculo/{patente}','OrdenTrabajoController@traerVehiculo')->
 Route::get('/traer-empleados','OrdenTrabajoController@traerEmpleados')->name('orden.traerEmpleados');
 Route::get('traer-empleado/{nombres}','OrdenTrabajoController@traerDetalleEmpleado')->name('orden.traerDetallEmpleado') ;
 Route::get('neto-productos/{codigo_producto}','OrdenTrabajoController@promedioNeto')->name('orden.promedioNeto') ;
+Route::get('/almacenar-movimiento-ot','OrdenTrabajoController@storeSalida')->name('orden.storeSalida');
+Route::get('/almacenar-orden-trabajo','OrdenTrabajoController@storeOT')->name('orden.storeOT');
