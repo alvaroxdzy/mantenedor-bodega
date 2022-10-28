@@ -25,7 +25,7 @@ class OrdenTrabajoController extends Controller
     $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
     $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
     $vehiculo = Vehiculo::select('patente')->get();
-    $folios = Folios::select('folio')->first();
+    $folios = Folios::select('folio')->where('tipo','OT')->first();
     return view('OrdenTrabajo')->with('vehiculo',$vehiculo)->with('bodega',$bodega)->with('empleado',$empleado)->with('folios',$folios);
 
   }
@@ -63,11 +63,10 @@ class OrdenTrabajoController extends Controller
   public function storeSalida(Request $request)
   {
 
-   $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->first();
-   if ($movimiento_validar) {
-     return back()->with('error', 'ERROR CODIGO MOVIMIENTO EXISTENTE');
-   }
-
+  $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->where('tipo_documento',$request->tipo_documento)->first();
+  if ($movimiento_validar) {
+   return back()->with('error', 'ERROR CODIGO MOVIMIENTO EXISTENTE');
+ }
    $movimiento =new Movimiento();
    $movimiento->tipo_documento='ORDEN DE TRABAJO';
    $movimiento->num_documento=$request->num_documento;
@@ -85,6 +84,7 @@ class OrdenTrabajoController extends Controller
      $detalle = new DetalleMovimiento();
      $detalle->nro_documento_mov=$request->num_documento;
      $detalle->cod_producto=$datos['cod_producto'];
+     $detalle->tipo_documento='ORDEN DE TRABAJO';
      $detalle->nombre_producto=$datos['producto'];
      $detalle->cantidad=$datos['cantidad'];
      $detalle->neto=$datos['precio'];
@@ -98,16 +98,15 @@ class OrdenTrabajoController extends Controller
 
    $movimiento->save();
 
-   $folio = DB::table('folios')->update(['folio' => $request->num_documento+1]);
-
+   $tipo_documento = $request->tipo_documento;
+  if($tipo_documento=='ORDEN DE TRABAJO'){
+  $folio =DB::table('folios')
+  ->where('tipo','OT')
+  ->update(['folio' => $request->num_documento+1]);
+}
    return "LISTASO";
+ }
 
-
- }   else   { 
-
-  $folio = DB::table('folios')->update(['folio' => $request->num_documento+1]);
-  return "ARREGLO VACIO";
-} 
 }
 
 
@@ -120,10 +119,10 @@ public function storeOT(Request $request)
    return back()->with('error', 'ERROR NUMERO DE DOCUMENTO EXISTE');
  }
 
-   $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->first();
-   if ($movimiento_validar) {
-     return back()->with('error', 'ERROR CODIGO MOVIMIENTO EXISTENTE');
-   }
+  $movimiento_validar = Movimiento::where('num_documento',$request->num_documento)->where('tipo_documento',$request->tipo_documento)->first();
+  if ($movimiento_validar) {
+   return back()->with('error', 'ERROR NUMERO DE MOVIMIENTO EXISTENTE');
+ }
 
  $orden = new OrdenTrabajo();
  $orden->solicitante=$request->solicitante;
@@ -188,11 +187,7 @@ if($arrayServicio) {
   $otServicio->save();
 }
 }
-
-
-
 return "LISTASO";
-
 }
 
 

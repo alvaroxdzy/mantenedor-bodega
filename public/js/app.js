@@ -1351,8 +1351,6 @@ function cargarProducto(alvaro) {
     numero = numero.substring(14);
     var cod_producto=alvaro.value;
     var cod_bodega = $('#cod_bodega').val();
-    console.log(numero , cod_producto , cod_bodega );
-
       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1367,7 +1365,6 @@ function cargarProducto(alvaro) {
           "cod_producto":cod_producto
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-          console.log(data);
           $('#nombre_producto'+numero).val(data.nombre_producto);
          },
      });
@@ -1381,13 +1378,15 @@ function cargarStock(alvaro) {
    var numero = alvaro.id;
    numero = numero.substring(14);
 
-   $cod_producto = $("#selectProducto"+numero+" option:selected").text();
-
-
-
+   $cod_producto = $("#selectProducto"+numero+" option:selected").val();
+ 
    $.get('stock-movimiento/'+$cod_producto, function(inventario){
+    if(inventario[0].stock>0){
+          $('#stock'+numero).val(inventario[0].stock);
+        } else {
+          $('#stock'+numero).val(0);
+        }
 
-    $('#stock'+numero).val(inventario[0].stock);
 
   });
  } catch (e) {}

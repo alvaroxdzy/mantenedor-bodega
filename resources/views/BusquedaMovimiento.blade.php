@@ -23,7 +23,7 @@
     <tbody>
       @foreach($movimiento as $movimientos) 
       <tr>
-        <td><a style="color:black " href="/detalle-movimiento/{{$movimientos->num_documento}}"> {{$movimientos->num_documento}}</a></td>
+        <td><a style="color:black " href="/detalle-movimiento/{{$movimientos->num_documento}}/{{$movimientos->tipo_documento}}"> {{$movimientos->num_documento}}</a></td>
         <td>{{$movimientos->tipo_documento}}</td>
         <td>{{$movimientos->tipo}}</td>
         <td>{{$movimientos->fecha}}</td>

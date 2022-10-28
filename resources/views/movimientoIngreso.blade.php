@@ -13,20 +13,23 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-               <div class="row">
+             <div class="row">
                 <div class="mb-3 col-md-3">
 
                     <label> TIPO DE DOCUMENTO</label>
-                    <select class="form-control" id="tipo_documento" name="tipo_documento"> 
-                        <option>FACTURA </option>
-                        <option>GUIA </option>
-                        <option>COMPROBANTE DE INGRESO </option>
+                    <select class="form-control" id="tipo_documento" name="tipo_documento" onblur="cargarFolio()" onclick="cargarFolio();"> 
+                        <option>FACTURA</option>
+                        <option>GUIA</option>
+                        <option>COMPROBANTE DE INGRESO</option>
                     </select>
                 </div>
                 <div class="mb-3 col-md-3">
                     <label> NRO DOCUMENTO </label>
                     <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
                 </div>
+
+                <input type="hidden" name="folios" value="{{$folio->folio}}" id="folios">
+
                 <div class="mb-3 col-md-5">
                     <label> PROVEEDOR  </label>
                     <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
@@ -38,7 +41,7 @@
                 </div>
             </div>
             <div class="row"> 
-                <div class="mb-3 col-md-3" style="width: 22.2%;">
+                <div class="mb-3 col-md-4">
                     <label> BODEGA  </label>
                     <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
@@ -48,18 +51,18 @@
                     </select>
 
                 </div>
-                <div class="mb-3 col-md-2" style="width: 22.2%;">
+                <div class="mb-3 col-md-2">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
 
                 </div> 
-                <div class="mb-3 col-md-2" style="width: 23.2%;">
+                <div class="mb-3 col-md-3">
                     <label> TIPO DE MOVIMIENTO  </label>
                     <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
                 </div>               
 
 
-                <div class="mb-3 col-md-2" style="width: 24.2%;">
+                <div class="mb-3 col-md-3" >
                     <label> ESTADO  </label>
                     <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
                 </div>
@@ -75,28 +78,27 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-     <table class="table table-sm" id="tableMovimiento" style="width:100%">
-      <thead>
-        <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
-        <br>
-        <tr>
-            <br>
-            <th>Codigo </th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Valor unitario(neto)</th>
-            <th>IVA</th>
-            <th>Total:</th>
-            <th>Gestionar</th>
-        </tr>
-    </thead>
-    <tbody id="tbodyMovimiento">
+       <table class="table table-sm" id="tableMovimiento" style="width:100%">
+          <thead>
+            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+            <tr>
+                <br>
+                <th>Codigo </th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Neto</th>
+                <th>IVA</th>
+                <th>Total:</th>
+                <th>Gestionar</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyMovimiento">
 
-        <input type="hidden" name="contador" value="0" id="contador">
+            <input type="hidden" name="contador" value="0" id="contador">
 
-    </tbody>
-</table>
-<input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+        </tbody>
+    </table>
+    <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
 </form>
 
 
@@ -118,15 +120,23 @@
       </button>
   </div>
   <div class="modal-body">
-     <table class="table table-sm" id="tableModal" style="width:100%">
-      <thead>
+   <table class="table dataTable no-footer dtr-inline collapsed table-striped" id="tableModal" style="width:100%">
+      <thead class="thead-light">
         <tr>
             <th>CODIGO </th>
             <th>PRODUCTO</th>
+            <th>BODEGA</th>
         </tr>
     </thead>
     <tbody id="TbodyModal" >
+        @foreach($productos as $producto) 
+        <tr>
+            <td>{{$producto->codigo_producto}}</a> </td>          
+            <td>{{$producto->nombre_producto}}</a> </td>
+            <td>{{$producto->nombre_bodega}}</td>
 
+        </tr>
+        @endforeach
     </tbody>
 </table>
 </div>
@@ -136,6 +146,23 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+    function cargarFolio() 
+    {
+        var tipo_documento = $('#tipo_documento').val();
+        var folio =  $('#folios').val();
+
+        if(tipo_documento=='COMPROBANTE DE INGRESO'){
+            $('#num_documento').val(folio);
+            $('#num_documento').attr('readonly',true);
+        } else {
+            $('#num_documento').attr('readonly',false);
+        }
+
+      
+  }
+</script>
 
 <script>
 // Get the modal
@@ -172,44 +199,21 @@ window.onclick = function(event) {
 }
 </script>
 
-
-
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-
-<script type="text/javascript">
-
-  $(document).on('click','#myBtn',function(){
-
-    $('#tableModal').DataTable().clear().destroy();
-
-   cod_bodega =  $('#cod_bodega option:selected').val();
-   $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+<script>
+ var dataTable = new DataTable("#tableModal", {
+  perPage: 50,
+  sortable: true,
+  fixedColumns: true,
+  perPageSelect: [ 50, 100],
+  labels: {
+    placeholder: "Buscar..",
+    perPage: "{select}     Registros por pagina",
+    noRows: "No se encontraron registros",
+    info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+}
 });
-   $.ajax({
-         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
-         data:{
-             "cod_bodega":cod_bodega
-         }, // data recive un objeto con la informacion que se enviara al servidor
-         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-            data.forEach(function(data) {
-                $('#TbodyModal').append('<tr>'+
-                    '<td>'+data.codigo_producto+'</td>'+
-                    '<td>'+data.nombre_producto+'</td>'+
-                    '</tr>');
-            });
-        },
-    });
 
-});
 </script>
-
-
-
-
 
 <script type="text/javascript">
     window.onload = function(){
@@ -275,7 +279,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "cod_bodega":cod_bodega
+           "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -286,7 +290,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td> <select  id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">------</option>' ; 
             data.forEach(function(producto) {
-                html+='<option value="'+producto.codigo_producto+'">'+producto.nombre_producto+'</option>'; 
+                html+='<option value="'+producto.codigo_producto+'">'+producto.codigo_producto+'</option>'; 
 
             });
             html+='</select> </td>' ;
@@ -323,12 +327,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script>
     function grabar ()
     {
-     m = 0;
-     n = $('#contador').val();
-     arrayMovimiento = [];
+       m = 0;
+       n = $('#contador').val();
+       arrayMovimiento = [];
 
 
-     if (n == 0 ){
+       if (n == 0 ){
         arrayMovimiento;
     } else {
 
@@ -375,15 +379,15 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "usuario":usuario,
-             "tipo_documento":tipo_documento,
-             "fecha":fecha,
-             "tipo":tipo,
-             "estado":estado,
-             "num_documento":num_documento,
-             "cod_bodega":cod_bodega,
-             "rut_proveedor":rut_proveedor,
-             "arrayMovimiento":arrayMovimiento
+           "usuario":usuario,
+           "tipo_documento":tipo_documento,
+           "fecha":fecha,
+           "tipo":tipo,
+           "estado":estado,
+           "num_documento":num_documento,
+           "cod_bodega":cod_bodega,
+           "rut_proveedor":rut_proveedor,
+           "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);

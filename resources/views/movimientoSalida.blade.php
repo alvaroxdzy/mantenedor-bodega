@@ -9,12 +9,12 @@
 
         <div class="card-body">
             <div>
-             <div class="row">
+               <div class="row">
                 <div class="mb-3 col-md-3">
 
                     <label> TIPO DE DOCUMENTO</label>
                     <select class="form-control" id="tipo_documento" name="tipo_documento" onblur="cargarFolio()" onclick="cargarFolio();" readonly> 
-                        <option>COMPROBANTE INTERNO</option>
+                        <option>COMPROBANTE SALIDA</option>
                     </select>
                 </div>
 
@@ -84,35 +84,127 @@
     <div class="card-body">
 
         <form class="form-inline">  
-           <table class="table table-sm" id="tableMovimiento" style="width:100%">
-              <thead>
-                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+         <table class="table table-sm" id="tableMovimiento" style="width:100%">
+          <thead>
+            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+            <br>
+            <tr>
                 <br>
-                <tr>
-                    <br>
-                    <th>Codigo producto:</th>
-                    <th>Producto:</th>
-                    <th>Cantidad:</th>
-                    <th>Stock:</th>
-                    <th>Saldo</th>
-                    <th>Gestionar</th>
-                </tr>
-            </thead>
-            <tbody>
+                <th>Codigo producto:</th>
+                <th>Producto:</th>
+                <th>Cantidad:</th>
+                <th>Stock:</th>
+                <th>Saldo</th>
+                <th>Gestionar</th>
+            </tr>
+        </thead>
+        <tbody id="trProductos">
 
-                <input type="hidden" name="contador" value="0" id="contador">
+            <input type="hidden" name="contador" value="0" id="contador">
 
-            </tbody>
-        </table>
-        <input id="grabar-salida" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
-    </form>
+        </tbody>
+    </table>
+    <input id="grabar-salida" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+</form>
+
 
 
 
 
 </div>
 </div>
+
+<!-- Trigger/Open The Modal -->
+<button class="btn btn-outline-primary btn-sm"  id="myBtn">VER PRODUCTOS</button>
+
+<!-- The Modal -->
+<div class="modal" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">LISTADO PRODUCTOS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+     <table class="table dataTable no-footer dtr-inline collapsed table-striped" id="tableModal" style="width:100%">
+      <thead class="thead-light">
+        <tr>
+            <th>CODIGO </th>
+            <th>PRODUCTO</th>
+            <th>BODEGA</th>
+        </tr>
+    </thead>
+    <tbody id="TbodyModal" >
+        @foreach($productos as $producto) 
+        <tr>
+            <td>{{$producto->codigo_producto}}</a> </td>          
+            <td>{{$producto->nombre_producto}}</a> </td>
+            <td>{{$producto->nombre_bodega}}</td>
+
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary btn-sm" id="myBtnCerrar" data-dismiss="modal"> Salir </button>
+</div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the button that opens the modal
+var btnCerrar = document.getElementById("myBtnCerrar");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+btnCerrar.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+}
+}
+</script>
+
+<script>
+   var dataTable = new DataTable("#tableModal", {
+      perPage: 50,
+      sortable: true,
+      fixedColumns: true,
+      perPageSelect: [ 50, 100],
+      labels: {
+        placeholder: "Buscar..",
+        perPage: "{select}     Registros por pagina",
+        noRows: "No se encontraron registros",
+        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+    }
+});
+
+</script>
+
 
 <script type="text/javascript">
     window.onload = function(){
@@ -174,7 +266,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "cod_bodega":cod_bodega
+             "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -185,7 +277,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador+'" onchange="cargarProducto(this),cargarStock(this)" class="form-control" required><option value="">--------</option>' ; 
             data.forEach(function(producto) {
-                html+='<option value="'+producto.codigo_producto+'">'+producto.nombre_producto+'</option>'; 
+                html+='<option value="'+producto.codigo_producto+'">'+producto.codigo_producto+'</option>'; 
             });
             html+='</select> </td>' ;
             html+='<td><input id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
@@ -195,7 +287,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 
-            $('tbody').append(html);
+            $('#trProductos').append(html);
 
         },
     });
@@ -209,10 +301,10 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function cargarFolio() 
     {
-          var folio =  $('#folios').val();
-          console.log(folio);
-          $('#num_documento').val(folio);
-}
+      var folio =  $('#folios').val();
+      $('#num_documento').val(folio);
+      $('#num_documento').attr('readonly',true);
+  }
 
 
 </script>
@@ -221,12 +313,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script>
     function grabar ()
     {
-       m = 0;
-       n = $('#contador').val();
-       arrayMovimiento = [];
+     m = 0;
+     n = $('#contador').val();
+     arrayMovimiento = [];
 
 
-       if (n == 0 ){
+     if (n == 0 ){
         arrayMovimiento;
     } else {
 
@@ -272,17 +364,17 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "usuario":usuario,
-           "tipo_documento":tipo_documento,
-           "rut":rut,
-           "patente":patente,
-           "fecha":fecha,
-           "tipo":tipo,
-           "estado":estado,
-           "num_documento":num_documento,
-           "cod_bodega":cod_bodega,
-           "rut_proveedor":rut_proveedor,
-           "arrayMovimiento":arrayMovimiento
+             "usuario":usuario,
+             "tipo_documento":tipo_documento,
+             "rut":rut,
+             "patente":patente,
+             "fecha":fecha,
+             "tipo":tipo,
+             "estado":estado,
+             "num_documento":num_documento,
+             "cod_bodega":cod_bodega,
+             "rut_proveedor":rut_proveedor,
+             "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -290,14 +382,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             if (data=='LISTASO') {
                 alert('Movimiento registrado');
                 location.reload(); 
-
-
-
             } else {
                 alert('FOLIO VENCIDO INTENTE NUEVAMENTE');
-
                 var num = document.getElementById("num_documento");
-                console.log(num.value);
                 num.value = parseInt(num.value,10)+1;
 
             }
