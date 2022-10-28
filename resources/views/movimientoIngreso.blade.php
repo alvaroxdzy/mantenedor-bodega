@@ -90,7 +90,7 @@
             <th>Gestionar</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tbodyMovimiento">
 
         <input type="hidden" name="contador" value="0" id="contador">
 
@@ -105,39 +105,36 @@
 </div>
 
 <!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
+<button class="btn btn-outline-primary btn-sm"  id="myBtn">VER PRODUCTOS</button>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Modal Header</h2>
+<div class="modal" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">LISTADO PRODUCTOS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
   </div>
   <div class="modal-body">
+     <table class="table table-sm" id="tableModal" style="width:100%">
+      <thead>
+        <tr>
+            <th>CODIGO </th>
+            <th>PRODUCTO</th>
+        </tr>
+    </thead>
+    <tbody id="TbodyModal" >
 
-    <table id="myTable" class="table table-sm table-striped  " style="width:100%;" >
-  <thead >
-    <tr>
-      <th>codigo</th>
-      <th>producto</th>
-    </tr>
-  </thead>
-  <tbody id="trTable">
-  </tbody>
-</table>  
-
+    </tbody>
+</table>
 </div>
 <div class="modal-footer">
-  <h3>Modal Footer</h3>
+    <button type="button" class="btn btn-outline-primary btn-sm" id="myBtnCerrar" data-dismiss="modal"> Salir </button>
 </div>
 </div>
-
 </div>
-
-
 </div>
 
 <script>
@@ -147,12 +144,19 @@ var modal = document.getElementById("myModal");
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 
+// Get the button that opens the modal
+var btnCerrar = document.getElementById("myBtnCerrar");
+
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
+}
+
+btnCerrar.onclick = function() {
+  modal.style.display = "none";
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -167,6 +171,44 @@ window.onclick = function(event) {
 }
 }
 </script>
+
+
+
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+
+  $(document).on('click','#myBtn',function(){
+
+    $('#tableModal').DataTable().clear().destroy();
+
+   cod_bodega =  $('#cod_bodega option:selected').val();
+   $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+   $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
+         data:{
+             "cod_bodega":cod_bodega
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            data.forEach(function(data) {
+                $('#TbodyModal').append('<tr>'+
+                    '<td>'+data.codigo_producto+'</td>'+
+                    '<td>'+data.nombre_producto+'</td>'+
+                    '</tr>');
+            });
+        },
+    });
+
+});
+</script>
+
+
+
 
 
 <script type="text/javascript">
@@ -244,14 +286,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td> <select  id="selectProducto'+contador+'" onchange="cargarProducto(this)" class="form-control" required><option value="">------</option>' ; 
             data.forEach(function(producto) {
-
-            $('#trTable').append('<tr>'+
-              '<td>'+producto.codigo_producto+'</td>'+
-              '<td>'+producto.nombre_producto+'</td>'+
-              '</tr>');
-
-
                 html+='<option value="'+producto.codigo_producto+'">'+producto.nombre_producto+'</option>'; 
+
             });
             html+='</select> </td>' ;
             html+='<td><input style="width:600px" id="nombre_producto'+contador+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
@@ -261,16 +297,10 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<td ><input style="width:100px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
             html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
-
-            $('tbody').append(html);
-
-
+            $('#tbodyMovimiento').append(html);
         },
     });
-
-
     }
-
 
 </script>
 
