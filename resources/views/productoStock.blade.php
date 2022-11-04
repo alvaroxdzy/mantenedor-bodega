@@ -30,7 +30,7 @@
 </div>
 </div>
 
-<table id="myTable" class="table dataTable no-footer dtr-inline collapsed table-striped">
+<table id="myTable" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
   <thead class="thead-light">
     <tr>
       <th>Codigo</th>
@@ -43,8 +43,8 @@
   <tbody id="trTable">
     @foreach($producto as $productos) 
     <tr>
-      <td><a style="color:black " href="/historial-producto/{{$productos->cod_producto}}">{{$productos->cod_producto}}</a></td>
-      <td><a style="color:black " href="/historial-producto/{{$productos->cod_producto}}">{{$productos->nombre_producto}}</a> </td>
+      <td><a style="color:black  "href="/modificar-producto/{{$productos->cod_producto}}/{{$productos->cod_bodega}}">{{$productos->cod_producto}}</a></td>
+      <td><a style="color:black  "href="/historial-producto/{{$productos->cod_producto}}/{{$productos->cod_bodega}}">{{$productos->nombre_producto}}</a> </td>
       <td>{{intval($productos->precio)}} </td>
       <td>{{$productos->stock}}</td>
 
@@ -93,7 +93,7 @@ $cod_bodega = $("#seleccionar-bodega option:selected").val();
 <script type="text/javascript">
   $(document).on('click','#btn-filtrar',function(){
 
-    $('#myTable').DataTable().clear().destroy();
+    $('#trTable').empty();
 
     var codigo_bodega=$('#seleccionar-bodega option:selected').val();
 
@@ -113,10 +113,10 @@ $cod_bodega = $("#seleccionar-bodega option:selected").val();
           
           //$('#trTable').empty();
           data.forEach(function(detalle) {
-
+            console.log(detalle);
               $('#trTable').append('<tr>'+
-                                  '<td><a style="color:black " href="/historial-producto/'+detalle.cod_producto+'">'+detalle.cod_producto+'</a></td>'+
-                                  '<td><a style="color:black " href="/historial-producto/'+detalle.cod_producto+'">'+detalle.nombre_producto+'</a></td>'+
+                                  '<td style="width:150px "><a style="color:black" href="/historial-producto/'+detalle.cod_producto+'/'+detalle.cod_bodega+'">'+detalle.cod_producto+'</a></td>'+
+                                  '<td><a style="color:black" href="/historial-producto/'+detalle.cod_producto+'/'+detalle.cod_bodega+'">'+detalle.nombre_producto+'</a></td>'+
                                   '<td>'+parseInt(detalle.neto)+'</td>'+
                                   '<td>'+detalle.cantidad+'</td>'+
                                   '<td>'+detalle.nombre_bodega+'</td>'+

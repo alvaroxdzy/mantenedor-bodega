@@ -193,16 +193,112 @@ public function edit($num_documento)
 
 public function update(Request $request)  
 {
+ $ordenUpdate = DB::table('orden_trabajo')
+    ->where('num_documento',$request->num_documento)
+    ->update(['solicitante' => $request->solicitante,
+      'patente' => $request->patente,
+      'tipo_camion' => $request->tipo_camion,
+      'marca' => $request->marca,
+      'modelo' => $request->modelo,
+      'anio' => $request->anio,
+      'fecha' => $request->fecha,
+      'cod_bodega' => $request->cod_bodega,
+      'diagnostico' => $request->diagnostico,
+      'trabajos_realizados' => $request->trabajos_realizados,
+      'observaciones' => $request->observaciones]);
 
-    $vehiculo =Vehiculo::find($request->patente);
-    $vehiculo->patente=$request->patente; 
-    $vehiculo->tipo_camion=$request->tipo_camion; 
-    $vehiculo->marca=$request->marca; 
-    $vehiculo->modelo=$request->modelo; 
-    $vehiculo->anio=$request->anio;        
-    $vehiculo->save();
-   // return redirect(route('bodega.search'));
-    return redirect()->back()->with('message', 'VEHICULO ACTUALIZADO CORRECTAMENTE');
+    $otPersonal = DB::delete('delete from ot_personal where num_documento ="'.$request->num_documento.'"');
+    $arrayEmpleados = $request->arrayPersonal;
+    if($arrayEmpleados) {
+
+     foreach ($arrayEmpleados as $empleados) {
+
+       $otPersonal = new OtPersonal();
+       $otPersonal->nombres=$empleados['empleado'];
+       $otPersonal->rut=$empleados['rut'];
+       $otPersonal->cargo=$empleados['cargo'];
+       $otPersonal->fecha_inicio=$empleados['fecha_inicio'];
+       $otPersonal->fecha_termino=$empleados['fecha_termino'];
+       $otPersonal->detalle=$empleados['detalle'];
+       $otPersonal->num_documento=$request->num_documento;
+       $otPersonal->save();
+     }
+   }
+
+   $otProductos = DB::delete('delete from ot_productos where num_documento ="'.$request->num_documento.'"');
+   $arrayProducto = $request->arrayProductos;
+   if($arrayProducto) {
+
+     foreach ($arrayProducto as $producto) {
+
+      $otProducto = new otProducto();
+      $otProducto->cod_producto=$producto['cod_producto'];
+      $otProducto->producto=$producto['producto'];
+      $otProducto->cantidad=$producto['cantidad'];
+      $otProducto->precio=$producto['precio'];
+      $otProducto->num_documento=$request->num_documento;
+      $otProducto->save();
+    }
+  }   
+
+  $otServicios = DB::delete('delete from ot_servicios where num_documento ="'.$request->num_documento.'"');
+  $arrayServicio = $request->arrayServicios;
+  if($arrayServicio) {
+
+   foreach ($arrayServicio as $servicio) {
+
+    $otServicio = new otServicio();
+    $otServicio->servicio=$servicio['servicio'];
+    $otServicio->descripcion_servicio=$servicio['descripcion_servicio'];
+    $otServicio->valor_servicio=$servicio['valor_servicio'];
+    $otServicio->num_documento=$request->num_documento;
+    $otServicio->save();
+  }
+}
+
+return "LISTASO";;
+    return redirect()->back()->with('message', 'ORDEN DE TRABAJO ACTUALIZADA CORRECTAMENTE');
+}
+
+public function storeSalidaUpdate(Request $request)
+{
+      $movimientoBorrar = DB::delete('delete from movimiento where num_documento = "'.$request->num_documento.'" and tipo_documento = "ORDEN DE TRABAJO"');
+      $detalleBorrar = DB::delete('delete from detalle_movimiento where nro_documento_mov = "'.$request->num_documento.'" and tipo_documento = "ORDEN DE TRABAJO"');
+
+
+      $movimiento =new Movimiento();
+      $movimiento->tipo_documento='ORDEN DE TRABAJO';
+      $movimiento->num_documento=$request->num_documento;
+      $movimiento->cod_bodega=$request->cod_bodega;
+      $movimiento->fecha=$request->fecha;     
+      $movimiento->tipo='SALIDA';
+      $movimiento->estado='DISPONIBLE';
+      $movimiento->usuario=$request->usuario;
+
+
+      $arrayProductos = $request->arrayProductos;
+      if($arrayProductos) {
+        foreach ($arrayProductos as $datos) {
+
+         $detalle = new DetalleMovimiento();
+         $detalle->nro_documento_mov=$request->num_documento;
+         $detalle->cod_producto=$datos['cod_producto'];
+         $detalle->tipo_documento='ORDEN DE TRABAJO';
+         $detalle->nombre_producto=$datos['producto'];
+         $detalle->cantidad=$datos['cantidad'];
+         $detalle->neto=$datos['precio'];
+         $detalle->total=$datos['precio'];
+         $detalle->fecha=$request->fecha;  
+         $detalle->tipo='SALIDA';
+         $detalle->usuario=$request->usuario;
+         $detalle->patente=$request->patente;
+         $detalle->save();
+       }
+
+       $movimiento->save();
+
+     }
+     return "LISTASO";
 }
 
 
@@ -238,6 +334,14 @@ public function eliminarServicio($id)
   $servicioOT->delete();
   return 1;
 }
+
+public function buscarOT(){
+  $ot = OrdenTrabajo::join('bodega','orden_trabajo.cod_bodega', '=','bodega.codigo_bodega')->join('empleado','orden_trabajo.solicitante', '=','empleado.rut')->select('num_documento','fecha','patente','empleado.nombres' , 'orden_trabajo.usuario' , 'bodega.nombre_bodega as nombre_bodega')->get();
+
+ return view('busquedaOrdenTrabajo')->with('ot',$ot);
+ 
+}
+
 
 }
 

@@ -238,7 +238,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         var patente=vehiculo.value;
         console.log(vehiculo.value);
 
-        $.get('traer-vehiculo/' + patente, function(data){
+        $.get('/traer-vehiculo/' + patente, function(data){
 
          $('#tipo_camion').val(data.tipo_camion);
          $('#marca').val(data.marca);
@@ -286,7 +286,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         numero = numero.substring(14);
         nombres=empleados.value;
 
-        $.get('traer-empleado/' + nombres, function(data){
+        $.get('/traer-empleado/' + nombres, function(data){
 
          $('#rut'+numero).val(data.rut);
          $('#cargo'+numero).val(data.cargo);
@@ -306,7 +306,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         });
         $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"traer-empleados", //url guarda la ruta hacia donde se hace la peticion
+         url:"/traer-empleados", //url guarda la ruta hacia donde se hace la peticion
          data:{
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
@@ -382,7 +382,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         });
         $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
+         url:'/producto-bodega/' +cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
              "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
@@ -566,7 +566,7 @@ if (s == 0 ){
 });
    $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/almacenar-orden-trabajo", //url guarda la ruta hacia donde se hace la peticion
+         url:"/actualizar-orden-trabajo", //url guarda la ruta hacia donde se hace la peticion
          data:{
             "solicitante":solicitante,
             "usuario":usuario,
@@ -645,7 +645,7 @@ if (s == 0 ){
     });
     $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/almacenar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
+         url:"/actualizar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
            "usuario":usuario,
            "patente":patente,
@@ -854,7 +854,6 @@ if (s == 0 ){
         document.getElementById('observaciones').value="";
         document.getElementById('patente').value="---------";
         document.getElementById('solicitante').value="-----";
-        document.getElementById('num_documento').value="";
         document.getElementById('contador').value=0;
         document.getElementById('contador2').value=0;
         document.getElementById('contador3').value=0;

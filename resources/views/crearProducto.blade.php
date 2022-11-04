@@ -56,7 +56,7 @@ input[type=number] {
 					<br>
 					<div class="mb-3 col-md-10">
 						<h6> Observaciones productos </h6>
-						<input style="width : 965px" style="text-transform:uppercase" type="text" class="form-control" id="observacion_producto" name="observacion_producto" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<input style="width : 965px" style="text-transform:uppercase" type="text" class="form-control" id="observacion_producto" name="observacion_producto"  maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					</div>
 
 				</div>

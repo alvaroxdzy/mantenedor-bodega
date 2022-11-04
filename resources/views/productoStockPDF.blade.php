@@ -36,7 +36,7 @@
       <h3 style="width:30%"> Ingeniería de transportes JAVIER CORTES</h3>
     </div>
 
-    <h2> Stock de productos por bodega</h2>
+    <h3> Stock de productos : {{$bodega->nombre_bodega}}</h3>
 
 <table id="myTable" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
   <thead class="thead-light">
@@ -45,7 +45,6 @@
       <th>Producto</th>
       <th>Precio/Unitario</th> 
       <th>Stock</th>  
-      <th>Bodega</th>
     </tr>
   </thead>
   <tbody id="trTable">
@@ -53,9 +52,8 @@
     <tr>
       <td>{{$productos->cod_producto}}</td>
       <td>{{$productos->nombre_producto}}</td>
-      <td style="text-align:right;">${{$productos->precio}}</td>
+      <td>${{$productos->precio}}</td>
       <td style="text-align:right;">{{$productos->stock}}</td>
-      <td>{{$productos->nombre_bodega}}</td>
     </tr>
     @endforeach
   </tbody>

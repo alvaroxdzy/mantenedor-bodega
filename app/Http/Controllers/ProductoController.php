@@ -43,24 +43,24 @@ class ProductoController extends Controller
         ->where('codigo_producto',$request->codigo_producto)
         ->where('cod_bod_producto',$request->cod_bod_producto)
         ->update(['nombre_producto' => $request->nombre_producto,
-                  'observacion_producto' => $request->observacion_producto]);
+          'observacion_producto' => $request->observacion_producto]);
 
-         return redirect()->back()->with('message', 'producto actualizado');
-     } else {
-         $producto =new Producto();
-         $producto->codigo_producto=$request->codigo_producto; 
-         $producto->nombre_producto=$request->nombre_producto; 
-         $producto->observacion_producto=$request->observacion_producto; 
-         $producto->cod_bod_producto=$request->cod_bod_producto; 
-         $producto->usuario=$request->usuario; 
-         $producto->save();
+        return redirect()->back()->with('message', 'producto actualizado');
+    } else {
+     $producto =new Producto();
+     $producto->codigo_producto=$request->codigo_producto; 
+     $producto->nombre_producto=$request->nombre_producto; 
+     $producto->observacion_producto=$request->observacion_producto; 
+     $producto->cod_bod_producto=$request->cod_bod_producto; 
+     $producto->usuario=$request->usuario; 
+     $producto->save();
 
-         return redirect()->back()->with('message', 'producto creado correctamente');
-     }
-
+     return redirect()->back()->with('message', 'producto creado correctamente');
  }
 
- public function search()
+}
+
+public function search()
 {
 
     $productos=Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.codigo_producto','producto.nombre_producto', 'producto.observacion_producto' , 'bodega.nombre_bodega as nombre_bodega' , 'bodega.codigo_bodega as cod_bodega')->get();
@@ -74,17 +74,17 @@ public function traerProducto(Request $request)
     $cod_producto = $request->cod_producto;
 
     $producto = Producto::where('cod_bod_producto',$cod_bodega)
-                        ->where('codigo_producto',$cod_producto)->first();
+    ->where('codigo_producto',$cod_producto)->first();
     return $producto;
 }
 
- public function edit($cod_producto,$cod_bodega)
- {
-       $producto = Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->where('cod_bod_producto',$cod_bodega)
-                        ->where('codigo_producto',$cod_producto)->first();
+public function edit($cod_producto,$cod_bodega)
+{
+   $producto = Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->where('cod_bod_producto',$cod_bodega)
+   ->where('codigo_producto',$cod_producto)->first();
 
-        $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
-    return view('modificarproducto')->with('producto',$producto)->with('bodega',$bodega);
+   $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
+   return view('modificarproducto')->with('producto',$producto)->with('bodega',$bodega);
 
 
 }
@@ -92,22 +92,21 @@ public function traerProducto(Request $request)
 public function update(Request $request)  
 {
  $productoUpdate = DB::table('producto')
-        ->where('codigo_producto',$request->codigo_producto)
-        ->where('cod_bod_producto',$request->cod_bod_producto)
-        ->update(['nombre_producto' => $request->nombre_producto,
-                  'observacion_producto' => $request->observacion_producto]);
-            return redirect(route('producto.search'));
+ ->where('codigo_producto',$request->codigo_producto)
+ ->where('cod_bod_producto',$request->cod_bod_producto)
+ ->update(['nombre_producto' => $request->nombre_producto,
+  'observacion_producto' => $request->observacion_producto]);
+ return redirect(route('producto.search'));
 }
 
 public function inventario()
 {
     $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get()->unique('codigo_bodega','nombre_bodega');
-   // $producto = DB::select('SELECT cod_producto , nombre_producto , nombre_bodega, sum(cantidad) as stock FROM detalle_movimiento join movimiento on detalle_movimiento.//nro_documento_mov = movimiento.num_documento join bodega on movimiento.cod_bodega = bodega.codigo_bodega 
-   // GROUP by cod_producto , nombre_producto , nombre_bodega');
+
     $producto = DetalleMovimiento::join('movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
     ->join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
-    ->select('cod_producto','nombre_producto','nombre_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('avg(detalle_movimiento.neto) as precio'))
-    ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega')
+    ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('avg(detalle_movimiento.neto) as precio'))
+    ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
     ->get();
 
     return view('productoStock')->with('bodega',$bodega)->with('producto',$producto);
@@ -122,21 +121,27 @@ public function filtrarInventario(Request $request){
 
     if($cod_bodega == 'TODAS LAS BODEGAS')
     {
-        $producto = DB::select('SELECT cod_producto , nombre_producto , TRUNCATE(AVG(neto),0) as neto ,nombre_bodega,  sum(cantidad) as cantidad FROM detalle_movimiento join movimiento on detalle_movimiento.nro_documento_mov = movimiento.num_documento join bodega on movimiento.cod_bodega = bodega.codigo_bodega 
-            WHERE estado = "DISPONIBLE"
-            GROUP by cod_producto , nombre_producto , nombre_bodega ');
-    }else{
-        $producto = DB::select('SELECT cod_producto , nombre_producto , TRUNCATE(AVG(neto),0) as neto ,nombre_bodega,  sum(cantidad) as cantidad FROM detalle_movimiento join movimiento on detalle_movimiento.nro_documento_mov = movimiento.num_documento join bodega on movimiento.cod_bodega = bodega.codigo_bodega 
-            WHERE cod_bodega="'.$cod_bodega.'" and estado="DISPONIBLE"
-            GROUP by cod_producto , nombre_producto , nombre_bodega ');
-    }
-
-    return $producto;
+      $producto = DetalleMovimiento::join('movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
+      ->join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
+      ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as cantidad'),DB::raw('avg(detalle_movimiento.neto) as neto'))
+      ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
+      ->get();
+  }else{
+    $producto = DetalleMovimiento::join('movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
+      ->join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
+      ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as cantidad'),DB::raw('avg(detalle_movimiento.neto) as neto'))
+      ->where('cod_bodega',$cod_bodega)
+      ->where('estado','DISPONIBLE')
+      ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
+      ->get();
 }
 
-public function productoHistorial($cod_producto){
+return $producto;
+}
 
-  $movimiento = DB::select('SELECT nro_documento_mov ,movimiento.tipo_documento, cod_producto , nombre_producto , detalle_movimiento.tipo , detalle_movimiento.fecha, detalle_movimiento.cantidad , detalle_movimiento.usuario , movimiento.estado FROM detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov  WHERE cod_producto =  "'.$cod_producto.'"
+public function productoHistorial($cod_producto,$cod_bodega){
+
+  $movimiento = DB::select('SELECT nro_documento_mov ,movimiento.tipo_documento, cod_producto , nombre_producto , detalle_movimiento.tipo , detalle_movimiento.fecha, detalle_movimiento.cantidad , detalle_movimiento.usuario , movimiento.estado FROM detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov  WHERE cod_producto =  "'.$cod_producto.'" and movimiento.cod_bodega = "'.$cod_bodega.'"
     order by detalle_movimiento.id');
 
   $producto = $cod_producto;
@@ -147,9 +152,8 @@ public function productoHistorial($cod_producto){
 
 public function productoMovimientoPDF($cod_producto){
 
-  $movimiento = DB::select('SELECT nro_documento_mov ,movimiento.tipo_documento, cod_producto , nombre_producto , detalle_movimiento.tipo , detalle_movimiento.fecha, detalle_movimiento.cantidad , detalle_movimiento.usuario , movimiento.estado FROM detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov WHERE cod_producto =  "'.$cod_producto.'"
+  $movimiento = DB::select('SELECT nro_documento_mov ,movimiento.tipo_documento, cod_producto , nombre_producto , detalle_movimiento.tipo , detalle_movimiento.fecha, detalle_movimiento.cantidad , detalle_movimiento.usuario , movimiento.estado FROM detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov  WHERE cod_producto =  "'.$cod_producto.'" and movimiento.cod_bodega = "'.$cod_bodega.'"
     order by detalle_movimiento.id');
-
   $producto = Producto::where('codigo_producto',$cod_producto)->first();
 
   $data = [
@@ -169,18 +173,31 @@ public function InventarioBodegaPDF($cod_bodega){
 
  if($cod_bodega == 'TODAS LAS BODEGAS')
  {
-    $producto = DB::select('SELECT cod_producto , nombre_producto , TRUNCATE(AVG(neto),0) as precio ,nombre_bodega,  sum(cantidad) as stock FROM detalle_movimiento join movimiento on detalle_movimiento.nro_documento_mov = movimiento.num_documento join bodega on movimiento.cod_bodega = bodega.codigo_bodega 
-        WHERE estado = "DISPONIBLE"
-        GROUP by cod_producto , nombre_producto , nombre_bodega ');
+  $producto = DetalleMovimiento::join('movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
+  ->join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
+  ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('round(avg(detalle_movimiento.neto),0) as precio'))
+  ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
+  ->get();
 }else{
-    $producto = DB::select('SELECT cod_producto , nombre_producto , TRUNCATE(AVG(neto),0) as precio ,nombre_bodega,  sum(cantidad) as stock FROM detalle_movimiento join movimiento on detalle_movimiento.nro_documento_mov = movimiento.num_documento join bodega on movimiento.cod_bodega = bodega.codigo_bodega 
-        WHERE cod_bodega="'.$cod_bodega.'" and estado="DISPONIBLE"
-        GROUP by cod_producto , nombre_producto , nombre_bodega ');
+    $producto = DetalleMovimiento::join('movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
+      ->join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
+      ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('round(avg(detalle_movimiento.neto),0) as precio'))
+      ->where('estado','DISPONIBLE')
+      ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
+      ->get();
 }
 
+    $bodega = Bodega::where('codigo_bodega',$cod_bodega)->first();
+    if($bodega){
+        1 ;
+    } else  {
+        $bodega->nombre_bodega=='OLA';
+    }
+   
 
 $data = [
-    'producto' => $producto
+    'producto' => $producto,
+    'bodega' => $bodega
 ];
 
 $pdf = PDF::loadView('productoStockPDF',$data)->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');

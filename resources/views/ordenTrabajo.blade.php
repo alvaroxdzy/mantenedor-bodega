@@ -14,7 +14,7 @@
             <div class="mb-3 col-md-4"> 
 
                 <label> Solicitante </label>
-                <select class="form-control" onchange="cargarFolio()" onclick="cargarFolio()" id="solicitante" name="solicitante" required > 
+                <select class="form-control" id="solicitante" name="solicitante" required > 
                     <option value="">-------</option>
                     @foreach($empleado as $empleados)
                     <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
@@ -23,7 +23,7 @@
             </div>
             <div class="mb-3 col-md-2" style="width: 22.2%;">
                 <label> FOLIO  </label >
-                <input class="form-control" name="num_documento" type="text" id="num_documento" required> 
+                <input class="form-control" name="num_documento" type="text" id="num_documento" required readonly> 
             </div> 
         </div>
     </div>
@@ -36,7 +36,7 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-             <div class="row">
+               <div class="row">
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
@@ -99,24 +99,24 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" id="tablaEmpleados" style="width:100%">
-          <thead>
-            <h5> PERSONAL ASIGNADO</h5>
-            <tr>
-                <th>EMPLEADO</th>
-                <th>RUT</th>
-                <th>CARGO</th>
-                <th>FECHA INICIO</th>
-                <th>FECHA TERMINO</th>
-                <th>DESCRIPCION</th>
-                <th>GESTIONAR</th>
-            </tr>
-        </thead>
-        <tbody id="tbodyEmpleado">
-            <input type="text" name="contador" value="0" id="contador">
-        </tbody>
-    </table>
-    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+     <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+      <thead>
+        <h5> PERSONAL ASIGNADO</h5>
+        <tr>
+            <th>EMPLEADO</th>
+            <th>RUT</th>
+            <th>CARGO</th>
+            <th>FECHA INICIO</th>
+            <th>FECHA TERMINO</th>
+            <th>DESCRIPCION</th>
+            <th>GESTIONAR</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyEmpleado">
+        <input type="hidden" name="contador" value="0" id="contador">
+    </tbody>
+</table>
+<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
 </div>
 </div>
 
@@ -132,26 +132,26 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-     <table class="table table-sm" style="width:100%">
-      <thead>
-        <h5> PRESUPUESTO ASIGNADO</h5>
-        <tr>
-            <th>CODIGO PRODUCTO</th>
-            <th>PRODUCTO</th>
-            <th>CANTIDAD</th>
-            <th>STOCK</th>
-            <th>SALDO</th>
-            <th>PRECIO UNITARIO</th>
-            <th>GESTIONAR</th>
-        </tr>
-    </thead>
-    <tbody id="tbodyProductos" >
+       <table class="table table-sm" style="width:100%">
+          <thead>
+            <h5> PRESUPUESTO ASIGNADO</h5>
+            <tr>
+                <th>CODIGO PRODUCTO</th>
+                <th>PRODUCTO</th>
+                <th>CANTIDAD</th>
+                <th>STOCK</th>
+                <th>SALDO</th>
+                <th>PRECIO UNITARIO</th>
+                <th>GESTIONAR</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyProductos" >
 
-        <input type="text" name="contador2" value="0" id="contador2">
+            <input type="hidden" name="contador2" value="0" id="contador2">
 
-    </tbody>
-</table>
-<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
+        </tbody>
+    </table>
+    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
 
 </div>
 
@@ -166,7 +166,7 @@
         </tr>
     </thead>
     <tbody id="tbodyServicios">
-        <input type="text" name="contador3" value="0" id="contador3">
+        <input type="hidden" name="contador3" value="0" id="contador3">
     </tbody>
 </table>
 <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_serv"  > AGREGAR SERVICIOS </button>
@@ -189,14 +189,14 @@
 </div>
 
 <div class="row">
- <div class="mb-3 col-md-3" style="width: 25%;">
+   <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> Guardar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button" > Imprimir </button>
+    <button class="btn btn-primary btn-sm" type="button"> Imprimir </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button" onclick="cargarArreglos()" > Cerrar </button>
+    <button class="btn btn-primary btn-sm" type="button"> Cerrar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button"> Anular </button>
@@ -240,11 +240,11 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-vehiculo/' + patente, function(data){
 
-         $('#tipo_camion').val(data.tipo_camion);
-         $('#marca').val(data.marca);
-         $('#modelo').val(data.modelo);
-         $('#anio').val(data.anio);
-     });
+           $('#tipo_camion').val(data.tipo_camion);
+           $('#marca').val(data.marca);
+           $('#modelo').val(data.modelo);
+           $('#anio').val(data.anio);
+       });
     } catch (e) {}
 
 }
@@ -288,9 +288,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-empleado/' + nombres, function(data){
 
-         $('#rut'+numero).val(data.rut);
-         $('#cargo'+numero).val(data.cargo);
-     });
+           $('#rut'+numero).val(data.rut);
+           $('#cargo'+numero).val(data.cargo);
+       });
     } catch (e) {}
 }
 </script>
@@ -317,8 +317,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td > <select style="width:350px" id="selectEmpleado'+contador+'" class="form-control" onchange="cargarEmpleado(this)" required><option value="">-------</option>' ; 
             data.forEach(function(empleado) {
-               html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
-           });
+             html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
+         });
             html+='</select> </td>' ;
             html+='<td><input style="width:100px" id="rut'+contador+'"  type="text" name="rut" required readonly></td>';
             html+='<td><input style="width:200px" id="cargo'+contador+'"   type="text" name="cargo" required readonly></td>';
@@ -384,7 +384,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "cod_bodega":cod_bodega
+           "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -451,18 +451,18 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function servicios() {
 
-     contador3 = $('#contador3').val();
+       contador3 = $('#contador3').val();
 
-     var html = '';
-     html+='<tr>';
-     html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
-     html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
-     html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
-     html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
-     html+='<tr>';
+       var html = '';
+       html+='<tr>';
+       html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
+       html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
+       html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
+       html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
+       html+='<tr>';
 
-     $('#tbodyServicios').append(html);
- };
+       $('#tbodyServicios').append(html);
+   };
 
 </script>
 
@@ -470,12 +470,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function grabarOrden()
     {
-       m = 0;
-       e = $('#contador').val();
-       arrayPersonal = [];
+     m = 0;
+     e = $('#contador').val();
+     arrayPersonal = [];
 
 
-       if (e == 0 ){
+     if (e == 0 ){
         arrayPersonal;
     } else {
 
@@ -592,6 +592,7 @@ if (s == 0 ){
                 alert('ORDEN REGISTRADA');
                 location.reload(); 
                 limpiarTodo();
+                location.reload(); 
 
             } else {
                 alert('FOLIO  VENCIDO INTENTE NUEVAMENTE');
@@ -647,12 +648,12 @@ if (s == 0 ){
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "usuario":usuario,
-           "patente":patente,
-           "fecha":fecha,
-           "num_documento":num_documento,
-           "cod_bodega":cod_bodega,
-           "arrayProductos":arrayProductos
+             "usuario":usuario,
+             "patente":patente,
+             "fecha":fecha,
+             "num_documento":num_documento,
+             "cod_bodega":cod_bodega,
+             "arrayProductos":arrayProductos
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -672,180 +673,6 @@ if (s == 0 ){
 
 </script>
 
-
-<script type="text/javascript">
-    function traerOT() 
-    {
-        $('#contador3').val(0);
-        $('#contador2').val(0);
-        $('#contador').val(0);
-
-
-        $('#tbodyEmpleado > tr').remove();
-        $('#tbodyServicios > tr').remove();
-        $('#tbodyProductos> tr').remove();
-        var num_documento=$('#num_documento').val();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        }); 
-
-        $.ajax({
-         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/traer-ot", //url guarda la ruta hacia donde se hace la peticion
-         data:{
-            "num_documento":num_documento
-         }, // data recive un objeto con la informacion que se enviara al servidor
-         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-            console.log(data);
-            contadorServicio = $('#contador3').val();
-            contadorProducto = $('#contador2').val();
-            contadorEmpleado = $('#contador').val();
-
-            data[1].forEach(function(detalle) {
-
-                contadorEmpleado++;
-
-                $('#tbodyEmpleado').append('<tr>'+
-                    '<td > <select style="width:250px" id="selectEmpleado'+contadorEmpleado+'" class="form-control" required><option value='+detalle.nombres+'>'+detalle.nombres+'</option></select> </td>'+
-                  '<td><input id="rut'+contadorEmpleado+'" type="text" value='+detalle.rut+'></td>'+
-                  '<td><input id="cargo'+contadorEmpleado+'" type="text" value='+detalle.cargo+'></td>'+
-                  '<td><input id="fecha_inicio'+contadorEmpleado+'" type="date" value='+detalle.fecha_inicio+'></td>'+
-                  '<td><input id="fecha_termino'+contadorEmpleado+'" type="date" value='+detalle.fecha_termino+'></td>'+
-                  '<td><input id="detalle'+contadorEmpleado+'" type="text" value='+detalle.detalle+'></td>'+
-                  '<td><button type="button" onclick="eliminarEmpleado('+detalle.id+')"> Eliminar </button> </td>'+
-                  '</tr>');
-                $('#contador').val(contadorEmpleado);
-            });
-
-            data[3].forEach(function(detalle) {
-
-              contadorServicio++;
-
-              $('#tbodyServicios').append('<tr>'+
-               '<td><input style="width:300px" id="servicio'+contadorServicio+'" type="text" value='+detalle.servicio+'></td>'+
-               '<td><input style="width:300px" id="descripcion_servicio'+contadorServicio+'" type="text" value='+detalle.descripcion_servicio+'></td>'+
-               '<td><input style="width:300px" id="valor_servicio'+contadorServicio+'" type="text" value='+detalle.valor_servicio+'></td>'+
-               '<td><button type="button" onclick="eliminarServicio('+detalle.id+')"> Eliminar </button> </td>'+
-               '</tr>');
-
-
-              $('#contador3').val(contadorServicio);
-          });
-
-            data[2].forEach(function(detalle) {
-                    console.log(detalle);
-                contadorProducto++;
-
-                $('#tbodyProductos').append('<tr>'+
-                    '<td><select style="color :red" class="form-control" id="selectProducto'+contadorProducto+'"  readonly><option value="'+detalle.cod_producto+'">'+detalle.cod_producto+'</option>'+
-                    '<td><input style="color :red" id="nombre_producto'+contadorProducto+'" type="text" value='+detalle.producto+' readonly></td>'+
-                    '<td><input style="color :red" id="cantidad'+contadorProducto+'" type="text" value='+detalle.cantidad+' readonly></td>'+
-                    '<td><input style="color :red" id="stock'+contadorProducto+'" type="text" value="--" readonly></td>'+
-                    '<td><input style="color :red" id="saldo'+contadorProducto+'" type="text" value="--" readonly></td>'+
-                    '<td><input style="color :red" id="neto'+contadorProducto+'" type="text" value='+detalle.precio+' readonly></td>'+
-                    '<td><button type="button" onclick="eliminarProducto('+detalle.id+')"> Eliminar </button> </td>'+
-                    '</tr>');
-
-                $('#contador2').val(contadorProducto);
-
-            });
-
-
-
-            $('#solicitante').val(data[0].solicitante);
-            $('#fecha').val(data[0].fecha);
-            $('#cod_bodega').val(data[0].cod_bodega);
-            $('#patente').val(data[0].patente);
-            $('#tipo_camion').val(data[0].tipo_camion);
-            $('#marca').val(data[0].marca);
-            $('#modelo').val(data[0].modelo);
-            $('#anio').val(data[0].anio);
-            $('#diagnostico').val(data[0].diagnostico);
-            $('#trabajos_realizados').val(data[0].trabajos_realizados);
-            $('#observaciones').val(data[0].observaciones);
-
-        },
-    });
-}
-</script>
-
-
-<script type="text/javascript">
-    function eliminarEmpleado(id)
-    {
-        alert(id);
-
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-        $.ajax({
-         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/eliminar-ot-personal/" +id, //url guarda la ruta hacia donde se hace la peticion
-         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-            if(data==1){
-                location.reload();
-            }
-        },
-    });
-
-    } 
-</script>
-
-<script type="text/javascript">
-    function eliminarProducto(id)
-    {
-        alert(id);
-
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-        $.ajax({
-         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/eliminar-ot-producto/" +id, //url guarda la ruta hacia donde se hace la peticion
-         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-            if(data==1){
-                 location.reload();
-            }
-        },
-    });
-
-    } 
-</script>
-
-<script type="text/javascript">
-    function eliminarServicio(id)
-    {
-        alert(id);
-
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-        $.ajax({
-         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/eliminar-ot-servicio/" +id, //url guarda la ruta hacia donde se hace la peticion
-         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-            if(data==1){
-                location.reload();
-                $('#num_documento').focus();
-            }
-        },
-    });
-
-    } 
-</script>
-
 <script type="text/javascript">
     function limpiarTodo()
     {
@@ -861,6 +688,9 @@ if (s == 0 ){
     }
 </script>
 
+<script type="text/javascript">
+    window.onload=cargarFolio();
+</script>
 
 
 @endsection

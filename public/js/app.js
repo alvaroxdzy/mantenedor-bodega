@@ -1380,7 +1380,7 @@ function cargarStock(alvaro) {
 
    $cod_producto = $("#selectProducto"+numero+" option:selected").val();
  
-   $.get('stock-movimiento/'+$cod_producto, function(inventario){
+   $.get('/stock-movimiento/'+$cod_producto, function(inventario){
     if(inventario[0].stock>0){
           $('#stock'+numero).val(inventario[0].stock);
         } else {
@@ -1459,7 +1459,7 @@ function promedioNeto(alvaro) {
     codigo_producto=$('#selectProducto'+numero+' option:selected').text();
 
     console.log(codigo_producto);
-    $.get('neto-productos/' + codigo_producto, function(data){
+    $.get('/neto-productos/' + codigo_producto, function(data){
       console.log(data)
      $('#neto'+numero).val(data);
    });
