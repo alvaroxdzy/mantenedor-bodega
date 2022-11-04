@@ -93,6 +93,10 @@ Route::get('/traer-ot','OrdenTrabajoController@traerOT')->name('orden.traerOT');
 Route::get('/eliminar-ot-personal/{id}','OrdenTrabajoController@eliminarPersonal')->name('orden.eliminarPersonal');
 Route::get('/eliminar-ot-producto/{id}','OrdenTrabajoController@eliminarProducto')->name('orden.eliminarProducto');
 Route::get('/eliminar-ot-servicio/{id}','OrdenTrabajoController@eliminarServicio')->name('orden.eliminarServicio');
+Route::get('/modificar-orden/{num_documento}','OrdenTrabajoController@edit')->name('orden.edit');
+Route::get('/actualizar-vehiculo','VehiculoController@update')->name('orden.update');
+
+
 
 //RUTAS PARA VEHICULOS
 Route::get('/busqueda-vehiculo','VehiculoController@search')->name('vehiculo.search');

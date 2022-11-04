@@ -23,7 +23,7 @@
             </div>
             <div class="mb-3 col-md-2" style="width: 22.2%;">
                 <label> FOLIO  </label >
-                <input class="form-control" name="num_documento" type="text" id="num_documento" required> 
+                <input class="form-control" name="num_documento" type="text" id="num_documento" value="{{$ordenTrabajo->num_documento}}" readonly required> 
             </div> 
         </div>
     </div>
@@ -196,7 +196,7 @@
     <button class="btn btn-primary btn-sm" type="button" > Imprimir </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button" onclick="cargarArreglos()" > Cerrar </button>
+    <button class="btn btn-primary btn-sm" type="button" > Cerrar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button"> Anular </button>
@@ -861,6 +861,9 @@ if (s == 0 ){
     }
 </script>
 
+<script type="text/javascript">
+    window.onload=traerOT();
+</script>
 
 
 @endsection
