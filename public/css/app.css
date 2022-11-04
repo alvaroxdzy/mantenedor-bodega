@@ -592,3 +592,8 @@ div.dataTable-info {
   display: none;
 }
 
+
+
+.form-control {
+font-size: 0.8rem;
+}

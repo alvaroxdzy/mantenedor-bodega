@@ -299,7 +299,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<td><input style="width:120px" class="form-control"  id="valoress'+contador+'" oninput="multiplicar(this)"  type="text" name="neto" required onkeypress="return valideKey(event);"></td>';
             html+='<td ><input style="width:100px" class="form-control"  id="iva'+contador+'" type="text" name="iva" required readonly></td>';
             html+='<td ><input style="width:100px" id="total'+contador+'" class="form-control" type="text" name="total" readonly required placeholder=""></td>';
-            html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
+            html+='<td><button id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
             $('#tbodyMovimiento').append(html);
         },

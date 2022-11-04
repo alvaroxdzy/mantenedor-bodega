@@ -24,24 +24,24 @@ input[type=number] {
 
 				{{ csrf_field() }}
 				
-					<div class="mb-3 col-md-2"> 
-						<h6  for="codigo_bodega">Rut Empleado</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="rut" name="rut" minlength="1" maxlength="12" required  onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small class="form-text text-muted">Formato 11111111-1</small>
-					</div>
+				<div class="mb-3 col-md-2"> 
+					<h6  for="codigo_bodega">Rut Empleado</h6>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="rut" name="rut" minlength="1" maxlength="12" required onblur="traerEmpleado()"  onkeyup="javascript:this.value=this.value.toUpperCase();">
+					<small class="form-text text-muted">Formato 11111111-1</small>
+				</div>
 
-					<div class="mb-3 col-md-5"> 
-						<h6 for="nombre_bodega">Nombre Completo</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="nombres" name="nombres" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();">
-					</div>
+				<div class="mb-3 col-md-5"> 
+					<h6 for="nombre_bodega">Nombre Completo</h6>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="nombres" name="nombres" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();">
+				</div>
 				
 				<input value="{{$userId = Auth::user()->name;}}" type="hidden" name="usuario">
 
 
-					<div class="mb-3 col-md-4"> 
-						<h6 for="direccion_bodega">Cargo</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="cargo" name="cargo" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
-					</div>
+				<div class="mb-3 col-md-4"> 
+					<h6 for="direccion_bodega">Cargo</h6>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="cargo" name="cargo" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
+				</div>
 
 
 				<div class="row mb-0">
@@ -52,6 +52,31 @@ input[type=number] {
 				</div>
 			</div>
 		</form>
+
+		<script type="text/javascript">
+			function traerEmpleado() 
+			{
+				var rut=$('#rut').val();
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});	
+
+				$.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/traer-empleado", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+         	"rut":rut
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+         	console.log(data);
+         	$('#nombres').val(data.nombres);
+         	$('#cargo').val(data.cargo);
+         },
+     });
+			}
+		</script>
 
 		<div id="error"> </div>
 		@if(session()->has('message'))

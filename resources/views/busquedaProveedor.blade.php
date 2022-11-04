@@ -28,13 +28,11 @@
         </tr>
         @foreach($proveedores as $proveedor) 
         <tr>
-          <td id="td-datatable">{{$proveedor->rut_proveedor}}-{{$proveedor->dig_rut_prov}} </td>
+          <td><a style="color:black " href="modificar-proveedor/{{$proveedor->rut_proveedor}}">{{$proveedor->rut_proveedor}}</a> </td>
           <td id="td-datatable">{{$proveedor->razon_social}}</td>
           <td id="td-datatable">{{$proveedor->giro}}</td>
           <td id="td-datatable">{{$proveedor->direccion_prov}}</td>
-
-          <td id="td-datatable"><a class="btn btn-outline-primary btn-sm" href="modificar-proveedor/{{$proveedor->rut_proveedor}}"> Modificar </a></td>
-          <td> <a class="btn btn-outline-danger btn-sm"  onclick="eliminar({{$proveedor->id}})"> Eliminar  </a></td>
+          <td> <a class="btn btn-outline-danger btn-sm"  onclick="eliminar({{$proveedor->rut}})"> Eliminar  </a></td>
         </tr>
         @endforeach
       </tbody>
@@ -83,6 +81,9 @@
     })
   }
 </script>
+
+
+
 </font>
 
 </div> 

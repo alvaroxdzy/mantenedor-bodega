@@ -25,25 +25,20 @@ input[type=number] {
 				<div class="row" > 
 					<div class="mb-3 col-md-2">
 						<label for="rut_proveedor">Rut</label>
-						<input style="width:200px" style="text-transform:uppercase" type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" minlength="1" maxlength="20" required onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small id="rut_prov" class="form-text text-muted">ingrese rut sin codigo verificador.</small>
+						<input style="width:200px" style="text-transform:uppercase" type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" minlength="1" maxlength="20" onblur="traerProveedor()" required onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<small id="rut_prov" class="form-text text-muted">11111111-1.</small>
 					</div>
-					<div class="mb-3 col-md-2">
-						<label for="dig_rut_prov">Digito verificador</label>
-						<input style="width:50px"style="text-transform:uppercase" type="text" class="form-control" id="dig_rut_prov" name="dig_rut_prov"  minlength="1" maxlength="1" required onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small id="dig_rut_prov" class="form-text text-muted">digito verificador.</small>
-					</div>
-
+					
 					<div class="mb-3 col-md-3">
 						<label for="razon_social">Razon social</label>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="razon_social" name="razon_social" required maxlength="75" onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small id="nom_bod" class="form-text text-muted">razon social del proveedor.</small>
+
 					</div>
 
 					<div class="mb-3 col-md-3">
 						<label for="giro">Giro</label>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="giro" name="giro"  required onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small id="dir_bod" class="form-text text-muted">giro del proveedor.</small>
+
 					</div>
 				</div>
 				<br> 
@@ -51,68 +46,50 @@ input[type=number] {
 					<div class="mb-3 col-md-8">
 						<label for="direccion_prov">Dirección</label>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="direccion_prov" name="direccion_prov" required onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small id="dir_bod" class="form-text text-muted"> direccion del proveedor.</small>
+				
 					</div>
 				</div>
-				<br>
 
-			<!--	<div class="row" > 
-					<div class="mb-3 col-md-4">
-						<label for="banco">Banco</label>
-						<select class="form-control" id="banco" name="banco" placeholder="Seleccione su banco">
-							<option value="BANCO CHILE-EDWARDS-CITI">BANCO CHILE-EDWARDS-CITI</option>
-							<option value="BANCO INTERNACIONAL">BANCO INTERNACIONAL</option>
-							<option value="BANCO ESTADO">BANCO ESTADO</option>
-							<option value="BANCO SCOTIABANK">BANCO SCOTIABANK</option>
-							<option value="BCI">BCI</option>
-							<option value="BANCO DO BRASIL S.A.">BANCO DO BRASIL S.A.</option>
-							<option value="CORPBANCA">CORPBANCA</option>
-							<option value="BANCO BICE">BANCO BICE</option>
-							<option value="REPUBLIC NATIONAL BANK OF N.Y.">REPUBLIC NATIONAL BANK OF N.Y.</option>
-							<option value="BANCO SANTANDER">BANCO SANTANDER</option>
-							<option value="BANCO ITAU">BANCO ITAU</option>
-							<option value="THE CHASE MANHATTAN BANK N.A.">THE CHASE MANHATTAN BANK N.A.</option>
-							<option value="BANCO SECURITY">BANCO SECURITY</option>
-							<option value="BANCO FALABELLA">BANCO FALABELLA</option>
-							<option value="BANCO RIPLEY">BANCO RIPLEY</option>
-							<option value="RABOBANK">RABOBANK</option>
-							<option value="BANCO CONSORCIO">BANCO CONSORCIO</option>
-							<option value="BANCO PARIS">BANCO PARIS</option>
-							<option value="BANCO BBVA">BANCO BBVA</option>
-							<option value="BANCO DEL DESARROLLO">BANCO DEL DESARROLLO</option>
-							<option value="COOPEUCH">COOPEUCH</option>
-							<option value="PREPAGO LOS HEROES">PREPAGO LOS HEROES</option>
-							<option value="TENPO PREGAGO">TENPO PREGAGO</option>
-						</select>
-						<small id="dir_bod" class="form-text text-muted">Nombre del banco.</small>
-					</div>
-
-					<div class="mb-3 col-md-4">
-						<label for="tipo_cuenta">Tipo de cuenta</label>
-						<select class="form-control" id="tipo_cuenta" name="tipo_cuenta" placeholder="Ingrese tipo de cuenta">
-							<option value="CUENTA CORRIENTE">CUENTA CORRIENTE</option>
-							<option value="CUENTA VISTA">CUENTA VISTA</option>
-							<option value="CUENTA AHORRO">CUENTA AHORRO</option>
-						</select> 
-						<small id="dir_bod" class="form-text text-muted">Seleccione sucursal.</small>
-					</div>
-
-					<div class="mb-3 col-md-4">
-						<label for="n_cta_prov">Cuenta bancaria</label>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="n_cta_prov" name="n_cta_prov"  onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small id="dir_bod" class="form-text text-muted">numero de la cuenta</small>
-					</div>
-				</div> -->
 				<div class="row mb-0">
 					<div class="col-md-6 offset-md-0">
 						<br>
-						<input type="submit"  style="width:30%;" class="btn btn-outline-primary"  value=" Crear proveedor "> </input>
+						<input type="submit"  style="width:30%;" class="btn btn-outline-primary"  value=" Grabaar Proveedor "> </input>
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
 </div>
+
+<script type="text/javascript">
+	function traerProveedor() 
+	{
+		var rut_proveedor=$('#rut_proveedor').val();
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});	
+
+		$.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/traer-proveedor", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+         	"rut_proveedor":rut_proveedor
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+         	console.log(data);
+         	$('#razon_social').val(data.razon_social);
+         	$('#giro').val(data.giro);
+         	$('#direccion_prov').val(data.direccion_prov);
+
+         },
+     });
+	}
+</script>
+
+
+
 <div id="error"> </div>
 @if(session()->has('message'))
 <div class="alert alert-success">

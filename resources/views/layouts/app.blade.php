@@ -63,6 +63,7 @@
                                 <a class="dropdown-item" href="/busqueda-productos"> Productos </a> 
                                 <a class="dropdown-item" href="/busqueda-proveedores"> Proveedores </a> 
                                 <a class="dropdown-item" href="/busqueda-empleado"> Empleados </a> 
+                                <a class="dropdown-item" href="/busqueda-vehiculo"> Vehiculo </a> 
                             </div>
 
                             <li id="li_layout" class="nav-item dropdown">
@@ -78,7 +79,7 @@
 
 
 
-                                <li id="li_layout"><a class="nav-link" id="linkLayout" >Orden de Reparación</a></li>
+                                <li id="li_layout"><a class="nav-link" href="/crear-orden" >Orden de Reparación</a></li>
 
                                 <li id="li_layout"><a class="nav-link" id="linkLayout" href="contact">Reportes</a></li>
                                 <li id="li_layout"><a class="nav-link" id="linkLayout" href="about">Salir</a></li>                     

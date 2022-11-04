@@ -5,11 +5,11 @@
 
 
 <div  class="container"> 
-  <h4>Listado de empleados</h4>
-  <div id="div-buscar-bodega" class=""> 
+  <h4>Listado de vehiculos</h4>
+  <div > 
    <form class="form-text-input" type="get">
 
-     <a href="crear-empleado" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
+     <a href="crear-vehiculo" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
 
    </form>
  </div>
@@ -22,22 +22,29 @@
 
         <thead>
           <tr>
-            <th>Rut</th>
-            <th>Nombres</th>
-            <th>Cargo</th>
+
+            <th>Tipo camion</th>
+            <th>Marca</th>
+            <th style="width:250px">Modelo</th>
+            <th>Patente</th>
+            <th>Año</th>
+
           </tr>
         </thead>
         <tbody>
-          @foreach($empleado as $empleados) 
+          @foreach($vehiculo as $vehiculos) 
           <tr>
-           <td><a style="color:black " href="modificar-empleado/{{$empleados->rut}}">{{$empleados->rut}}</a> </td>
-           <td><a style="color:black " href="modificar-empleado/{{$empleados->rut}}">{{$empleados->nombres}}</a> </td>
-           <td>{{$empleados->cargo}}</td>
-         </tr>
-         @endforeach
-       </tbody>
-     </table>  
-     <script>
+
+            <td><a style="color:black " href="/modificar-vehiculo/{{$vehiculos->patente}}">{{$vehiculos->tipo_camion}}</a> </td>
+            <td>{{$vehiculos->marca}}</td>
+            <td style="width:250px">{{$vehiculos->modelo}}</td>
+            <td>{{$vehiculos->patente}} </td>
+            <td>{{$vehiculos->anio}}</td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>  
+      <script>
        var dataTable = new DataTable("#myTable", {
         perPage: 10,
         sortable: true,

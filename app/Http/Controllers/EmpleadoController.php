@@ -14,14 +14,20 @@ class EmpleadoController extends Controller
  public function create()
  {
   return view('crearEmpleado');
- }
+}
 
 
 public function store(Request $request)
 {
   $rutValidar = Empleado::where('rut',$request->rut)->first();
   if ($rutValidar) {
-     return redirect()->back()->with('error', 'ERROR RUT TRABAJADOR EXISTE');
+    $empleadoUpdate = DB::table('empleado')
+    ->where('rut',$request->rut)
+    ->update(['nombres' => $request->nombres,
+      'cargo' => $request->caargo]);
+
+    return redirect()->back()->with('message', 'EMPLEADO ACTUALIZADO');
+
   }
   $empleado =new Empleado();
   $empleado->rut=$request->rut; 
@@ -29,9 +35,9 @@ public function store(Request $request)
   $empleado->cargo=$request->cargo;     
   $empleado->save();
 
-          //  if ($bodega->save()) {
-  return redirect()->back()->with('message', 'Empleado creado correctamente');
+  return redirect()->back()->with('message', 'EMPLEADO GRABADO');
 }
+
 
 
 public function search(Request $request)
@@ -40,22 +46,29 @@ public function search(Request $request)
   return view('busquedaEmpleado',compact('empleado'));
 }
 
+public function traerEmpleado(Request $request)
+{
+  $rut = $request->rut;
+
+  $empleado = Empleado::where('rut',$rut)->first();
+  return $empleado;
+}
 
 public function edit($id)
 {
-   $empleado = Empleado::where('rut',$id)->first();
-   return view('modificarEmpleado')->with('empleado',$empleado) ;
+ $empleado = Empleado::where('rut',$id)->first();
+ return view('modificarEmpleado')->with('empleado',$empleado) ;
 }
 
 
 public function update(Request $request)
 {
-   $empleado =Empleado::find($request->id);
-   $empleado->rut=$request->rut; 
-   $empleado->nombres=$request->nombres; 
-   $empleado->cargo=$request->cargo; 
-   $empleado->save();
-   return redirect(route('empleado.search'));
+ $empleado =Empleado::find($request->id);
+ $empleado->rut=$request->rut; 
+ $empleado->nombres=$request->nombres; 
+ $empleado->cargo=$request->cargo; 
+ $empleado->save();
+ return redirect(route('empleado.search'));
 }
 
 public function inventarioEmpleados()
@@ -67,16 +80,14 @@ public function inventarioEmpleados()
    where estado="DISPONIBLE" 
    GROUP by empleado.rut , nombres , nombre_bodega');
 
-if ($inventarioEmpleado==null){
+ if ($inventarioEmpleado==null){
   return redirect()->back()->withErrors(['msg' => 'The Message']);;
 } else {
-   return view('empleadoInventario')->with('bodega',$bodega)->with('inventarioEmpleado',$inventarioEmpleado);
+ return view('empleadoInventario')->with('bodega',$bodega)->with('inventarioEmpleado',$inventarioEmpleado);
 }
 
-
-
-
 }
+
 
 public function filtrarInventario(Request $request){
   $cod_bodega=$request->cod_bodega;
@@ -87,14 +98,15 @@ public function filtrarInventario(Request $request){
       WHERE estado="DISPONIBLE"
       GROUP by empleado.rut , nombres , nombre_bodega');
 
- }else{
+  }else{
     $empleado = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
       WHERE cod_bodega="'.$cod_bodega.'" and estado="DISPONIBLE"
       GROUP by empleado.rut , nombres , nombre_bodega');
- }
+  }
 
- return $empleado;
+  return $empleado;
 }
+
 
 public function productoHistorial($rut){
 
@@ -109,36 +121,36 @@ public function productoHistorial($rut){
 
 public function InventarioBodegaPDF($cod_bodega){
 
-   if($cod_bodega == 'TODAS LAS BODEGAS')
-   {
-     $inventarioEmpleadoPDF = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
-      where estado="DISPONIBLE" 
-      GROUP by empleado.rut , nombres , nombre_bodega');
-  }else{
-     $inventarioEmpleadoPDF = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
-      WHERE cod_bodega="'.$cod_bodega.'" and estado="DISPONIBLE"
-      GROUP by empleado.rut , nombres , nombre_bodega');
-  }
-  $data = [
-     'inventarioEmpleadoPDF' => $inventarioEmpleadoPDF
-  ];
-  $pdf = PDF::loadView('empleadosInventarioPDF',$data)->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
-  return $pdf->download('Inventario-empleado.pdf');
+ if($cod_bodega == 'TODAS LAS BODEGAS')
+ {
+   $inventarioEmpleadoPDF = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
+    where estado="DISPONIBLE" 
+    GROUP by empleado.rut , nombres , nombre_bodega');
+ }else{
+   $inventarioEmpleadoPDF = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
+    WHERE cod_bodega="'.$cod_bodega.'" and estado="DISPONIBLE"
+    GROUP by empleado.rut , nombres , nombre_bodega');
+ }
+ $data = [
+   'inventarioEmpleadoPDF' => $inventarioEmpleadoPDF
+ ];
+ $pdf = PDF::loadView('empleadosInventarioPDF',$data)->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
+ return $pdf->download('Inventario-empleado.pdf');
 }
+
 
 public function empleadoMovimientoPDF($rut){
 
-   $movimiento = DB::select('select tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov where rut = "'.$rut.'" ');
+ $movimiento = DB::select('select tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov where rut = "'.$rut.'" ');
 
-$empleado = Empleado::where('rut',$rut)->first();
+ $empleado = Empleado::where('rut',$rut)->first();
 
-  $data = [
-    'movimiento' => $movimiento,
-    'empleado' => $empleado
+ $data = [
+  'movimiento' => $movimiento,
+  'empleado' => $empleado
 ];
 
 $pdf = PDF::loadView('historialEmpleadoPDF',$data)->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
-
 
 return $pdf->download('archivo-pdf.pdf');
 

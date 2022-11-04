@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
+use DB;
 
 class ProveedorController extends Controller
 {
@@ -28,27 +29,39 @@ class ProveedorController extends Controller
     {
         $proveedorcheck = Proveedor::where('rut_proveedor',$request->rut_proveedor)->first();
         if ($proveedorcheck) {
-         return redirect()->back()->with('error', 'ERROR RUT PROVEEDOR EXISTENTE');
-     }
-     $proveedor =new Proveedor();
-     $proveedor->rut_proveedor=$request->rut_proveedor; 
-     $proveedor->dig_rut_prov=$request->dig_rut_prov; 
-     $proveedor->razon_social=$request->razon_social; 
-     $proveedor->giro=$request->giro; 
-     $proveedor->direccion_prov=$request->direccion_prov;
-     $proveedor->banco=$request->banco;
-     $proveedor->tipo_cuenta=$request->tipo_cuenta;
-     $proveedor->n_cta_prov=$request->n_cta_prov;    
 
-     $proveedor->save();
+            $proveedorUpdate = DB::table('proveedor')
+            ->where('rut_proveedor',$request->rut_proveedor)
+            ->update(['razon_social' => $request->razon_social,
+              'giro' => $request->giro,
+              'direccion_prov' => $request->direccion_prov]);
+
+            return redirect()->back()->with('message', 'Proveedor actualizado correctamente');
+        }
+        $proveedor =new Proveedor();
+        $proveedor->rut_proveedor=$request->rut_proveedor; 
+        $proveedor->razon_social=$request->razon_social; 
+        $proveedor->giro=$request->giro; 
+        $proveedor->direccion_prov=$request->direccion_prov;
 
 
-     return redirect()->back()->with('message', 'Proveedor creado correctamente');
- }
+        $proveedor->save();
 
- public function edit($id)
- {
-    $proveedor = Proveedor::where('rut_proveedor',$id)->first();
+
+        return redirect()->back()->with('message', 'Proveedor creado correctamente');
+    }
+
+    public function traerProveedor(Request $request)
+    {
+      $rut_proveedor = $request->rut_proveedor;
+
+      $proveedor = Proveedor::where('rut_proveedor',$rut_proveedor)->first();
+      return $proveedor;
+  }
+
+  public function edit($rut)
+  {
+    $proveedor = Proveedor::where('rut_proveedor',$rut)->first();
     return view('modificarProveedor')->with('proveedor',$proveedor) ;
 }
 
@@ -56,11 +69,9 @@ public function update(Request $request)
 {
     $proveedor =Proveedor::find($request->id);
     $proveedor->rut_proveedor=$request->rut_proveedor; 
-    $proveedor->dig_rut_prov=$request->dig_rut_prov; 
     $proveedor->razon_social=$request->razon_social; 
     $proveedor->giro=$request->giro; 
     $proveedor->direccion_prov=$request->direccion_prov;
-  
     $proveedor->save();
     return redirect(route('proveedor.search'));
 }
@@ -72,9 +83,9 @@ public function search(){
     return view('busquedaProveedor',compact('proveedores'));
 }
 
-public function destroy($id)
+public function destroy($rut)
 {
-    $proveedor = Proveedor::find($id);
+    $proveedor = Proveedor::find($rut);
     $proveedor->delete();
     return redirect(route('proveedor.search'));
 

@@ -14,7 +14,8 @@
             <div class="mb-3 col-md-4"> 
 
                 <label> Solicitante </label>
-                <select class="form-control" onchange="cargarFolio()" onclick="cargarFolio()" id="solicitante" name="solicitante" > 
+                <select class="form-control" onchange="cargarFolio()" onclick="cargarFolio()" id="solicitante" name="solicitante" required > 
+                    <option value="">-------</option>
                     @foreach($empleado as $empleados)
                     <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
                     @endforeach
@@ -22,7 +23,7 @@
             </div>
             <div class="mb-3 col-md-2" style="width: 22.2%;">
                 <label> FOLIO  </label >
-                <input class="form-control" name="num_documento" type="text" id="num_documento" required readonly> 
+                <input class="form-control" name="num_documento" type="text" id="num_documento" required onblur="traerOT()" > 
             </div> 
         </div>
     </div>
@@ -112,7 +113,7 @@
             </tr>
         </thead>
         <tbody id="tbodyEmpleado">
-            <input type="hidden" name="contador" value="0" id="contador">
+            <input type="text" name="contador" value="0" id="contador">
         </tbody>
     </table>
     <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
@@ -144,9 +145,9 @@
             <th>GESTIONAR</th>
         </tr>
     </thead>
-    <tbody id="tbodyProductos">
+    <tbody id="tbodyProductos" >
 
-        <input type="hidden" name="contador2" value="0" id="contador2">
+        <input type="text" name="contador2" value="0" id="contador2">
 
     </tbody>
 </table>
@@ -155,18 +156,18 @@
 </div>
 
 <div class="card-body">
- <table class="table table-sm" style="width:100%">
-  <thead>
-    <tr>
-        <th>SERVICIOS</th>
-        <th>DESCRIPCION:</th>
-        <th>VALOR:</th>
-        <th>GESTIONAR</th>
-    </tr>
-</thead>
-<tbody id="tbodyServicios">
-    <input type="hidden" name="contador3" value="0" id="contador3">
-</tbody>
+    <table class="table table-sm" style="width:100%" id="tableServicios">
+      <thead>
+        <tr>
+            <th>SERVICIOS</th>
+            <th>DESCRIPCION:</th>
+            <th>VALOR:</th>
+            <th>GESTIONAR</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyServicios">
+        <input type="text" name="contador3" value="0" id="contador3">
+    </tbody>
 </table>
 <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_serv"  > AGREGAR SERVICIOS </button>
 
@@ -192,10 +193,10 @@
     <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> Guardar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button"> Imprimir </button>
+    <button class="btn btn-primary btn-sm" type="button" > Imprimir </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button"> Cerrar </button>
+    <button class="btn btn-primary btn-sm" type="button" onclick="cargarArreglos()" > Cerrar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button"> Anular </button>
@@ -259,7 +260,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
                 $('#borrar_btn'+contador).attr('hidden',true);
             }
 
-            contador = contador+1;
+            contador = $('#contador').val();
+            contador++;
+
             $('#contador').val(contador);
 
             traerEmpleados(); 
@@ -269,7 +272,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
                 $(this).closest('tr').remove();
                 contador = contador-1;
                 $('#contador').val(contador);
-                $('#borrar_emp'+contador).attr('hidden',false);
+                $('#borrar_btn'+contador).attr('hidden',false);
             });
         })
     });
@@ -312,17 +315,17 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
             var html = '';
             html+='<tr>';
-            html+='<td > <select id="selectEmpleado'+contador+'" onchange="cargarEmpleado(this)" class="form-control" required><option value="">---SELECCIONE EMPLEADO---</option>' ; 
+            html+='<td > <select style="width:350px" id="selectEmpleado'+contador+'" class="form-control" onchange="cargarEmpleado(this)" required><option value="">-------</option>' ; 
             data.forEach(function(empleado) {
                html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
            });
             html+='</select> </td>' ;
-            html+='<td><input id="rut'+contador+'" class="form-control" type="text" name="rut" required readonly></td>';
-            html+='<td><input id="cargo'+contador+'" class="form-control"  type="text" name="cargo" required readonly></td>';
-            html+='<td><input class="form-control" id="fecha_inicio'+contador+'" type="date" name="fecha_inicio" required ></td>';
-            html+='<td><input class="form-control" id="fecha_termino'+contador+'" type="date" name="fecha_termino"  ></td>';
-            html+='<td><input id="detalle'+contador+'" class="form-control" type="text" name="detalle"></td>';
-            html+='<td><button class="btn btn-primary"  id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
+            html+='<td><input style="width:100px" id="rut'+contador+'"  type="text" name="rut" required readonly></td>';
+            html+='<td><input style="width:200px" id="cargo'+contador+'"   type="text" name="cargo" required readonly></td>';
+            html+='<td><input id="fecha_inicio'+contador+'" type="date" name="fecha_inicio" required ></td>';
+            html+='<td><input id="fecha_termino'+contador+'" type="date" name="fecha_termino"  ></td>';
+            html+='<td><input id="detalle'+contador+'"  type="text" name="detalle"></td>';
+            html+='<td><button id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 
             $('#tbodyEmpleado').append(html);
@@ -346,8 +349,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         } else {
             $('#borrar_btn2'+contador2).attr('hidden',true);
         }
-
-        contador2 = contador2+1;
+        contador2 = $('#contador2').val();
+        contador2++;
         $('#contador2').val(contador2);
 
         productoBodegas();
@@ -390,17 +393,17 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
             var html = '';
             html+='<tr>';
-            html+='<td style="width:300px"> <select style="width:300px" id="selectProducto'+contador2+'" onchange="cargarProducto(this),cargarStock(this),promedioNeto(this)" class="form-control" required><option value="">---SELECCIONE PRODUCTO---</option>' ; 
+            html+='<td> <select id="selectProducto'+contador2+'" class="form-control" onchange="cargarProducto(this),cargarStock(this),promedioNeto(this)" required><option value="">------</option>' ; 
             data.forEach(function(producto) {
                 html+='<option value="'+producto.codigo_producto+'">'+producto.codigo_producto+'</option>'; 
             });
             html+='</select> </td>' ;
-            html+='<td><input id="nombre_producto'+contador2+'" class="form-control" type="text" name="nombre_producto" required minlength="1" readonly></td>';
-            html+='<td style="width:100px"><input style="width:100px" id="cantidad'+contador2+'" class="form-control" oninput="calcularSaldoOT(this)" type="text" name="cantidad" value="0" onkeypress="return valideKey(event);"></td>';
-            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="stock'+contador2+'" type="text" name="stock" required value="0" readonly></td>';
-            html+='<td style="width:150px"><input class="form-control" style="width:150px" id="saldo'+contador2+'" type="text" name="saldo" required readonly></td>';
-            html+='<td><input id="neto'+contador2+'" class="form-control" type="text" name="neto" readonly></td>';
-            html+='<td><button class="btn btn-primary"  id="borrar_btn2'+contador2+'" type="button"> Eliminar </button> </td>';
+            html+='<td><input id="nombre_producto'+contador2+'"  type="text" name="nombre_producto" required minlength="1" readonly></td>';
+            html+='<td><input id="cantidad'+contador2+'"  oninput="calcularSaldoOT(this)" type="text" name="cantidad" value="0" onkeypress="return valideKey(event);"></td>';
+            html+='<td><input id="stock'+contador2+'" type="text" name="stock" required value="0" readonly></td>';
+            html+='<td><input id="saldo'+contador2+'" type="text" name="saldo" required readonly></td>';
+            html+='<td><input id="neto'+contador2+'"  type="text" name="neto" readonly></td>';
+            html+='<td><button id="borrar_btn2'+contador2+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
 
             $('#tbodyProductos').append(html);
@@ -424,7 +427,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
                 $('#borrar_btn3'+contador3).attr('hidden',true);
             }
 
-            contador3 = contador3+1;
+            contador3 = $('#contador3').val();
+            contador3++;
             $('#contador3').val(contador3);
 
             servicios();
@@ -451,10 +455,10 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
      var html = '';
      html+='<tr>';
-     html+='<td><input id="servicio'+contador3+'" class="form-control" type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
-     html+='<td><input id="descripcion_servicio'+contador3+'" class="form-control" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
-     html+='<td><input id="valor_servicio'+contador3+'" class="form-control" type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
-     html+='<td><button class="btn btn-primary"  id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
+     html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
+     html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
+     html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
+     html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
      html+='<tr>';
 
      $('#tbodyServicios').append(html);
@@ -587,6 +591,7 @@ if (s == 0 ){
             if (data=='LISTASO') {
                 alert('ORDEN REGISTRADA');
                 location.reload(); 
+                limpiarTodo();
 
             } else {
                 alert('FOLIO  VENCIDO INTENTE NUEVAMENTE');
@@ -596,49 +601,49 @@ if (s == 0 ){
             }
         },
     });
-GrabarSalidaOT()
+   GrabarSalidaOT()
 }
 
 </script>
 
 
 <script type="text/javascript">
-function GrabarSalidaOT()
-{
-    n = 0;
-    p = $('#contador2').val();
-    arrayProductos = [];
+    function GrabarSalidaOT()
+    {
+        n = 0;
+        p = $('#contador2').val();
+        arrayProductos = [];
 
 
-    if (p == 0 ){
-        arrayProductos;
-    } else {
+        if (p == 0 ){
+            arrayProductos;
+        } else {
 
-        while (n < p) {
-          n ++;
+            while (n < p) {
+              n ++;
 
-          var datos2 = {
-            'cod_producto':$("#selectProducto"+n+" option:selected").text(),
-            'producto':$("#nombre_producto"+n).val(),
-            'cantidad':'-'+$('#cantidad'+n).val(),
-            'precio':$('#neto'+n).val()
-        };
-        arrayProductos.push(datos2);
+              var datos2 = {
+                'cod_producto':$("#selectProducto"+n+" option:selected").text(),
+                'producto':$("#nombre_producto"+n).val(),
+                'cantidad':'-'+$('#cantidad'+n).val(),
+                'precio':$('#neto'+n).val()
+            };
+            arrayProductos.push(datos2);
 
+        }
     }
-}
-num_documento = $('#num_documento').val();
-usuario = $('#usuario').val();
-fecha= $('#fecha').val();
-patente= $('#patente').val();
-cod_bodega = $('#cod_bodega').val();
+    num_documento = $('#num_documento').val();
+    usuario = $('#usuario').val();
+    fecha= $('#fecha').val();
+    patente= $('#patente').val();
+    cod_bodega = $('#cod_bodega').val();
 
- $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-   $.ajax({
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
@@ -659,13 +664,204 @@ cod_bodega = $('#cod_bodega').val();
             if (data=='LISTASO') {
                 console.log('Movimiento registrado');    
             }
-         
+
         },
     });
 
 }
 
 </script>
+
+
+<script type="text/javascript">
+    function traerOT() 
+    {
+        $('#contador3').val(0);
+        $('#contador2').val(0);
+        $('#contador').val(0);
+
+
+        $('#tbodyEmpleado > tr').remove();
+        $('#tbodyServicios > tr').remove();
+        $('#tbodyProductos> tr').remove();
+        var num_documento=$('#num_documento').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }); 
+
+        $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/traer-ot", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+            "num_documento":num_documento
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            console.log(data);
+            contadorServicio = $('#contador3').val();
+            contadorProducto = $('#contador2').val();
+            contadorEmpleado = $('#contador').val();
+
+            data[1].forEach(function(detalle) {
+
+                contadorEmpleado++;
+
+                $('#tbodyEmpleado').append('<tr>'+
+                    '<td > <select style="width:250px" id="selectEmpleado'+contadorEmpleado+'" class="form-control" required><option value='+detalle.nombres+'>'+detalle.nombres+'</option></select> </td>'+
+                  '<td><input id="rut'+contadorEmpleado+'" type="text" value='+detalle.rut+'></td>'+
+                  '<td><input id="cargo'+contadorEmpleado+'" type="text" value='+detalle.cargo+'></td>'+
+                  '<td><input id="fecha_inicio'+contadorEmpleado+'" type="date" value='+detalle.fecha_inicio+'></td>'+
+                  '<td><input id="fecha_termino'+contadorEmpleado+'" type="date" value='+detalle.fecha_termino+'></td>'+
+                  '<td><input id="detalle'+contadorEmpleado+'" type="text" value='+detalle.detalle+'></td>'+
+                  '<td><button type="button" onclick="eliminarEmpleado('+detalle.id+')"> Eliminar </button> </td>'+
+                  '</tr>');
+                $('#contador').val(contadorEmpleado);
+            });
+
+            data[3].forEach(function(detalle) {
+
+              contadorServicio++;
+
+              $('#tbodyServicios').append('<tr>'+
+               '<td><input style="width:300px" id="servicio'+contadorServicio+'" type="text" value='+detalle.servicio+'></td>'+
+               '<td><input style="width:300px" id="descripcion_servicio'+contadorServicio+'" type="text" value='+detalle.descripcion_servicio+'></td>'+
+               '<td><input style="width:300px" id="valor_servicio'+contadorServicio+'" type="text" value='+detalle.valor_servicio+'></td>'+
+               '<td><button type="button" onclick="eliminarServicio('+detalle.id+')"> Eliminar </button> </td>'+
+               '</tr>');
+
+
+              $('#contador3').val(contadorServicio);
+          });
+
+            data[2].forEach(function(detalle) {
+                    console.log(detalle);
+                contadorProducto++;
+
+                $('#tbodyProductos').append('<tr>'+
+                    '<td><select style="color :red" class="form-control" id="selectProducto'+contadorProducto+'"  readonly><option value="'+detalle.cod_producto+'">'+detalle.cod_producto+'</option>'+
+                    '<td><input style="color :red" id="nombre_producto'+contadorProducto+'" type="text" value='+detalle.producto+' readonly></td>'+
+                    '<td><input style="color :red" id="cantidad'+contadorProducto+'" type="text" value='+detalle.cantidad+' readonly></td>'+
+                    '<td><input style="color :red" id="stock'+contadorProducto+'" type="text" value="--" readonly></td>'+
+                    '<td><input style="color :red" id="saldo'+contadorProducto+'" type="text" value="--" readonly></td>'+
+                    '<td><input style="color :red" id="neto'+contadorProducto+'" type="text" value='+detalle.precio+' readonly></td>'+
+                    '<td><button type="button" onclick="eliminarProducto('+detalle.id+')"> Eliminar </button> </td>'+
+                    '</tr>');
+
+                $('#contador2').val(contadorProducto);
+
+            });
+
+
+
+            $('#solicitante').val(data[0].solicitante);
+            $('#fecha').val(data[0].fecha);
+            $('#cod_bodega').val(data[0].cod_bodega);
+            $('#patente').val(data[0].patente);
+            $('#tipo_camion').val(data[0].tipo_camion);
+            $('#marca').val(data[0].marca);
+            $('#modelo').val(data[0].modelo);
+            $('#anio').val(data[0].anio);
+            $('#diagnostico').val(data[0].diagnostico);
+            $('#trabajos_realizados').val(data[0].trabajos_realizados);
+            $('#observaciones').val(data[0].observaciones);
+
+        },
+    });
+}
+</script>
+
+
+<script type="text/javascript">
+    function eliminarEmpleado(id)
+    {
+        alert(id);
+
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+        $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/eliminar-ot-personal/" +id, //url guarda la ruta hacia donde se hace la peticion
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            if(data==1){
+                location.reload();
+            }
+        },
+    });
+
+    } 
+</script>
+
+<script type="text/javascript">
+    function eliminarProducto(id)
+    {
+        alert(id);
+
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+        $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/eliminar-ot-producto/" +id, //url guarda la ruta hacia donde se hace la peticion
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            if(data==1){
+                 location.reload();
+            }
+        },
+    });
+
+    } 
+</script>
+
+<script type="text/javascript">
+    function eliminarServicio(id)
+    {
+        alert(id);
+
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+        $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/eliminar-ot-servicio/" +id, //url guarda la ruta hacia donde se hace la peticion
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+            if(data==1){
+                location.reload();
+                $('#num_documento').focus();
+            }
+        },
+    });
+
+    } 
+</script>
+
+<script type="text/javascript">
+    function limpiarTodo()
+    {
+        document.getElementById('diagnostico').value="";
+        document.getElementById('trabajos_realizados').value="";
+        document.getElementById('observaciones').value="";
+        document.getElementById('patente').value="---------";
+        document.getElementById('solicitante').value="-----";
+        document.getElementById('num_documento').value="";
+        document.getElementById('contador').value=0;
+        document.getElementById('contador2').value=0;
+        document.getElementById('contador3').value=0;
+    }
+</script>
+
+
 
 @endsection
 
