@@ -7,7 +7,9 @@
 <div  class="container"> 
   <h5>HISTORIAL MOVIMIENTOS </h5>
 
-  <B>CODIGO PRODUCTO : {{$producto}}  </B>   
+  <h7> {{$bodega->nombre_bodega}}  </h7>
+  <br>
+  <h7>CODIGO PRODUCTO : {{$producto->codigo_producto}}  </h7>   
 
   <table id="tabla-historial" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width:100%">
     <thead class="thead-light">
@@ -53,9 +55,9 @@
     }
   });
 </script>
-  <div class="mb-4 d-flex justify-content-end">
-    <a class="btn btn-primary" href="/historial-producto-pdf/{{$producto}}">Convertir a PDF</a>
-  </div>
+<div class="mb-4 d-flex justify-content-end">
+  <a class="btn btn-primary" href="/historial-producto-pdf/{{$producto->codigo_producto}}/{{$bodega->codigo_bodega}}">Convertir a PDF</a>
+</div>
 </div> 
 
 

@@ -25,6 +25,10 @@
                 <label> FOLIO  </label >
                 <input class="form-control" name="num_documento" type="text" id="num_documento" required readonly> 
             </div> 
+            <div class="mb-3 col-md-3" >
+                <label> ESTADO  </label>
+                <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
+            </div>
         </div>
     </div>
 
@@ -190,17 +194,10 @@
 
 <div class="row">
    <div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> Guardar </button>
+    <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> GUARDAR </button>
 </div>
-<div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button"> Imprimir </button>
-</div>
-<div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button"> Cerrar </button>
-</div>
-<div class="mb-3 col-md-3" style="width: 25%;">
-    <button class="btn btn-primary btn-sm" type="button"> Anular </button>
-</div>
+
+
 </div>
 
 </form>
@@ -218,8 +215,9 @@
 </script>
 
 <script type="text/javascript">
-    window.onload = function(){
-    var fecha = new Date(); //Fecha actual
+    function cargarFecha()
+    {
+        var fecha = new Date(); //Fecha actual
     var mes = fecha.getMonth()+1; //obteniendo mes
     var dia = fecha.getDate(); //obteniendo dia
     var ano = fecha.getFullYear(); //obteniendo año
@@ -299,12 +297,22 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function traerEmpleados () {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
+         var fecha = new Date(); //Fecha actual
+         var mes = fecha.getMonth()+1; //obteniendo mes
+         var dia = fecha.getDate(); //obteniendo dia
+         var ano = fecha.getFullYear(); //obteniendo año
+         if(dia<10)
+         dia='0'+dia; //agrega cero si el menor de 10
+     if(mes<10)
+         mes='0'+mes //agrega cero si el menor de 10
+
+     fecha = ano+"-"+mes+"-"+dia;
+     $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+     $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"traer-empleados", //url guarda la ruta hacia donde se hace la peticion
          data:{
@@ -312,6 +320,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
 
             contador = $('#contador').val();
+            console.log(fecha);
 
             var html = '';
             html+='<tr>';
@@ -322,18 +331,19 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='</select> </td>' ;
             html+='<td><input style="width:100px" id="rut'+contador+'"  type="text" name="rut" required readonly></td>';
             html+='<td><input style="width:200px" id="cargo'+contador+'"   type="text" name="cargo" required readonly></td>';
-            html+='<td><input id="fecha_inicio'+contador+'" type="date" name="fecha_inicio" required ></td>';
+            html+='<td><input id="fecha_inicio'+contador+'" type="date" name="fecha_inicio" required value='+fecha+' ></td>';
             html+='<td><input id="fecha_termino'+contador+'" type="date" name="fecha_termino"  ></td>';
-            html+='<td><input id="detalle'+contador+'"  type="text" name="detalle"></td>';
+            html+='<td><input id="detalle'+contador+'"  type="text" name="detalle" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
             html+='<td><button id="borrar_btn'+contador+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
+
 
             $('#tbodyEmpleado').append(html);
         },
     });
 
 
-    }
+ }
 
 
 </script>
@@ -555,6 +565,7 @@ if (s == 0 ){
    diagnostico = $('#diagnostico').val();
    trabajos_realizados = $('#trabajos_realizados').val();
    observaciones = $('#observaciones').val();
+   estado = $('#estado').val();
 
    console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
 
@@ -581,6 +592,7 @@ if (s == 0 ){
             "diagnostico":diagnostico,
             "trabajos_realizados":trabajos_realizados,
             "observaciones":observaciones,
+            "estado":estado,
             "arrayServicios":arrayServicios,
             "arrayPersonal":arrayPersonal,
             "arrayProductos":arrayProductos
@@ -690,6 +702,9 @@ if (s == 0 ){
 
 <script type="text/javascript">
     window.onload=cargarFolio();
+    window.onload=cargarFecha();
+    window.reload=limpiarTodo();   
+    window.reload=cargarFolio();
 </script>
 
 

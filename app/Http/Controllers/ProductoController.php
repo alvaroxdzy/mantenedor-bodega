@@ -141,24 +141,37 @@ return $producto;
 
 public function productoHistorial($cod_producto,$cod_bodega){
 
-  $movimiento = DB::select('SELECT nro_documento_mov ,movimiento.tipo_documento, cod_producto , nombre_producto , detalle_movimiento.tipo , detalle_movimiento.fecha, detalle_movimiento.cantidad , detalle_movimiento.usuario , movimiento.estado FROM detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov  WHERE cod_producto =  "'.$cod_producto.'" and movimiento.cod_bodega = "'.$cod_bodega.'"
-    order by detalle_movimiento.id');
+  $movimiento = Movimiento::join('detalle_movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
+  ->select('detalle_movimiento.nro_documento_mov','movimiento.tipo_documento','cod_producto','nombre_producto','detalle_movimiento.tipo','detalle_movimiento.fecha','detalle_movimiento.cantidad','detalle_movimiento.usuario','movimiento.estado')
+  ->where('cod_producto',$cod_producto)
+  ->where('cod_bodega',$cod_bodega)
+  ->orderBy('id')->get();
 
-  $producto = $cod_producto;
+  $producto = Producto::where('codigo_producto',$cod_producto)
+  ->where('cod_bod_producto',$cod_bodega)->first();
+  $bodega = Bodega::where('codigo_bodega',$cod_bodega)->first();
 
-  return view('historialProducto',compact('movimiento'))->with('producto',$producto);
+  return view('historialProducto')->with('movimiento',$movimiento)->with('producto',$producto)->with('bodega',$bodega);
 }
 
 
-public function productoMovimientoPDF($cod_producto){
+public function productoMovimientoPDF($cod_producto,$cod_bodega){
 
-  $movimiento = DB::select('SELECT nro_documento_mov ,movimiento.tipo_documento, cod_producto , nombre_producto , detalle_movimiento.tipo , detalle_movimiento.fecha, detalle_movimiento.cantidad , detalle_movimiento.usuario , movimiento.estado FROM detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov  WHERE cod_producto =  "'.$cod_producto.'" and movimiento.cod_bodega = "'.$cod_bodega.'"
-    order by detalle_movimiento.id');
-  $producto = Producto::where('codigo_producto',$cod_producto)->first();
+  $movimiento = Movimiento::join('detalle_movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
+  ->select('detalle_movimiento.nro_documento_mov','movimiento.tipo_documento','cod_producto','nombre_producto','detalle_movimiento.tipo','detalle_movimiento.fecha','detalle_movimiento.cantidad','detalle_movimiento.usuario','movimiento.estado')
+  ->where('cod_producto',$cod_producto)
+  ->where('cod_bodega',$cod_bodega)
+  ->orderBy('id')->get();
+
+  $producto = Producto::where('codigo_producto',$cod_producto)
+  ->where('cod_bod_producto',$cod_bodega)
+  ->first();
+  $bodega = Bodega::where('codigo_bodega',$cod_bodega)->first();
 
   $data = [
     'movimiento' => $movimiento,
-    'producto' => $producto
+    'producto' => $producto,
+    'bodega' => $bodega
 ];
 
 $pdf = PDF::loadView('historialProductoPDF',$data)->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
@@ -178,26 +191,20 @@ public function InventarioBodegaPDF($cod_bodega){
   ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('round(avg(detalle_movimiento.neto),0) as precio'))
   ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
   ->get();
+
 }else{
+
     $producto = DetalleMovimiento::join('movimiento','detalle_movimiento.nro_documento_mov','movimiento.num_documento')
       ->join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
       ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('round(avg(detalle_movimiento.neto),0) as precio'))
       ->where('estado','DISPONIBLE')
+      ->where('cod_bodega',$cod_bodega)
       ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
       ->get();
 }
-
-    $bodega = Bodega::where('codigo_bodega',$cod_bodega)->first();
-    if($bodega){
-        1 ;
-    } else  {
-        $bodega->nombre_bodega=='OLA';
-    }
-   
-
+  
 $data = [
-    'producto' => $producto,
-    'bodega' => $bodega
+    'producto' => $producto
 ];
 
 $pdf = PDF::loadView('productoStockPDF',$data)->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');

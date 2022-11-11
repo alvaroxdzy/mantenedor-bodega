@@ -111,7 +111,7 @@ public function filtrarInventario(Request $request){
 public function productoHistorial($rut){
 
 
- $empleado = DB::select('select tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov where rut = "'.$rut.'" ');
+ $empleado = DB::select('select detalle_movimiento.tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov where rut = "'.$rut.'" ');
 
  $trabajador = Empleado::where('rut',$rut)->first();
 
@@ -141,7 +141,7 @@ public function InventarioBodegaPDF($cod_bodega){
 
 public function empleadoMovimientoPDF($rut){
 
- $movimiento = DB::select('select tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov where rut = "'.$rut.'" ');
+ $movimiento = DB::select('select detalle_movimiento.tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov where rut = "'.$rut.'" ');
 
  $empleado = Empleado::where('rut',$rut)->first();
 

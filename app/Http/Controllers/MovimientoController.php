@@ -63,10 +63,10 @@ public function traerProducto($cod_producto,$cod_bodega)
 
 }
 
-public function traerStock($cod_producto){
+public function traerStock($cod_producto,$cod_bodega){
 
-  $stock = DB::table('detalle_movimiento')
-  ->select(array( DB::raw('(SUM(cantidad)) as stock')))->Where('cod_producto',$cod_producto)
+  $stock = DB::table('detalle_movimiento')->join('movimiento','detalle_movimiento.nro_documento_mov', '=','movimiento.num_documento')
+  ->select(array( DB::raw('(SUM(cantidad)) as stock')))->Where('cod_producto',$cod_producto)->where('cod_bodega',$cod_bodega)
   ->get();
   return $stock;
 }

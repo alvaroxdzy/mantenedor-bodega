@@ -55,7 +55,7 @@ Route::get('/traer-proveedor','ProveedorController@traerProveedor')->name('prove
 
 //RUTAS PARA MOVIMIENTOS
 Route::get('/crear-movimiento','MovimientoController@create')->name('movimiento.create') ;
-Route::get('/stock-movimiento/{cod_producto}','MovimientoController@traerStock')->name('movimiento.traer_stock') ;
+Route::get('/stock-movimiento/{cod_producto}/{cod_bodega}','MovimientoController@traerStock')->name('movimiento.traer_stock') ;
 Route::get('/almacenar-movimiento','MovimientoController@store')->name('movimiento.store');
 Route::get('/salida-movimiento','MovimientoController@salida')->name('movimiento.salida') ;
 Route::get('/producto-bodega/{cod_bodega}','MovimientoController@productosBodega')->name('producto.bodega');
@@ -75,7 +75,7 @@ Route::get('/historial-empleado/{rut}','EmpleadoController@productoHistorial')->
 Route::get('/traer-empleado','EmpleadoController@traerEmpleado')->name('empleado.traerEmpleados');
 
 //RUTAS PARA REPORTES
-Route::get('historial-producto-pdf/{cod_producto}','ProductoController@productoMovimientoPDF')->name('producto.pdf');
+Route::get('historial-producto-pdf/{cod_producto}/{cod_bodega}','ProductoController@productoMovimientoPDF')->name('producto.pdf');
 Route::get('stock-producto-pdf/{cod_bodega}','ProductoController@InventarioBodegaPDF')->name('producto.pdf');
 Route::get('inventario-empleado-pdf/{cod_bodega}','EmpleadoController@InventarioBodegaPDF')->name('empleado.pdf');
 Route::get('historial-empleado-pdf/{rut}','EmpleadoController@empleadoMovimientoPDF')->name('producto.pdf');
@@ -86,7 +86,7 @@ Route::get('/crear-orden','OrdenTrabajoController@create')->name('orden.create')
 Route::get('/traer-vehiculo/{patente}','OrdenTrabajoController@traerVehiculo')->name('orden.traerVehiculo');
 Route::get('/traer-empleados','OrdenTrabajoController@traerEmpleados')->name('orden.traerEmpleados');
 Route::get('/traer-empleado/{nombres}','OrdenTrabajoController@traerDetalleEmpleado')->name('orden.traerDetallEmpleado') ;
-Route::get('/neto-productos/{codigo_producto}','OrdenTrabajoController@promedioNeto')->name('orden.promedioNeto') ;
+Route::get('/neto-productos/{codigo_producto}/{cod_bodega}','OrdenTrabajoController@promedioNeto')->name('orden.promedioNeto') ;
 Route::get('/almacenar-movimiento-ot','OrdenTrabajoController@storeSalida')->name('orden.storeSalida');
 Route::get('/almacenar-orden-trabajo','OrdenTrabajoController@storeOT')->name('orden.storeOT');
 Route::get('/traer-ot','OrdenTrabajoController@traerOT')->name('orden.traerOT');
@@ -97,7 +97,8 @@ Route::get('/modificar-orden/{num_documento}','OrdenTrabajoController@edit')->na
 Route::get('/actualizar-orden-trabajo','OrdenTrabajoController@update')->name('orden.update');
 Route::get('/actualizar-movimiento-ot','OrdenTrabajoController@storeSalidaUpdate')->name('orden.storeSalidaUpdate');
 Route::get('/busqueda-ot/','OrdenTrabajoController@buscarOT')->name('orden.buscarOT');
-
+Route::get('/cerrar-ot/{num_documento}','OrdenTrabajoController@cerrarOT')->name('orden.cerrarOT');
+Route::get('/orden-trabajo-PDF/{num_documento}','OrdenTrabajoController@ordenTrabajoPDF')->name('orden.ordenPDF');
 
 
 //RUTAS PARA VEHICULOS

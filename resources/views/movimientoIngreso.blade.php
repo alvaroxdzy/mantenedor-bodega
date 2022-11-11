@@ -390,19 +390,49 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
            "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-            console.log(data);
-
 
             if (data=='LISTASO') {
                 alert('MOVIMIENTO REGISTRADO');
-                location.reload(); 
+                $('#num_documento').val('');
+                location.reload();
+                $('num_documento').val(''); 
+                $('#tipo_documento').val('FACTURA');
+
             } else {
-                alert('YA EXISTE UN MOVIMIENTO CON ESTE CODIGO');
+                alert('YA EXISTE UN MOVIMIENTO CON ESTE CODIGO INTENTE NUEVAMENTE');
+                $('#num_documento').attr('readonly',true);
+                var num = document.getElementById("num_documento");
+                console.log(num.value);
+                tipo_documento = $('#tipo_documento').val();
+                
+                if(tipo_documento=="FACTURA"){
+                    $('#tipo_documento').focus();
+                    alert('FACTURA NUMERO :'+num_documento+ ' YA SE ENCUENTRA REGISTRADA');
+                    $('#num_documento').focus();
+                } else {
+                num.value = parseInt(num.value,10)+1;
+                } 
+                      
+            
             }
         },
     });
 }
 }
+
+</script>
+
+<script type="text/javascript">
+    function limpiarTodo()
+    {
+        document.getElementById('num_documento').value="";
+    }
+</script>
+
+<script type="text/javascript">
+
+    window.reload=limpiarTodo();   
+
 </script>
 
 

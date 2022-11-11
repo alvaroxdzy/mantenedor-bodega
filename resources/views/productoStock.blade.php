@@ -43,7 +43,7 @@
   <tbody id="trTable">
     @foreach($producto as $productos) 
     <tr>
-      <td><a style="color:black  "href="/modificar-producto/{{$productos->cod_producto}}/{{$productos->cod_bodega}}">{{$productos->cod_producto}}</a></td>
+      <td><a style="color:black  "href="/historial-producto/{{$productos->cod_producto}}/{{$productos->cod_bodega}}">{{$productos->cod_producto}}</a></td>
       <td><a style="color:black  "href="/historial-producto/{{$productos->cod_producto}}/{{$productos->cod_bodega}}">{{$productos->nombre_producto}}</a> </td>
       <td>{{intval($productos->precio)}} </td>
       <td>{{$productos->stock}}</td>
@@ -76,10 +76,10 @@ $cod_bodega = $("#seleccionar-bodega option:selected").val();
 
 <script>
  var dataTable = new DataTable("#myTable", {
-  perPage: 25,
+  perPage: 150,
   sortable: true,
   fixedColumns: true,
-  perPageSelect: [ 50, 100],
+  perPageSelect: [ 150 , 250],
   labels: {
     placeholder: "Buscar..",
     perPage: "{select}     Registros por pagina",

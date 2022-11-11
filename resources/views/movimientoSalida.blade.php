@@ -13,7 +13,7 @@
                 <div class="mb-3 col-md-3">
 
                     <label> TIPO DE DOCUMENTO</label>
-                    <select class="form-control" id="tipo_documento" name="tipo_documento" onblur="cargarFolio()" onclick="cargarFolio();" readonly> 
+                    <select class="form-control" id="tipo_documento" name="tipo_documento" readonly> 
                         <option>COMPROBANTE SALIDA</option>
                     </select>
                 </div>
@@ -392,6 +392,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
     });
 }
 }
+</script>
+<script type="text/javascript">
+    window.onload=cargarFolio();
 </script>
 
 
