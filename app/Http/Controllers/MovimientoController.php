@@ -49,7 +49,7 @@ public function salida()
   $producto= Producto::select('codigo_producto','nombre_producto')->get();
   $productos=Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.codigo_producto','producto.nombre_producto', 'producto.observacion_producto' , 'bodega.nombre_bodega as nombre_bodega' , 'bodega.codigo_bodega as cod_bodega')->get();
   $vehiculo = Vehiculo::select('patente')->get();
-   $folios = Folios::select('folio')->where('tipo','CS')->first();
+  $folios = Folios::select('folio')->where('tipo','CS')->first();
 
   return view('movimientoSalida')->with('empleado',$empleado)
   //->with('producto',$producto)
@@ -65,8 +65,7 @@ public function traerProducto($cod_producto,$cod_bodega)
 
 public function traerStock($cod_producto,$cod_bodega){
 
-  $stock = DB::table('detalle_movimiento')->join('movimiento','detalle_movimiento.nro_documento_mov', '=','movimiento.num_documento')
-  ->select(array( DB::raw('(SUM(cantidad)) as stock')))->Where('cod_producto',$cod_producto)->where('cod_bodega',$cod_bodega)
+  $stock = DB::table('detalle_movimiento')->select(array( DB::raw('(SUM(cantidad)) as stock')))->Where('cod_producto',$cod_producto)->where('cod_bodega',$cod_bodega)
   ->get();
   return $stock;
 }
@@ -98,6 +97,7 @@ public function store(Request $request)
 
    $detalle = new DetalleMovimiento();
    $detalle->nro_documento_mov=$request->num_documento;
+   $detalle->cod_bodega=$request->cod_bodega;
    $detalle->cod_producto=$datos['selectProducto'];
    $detalle->nombre_producto=$datos['nombre_producto'];
    $detalle->cantidad=$datos['cantidad'];

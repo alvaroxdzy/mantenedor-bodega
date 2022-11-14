@@ -47,7 +47,7 @@
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>" readonly> 
 
                 </div> 
-                <div class="mb-3 col-md-4">
+                <div class="mb-3 col-md-3">
                     <label> BODEGA  </label>
                     <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
@@ -67,6 +67,12 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="mb-3 col-md-2" >
+                    <label> KILOMETRAJE  </label >
+                    <input class="form-control" name="kilometraje" type="text" id="kilometraje" required> 
+
+                </div> 
 
                 
             </div> 
@@ -198,7 +204,7 @@
     <button class="btn btn-primary btn-sm" type="button"  id="btn_grabar_orden" onclick="grabarOrden()"> Guardar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
-      <a class="btn btn-primary btn-sm" href="/orden-trabajo-PDF/{{$ordenTrabajo->num_documento}}">Imprimir</a>
+  <a class="btn btn-primary btn-sm" href="/orden-trabajo-PDF/{{$ordenTrabajo->num_documento}}">Imprimir</a>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button" onclick="cerrarOT()" id="btn_cerrar_orden"> Cerrar </button>
@@ -347,27 +353,27 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         $('#agregar_prod').on('click',function(){
         //    $('#selectDocumento').attr("disabled", true);
 
-        if (contador2==0){
+            if (contador2==0){
 
-        } else {
-            $('#borrar_btn2'+contador2).attr('hidden',true);
-        }
-        contador2 = $('#contador2').val();
-        contador2++;
-        $('#contador2').val(contador2);
-
-        productoBodegas();
-        $('#cod_bodega').attr("disabled", true);
-
-        $(document).on('click','#borrar_btn2'+contador2,function(){
-
-            $(this).closest('tr').remove();
-            contador2 = contador2-1;
+            } else {
+                $('#borrar_btn2'+contador2).attr('hidden',true);
+            }
+            contador2 = $('#contador2').val();
+            contador2++;
             $('#contador2').val(contador2);
-            $('#borrar_btn2'+contador2).attr('hidden',false);
 
-        });
-    })
+            productoBodegas();
+            $('#cod_bodega').attr("disabled", true);
+
+            $(document).on('click','#borrar_btn2'+contador2,function(){
+
+                $(this).closest('tr').remove();
+                contador2 = contador2-1;
+                $('#contador2').val(contador2);
+                $('#borrar_btn2'+contador2).attr('hidden',false);
+
+            });
+        })
 
     });
 
@@ -543,31 +549,32 @@ if (s == 0 ){
 }
 }
    //console.log(arrayServicios);
-   console.log(arrayProductos);
+console.log(arrayProductos);
    //console.log(arrayPersonal);
-   num_documento = $('#num_documento').val();
-   usuario = $('#usuario').val();
-   solicitante = $('#solicitante').val();
-   fecha= $('#fecha').val();
-   patente= $('#patente').val();
-   tipo_camion = $('#tipo_camion').val();
-   marca = $('#marca').val();
-   modelo = $('#modelo').val();
-   anio = $('#anio').val();
-   cod_bodega = $('#cod_bodega').val();
-   diagnostico = $('#diagnostico').val();
-   trabajos_realizados = $('#trabajos_realizados').val();
-   observaciones = $('#observaciones').val();
+num_documento = $('#num_documento').val();
+usuario = $('#usuario').val();
+solicitante = $('#solicitante').val();
+fecha= $('#fecha').val();
+patente= $('#patente').val();
+tipo_camion = $('#tipo_camion').val();
+marca = $('#marca').val();
+modelo = $('#modelo').val();
+anio = $('#anio').val();
+kilometraje = $('#kilometraje').val();
+cod_bodega = $('#cod_bodega').val();
+diagnostico = $('#diagnostico').val();
+trabajos_realizados = $('#trabajos_realizados').val();
+observaciones = $('#observaciones').val();
 
-   console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
+console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
 
 
-   $.ajaxSetup({
+$.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-   $.ajax({
+$.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/actualizar-orden-trabajo", //url guarda la ruta hacia donde se hace la peticion
          data:{
@@ -578,6 +585,7 @@ if (s == 0 ){
             "marca":marca,
             "modelo":modelo,
             "anio":anio,
+            "kilometraje":kilometraje,
             "fecha":fecha,
             "num_documento":num_documento,
             "cod_bodega":cod_bodega,
@@ -593,8 +601,7 @@ if (s == 0 ){
 
             if (data=='LISTASO') {
                 alert('ORDEN ACTUALIZADA');
-                location.reload(); 
-                limpiarTodo();
+                GrabarSalidaOT();
 
             } else {
                 alert('FOLIO  VENCIDO INTENTE NUEVAMENTE');
@@ -602,9 +609,10 @@ if (s == 0 ){
                 console.log(num.value);
                 num.value = parseInt(num.value,10)+1;      
             }
+
         },
     });
-   GrabarSalidaOT()
+
 }
 
 </script>
@@ -773,6 +781,7 @@ if (s == 0 ){
                 $('#trabajos_realizados').val(data[0].trabajos_realizados);
                 $('#observaciones').val(data[0].observaciones);
                 $('#estado').val(data[0].estado);
+                $('#kilometraje').val(data[0].kilometraje);
 
                 $('#solicitante').attr('disabled',true);
                 $('#fecha').attr('readonly',true);
@@ -859,6 +868,7 @@ if (s == 0 ){
                 $('#trabajos_realizados').val(data[0].trabajos_realizados);
                 $('#observaciones').val(data[0].observaciones);
                 $('#estado').val(data[0].estado);
+                $('#kilometraje').val(data[0].kilometraje);
             }
         },
     });
@@ -869,7 +879,10 @@ if (s == 0 ){
 <script type="text/javascript">
     function eliminarEmpleado(id)
     {
-        alert(id);
+        var result = confirm("Seguro que desea eliminar?");
+        if (result){
+
+
 
         $.ajaxSetup({
           headers: {
@@ -886,7 +899,7 @@ if (s == 0 ){
             }
         },
     });
-
+    }
     } 
 </script>
 
@@ -945,7 +958,7 @@ if (s == 0 ){
     function cerrarOT()
     {
         num_documento = $('#num_documento').val();
-        alert (num_documento);
+        alert ("ORDEN CERRADA");
 
         $.ajaxSetup({
           headers: {

@@ -39,14 +39,14 @@ input[type=number] {
 
 				<div class="row">
 					<br>
-					<div class="mb-3 col-md-2"> 
+					<div class="mb-3 col-md-3"> 
 						<h6 for="codigo_producto">Código Producto</h6>
-						<input style="width : 200px" style="text-transform:uppercase" type="text" class="form-control" id="codigo_producto" name="codigo_producto" onblur="traerProducto()" minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<input  style="text-transform:uppercase" type="text" class="form-control" id="codigo_producto" name="codigo_producto" onblur="traerProducto()" minlength="1" maxlength="150" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 
 					</div>	
-					<div class="mb-3 col-md-8">
+					<div class="mb-3 col-md-7">
 						<h6 for="nombre_producto">Nombre Producto</h6>
-						<input style="width : 750px" style="text-transform:uppercase" type="text" class="form-control" id="nombre_producto" name="nombre_producto" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<input  style="text-transform:uppercase" type="text" class="form-control" id="nombre_producto" name="nombre_producto" required maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					</div>
 				</div>
 
@@ -56,7 +56,7 @@ input[type=number] {
 					<br>
 					<div class="mb-3 col-md-10">
 						<h6> Observaciones productos </h6>
-						<input style="width : 965px" style="text-transform:uppercase" type="text" class="form-control" id="observacion_producto" name="observacion_producto"  maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<input  style="text-transform:uppercase" type="text" class="form-control" id="observacion_producto" name="observacion_producto"  maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					</div>
 
 				</div>

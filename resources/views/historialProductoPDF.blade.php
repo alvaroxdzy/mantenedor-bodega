@@ -63,7 +63,6 @@
             <th>Tipo</th>  
             <th>Fecha</th>  
             <th>Cantidad</th>   
-            <th>Estado</th>
             <th>Usuario</th>     
 
           </tr>
@@ -76,7 +75,6 @@
             <td>{{$movimientos->tipo}}</td>
             <td>{{$movimientos->fecha}}</td>
             <td>{{$movimientos->cantidad}}</td>
-            <td>{{$movimientos->estado}} </td>
             <td>{{$movimientos->usuario}} </td>
 
           </tr>

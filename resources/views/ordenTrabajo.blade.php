@@ -13,7 +13,7 @@
 
             <div class="mb-3 col-md-4"> 
 
-                <label> Solicitante </label>
+                <label> SOLICITANTE </label>
                 <select class="form-control" id="solicitante" name="solicitante" required > 
                     <option value="">-------</option>
                     @foreach($empleado as $empleados)
@@ -40,13 +40,13 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-               <div class="row">
+             <div class="row">
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
 
                 </div> 
-                <div class="mb-3 col-md-4">
+                <div class="mb-3 col-md-3">
                     <label> BODEGA  </label>
                     <select class="form-control" name="cod_bodega" id="cod_bodega" required>
 
@@ -67,7 +67,12 @@
                     </select>
                 </div>
 
-                
+                <div class="mb-3 col-md-2" >
+                    <label> KILOMETRAJE  </label >
+                    <input class="form-control" name="kilometraje" type="text" id="kilometraje" required readonly> 
+
+                </div> 
+
             </div> 
             <div class="row"> 
 
@@ -103,24 +108,24 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-     <table class="table table-sm" id="tablaEmpleados" style="width:100%">
-      <thead>
-        <h5> PERSONAL ASIGNADO</h5>
-        <tr>
-            <th>EMPLEADO</th>
-            <th>RUT</th>
-            <th>CARGO</th>
-            <th>FECHA INICIO</th>
-            <th>FECHA TERMINO</th>
-            <th>DESCRIPCION</th>
-            <th>GESTIONAR</th>
-        </tr>
-    </thead>
-    <tbody id="tbodyEmpleado">
-        <input type="hidden" name="contador" value="0" id="contador">
-    </tbody>
-</table>
-<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+       <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+          <thead>
+            <h5> PERSONAL ASIGNADO</h5>
+            <tr>
+                <th>EMPLEADO</th>
+                <th>RUT</th>
+                <th>CARGO</th>
+                <th>FECHA INICIO</th>
+                <th>FECHA TERMINO</th>
+                <th>DESCRIPCION</th>
+                <th>GESTIONAR</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyEmpleado">
+            <input type="hidden" name="contador" value="0" id="contador">
+        </tbody>
+    </table>
+    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
 </div>
 </div>
 
@@ -136,26 +141,26 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" style="width:100%">
-          <thead>
-            <h5> PRESUPUESTO ASIGNADO</h5>
-            <tr>
-                <th>CODIGO PRODUCTO</th>
-                <th>PRODUCTO</th>
-                <th>CANTIDAD</th>
-                <th>STOCK</th>
-                <th>SALDO</th>
-                <th>PRECIO UNITARIO</th>
-                <th>GESTIONAR</th>
-            </tr>
-        </thead>
-        <tbody id="tbodyProductos" >
+     <table class="table table-sm" style="width:100%">
+      <thead>
+        <h5> PRESUPUESTO ASIGNADO</h5>
+        <tr>
+            <th>CODIGO PRODUCTO</th>
+            <th>PRODUCTO</th>
+            <th>CANTIDAD</th>
+            <th>STOCK</th>
+            <th>SALDO</th>
+            <th>PRECIO UNITARIO</th>
+            <th>GESTIONAR</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyProductos" >
 
-            <input type="hidden" name="contador2" value="0" id="contador2">
+        <input type="hidden" name="contador2" value="0" id="contador2">
 
-        </tbody>
-    </table>
-    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
+    </tbody>
+</table>
+<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
 
 </div>
 
@@ -193,7 +198,7 @@
 </div>
 
 <div class="row">
-   <div class="mb-3 col-md-3" style="width: 25%;">
+ <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> GUARDAR </button>
 </div>
 
@@ -238,11 +243,11 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-vehiculo/' + patente, function(data){
 
-           $('#tipo_camion').val(data.tipo_camion);
-           $('#marca').val(data.marca);
-           $('#modelo').val(data.modelo);
-           $('#anio').val(data.anio);
-       });
+         $('#tipo_camion').val(data.tipo_camion);
+         $('#marca').val(data.marca);
+         $('#modelo').val(data.modelo);
+         $('#anio').val(data.anio);
+     });
     } catch (e) {}
 
 }
@@ -286,9 +291,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-empleado/' + nombres, function(data){
 
-           $('#rut'+numero).val(data.rut);
-           $('#cargo'+numero).val(data.cargo);
-       });
+         $('#rut'+numero).val(data.rut);
+         $('#cargo'+numero).val(data.cargo);
+     });
     } catch (e) {}
 }
 </script>
@@ -326,8 +331,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td > <select style="width:350px" id="selectEmpleado'+contador+'" class="form-control" onchange="cargarEmpleado(this)" required><option value="">-------</option>' ; 
             data.forEach(function(empleado) {
-             html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
-         });
+               html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
+           });
             html+='</select> </td>' ;
             html+='<td><input style="width:100px" id="rut'+contador+'"  type="text" name="rut" required readonly></td>';
             html+='<td><input style="width:200px" id="cargo'+contador+'"   type="text" name="cargo" required readonly></td>';
@@ -354,27 +359,27 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         $('#agregar_prod').on('click',function(){
         //    $('#selectDocumento').attr("disabled", true);
 
-        if (contador2==0){
+            if (contador2==0){
 
-        } else {
-            $('#borrar_btn2'+contador2).attr('hidden',true);
-        }
-        contador2 = $('#contador2').val();
-        contador2++;
-        $('#contador2').val(contador2);
-
-        productoBodegas();
-        $('#cod_bodega').attr("disabled", true);
-
-        $(document).on('click','#borrar_btn2'+contador2,function(){
-
-            $(this).closest('tr').remove();
-            contador2 = contador2-1;
+            } else {
+                $('#borrar_btn2'+contador2).attr('hidden',true);
+            }
+            contador2 = $('#contador2').val();
+            contador2++;
             $('#contador2').val(contador2);
-            $('#borrar_btn2'+contador2).attr('hidden',false);
 
-        });
-    })
+            productoBodegas();
+            $('#cod_bodega').attr("disabled", true);
+
+            $(document).on('click','#borrar_btn2'+contador2,function(){
+
+                $(this).closest('tr').remove();
+                contador2 = contador2-1;
+                $('#contador2').val(contador2);
+                $('#borrar_btn2'+contador2).attr('hidden',false);
+
+            });
+        })
 
     });
 
@@ -394,7 +399,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "cod_bodega":cod_bodega
+             "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -461,18 +466,18 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function servicios() {
 
-       contador3 = $('#contador3').val();
+     contador3 = $('#contador3').val();
 
-       var html = '';
-       html+='<tr>';
-       html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
-       html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
-       html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
-       html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
-       html+='<tr>';
+     var html = '';
+     html+='<tr>';
+     html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
+     html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
+     html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
+     html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
+     html+='<tr>';
 
-       $('#tbodyServicios').append(html);
-   };
+     $('#tbodyServicios').append(html);
+ };
 
 </script>
 
@@ -480,12 +485,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function grabarOrden()
     {
-     m = 0;
-     e = $('#contador').val();
-     arrayPersonal = [];
+       m = 0;
+       e = $('#contador').val();
+       arrayPersonal = [];
 
 
-     if (e == 0 ){
+       if (e == 0 ){
         arrayPersonal;
     } else {
 
@@ -550,32 +555,34 @@ if (s == 0 ){
 }
 }
    //console.log(arrayServicios);
-   console.log(arrayProductos);
+console.log(arrayProductos);
    //console.log(arrayPersonal);
-   num_documento = $('#num_documento').val();
-   usuario = $('#usuario').val();
-   solicitante = $('#solicitante').val();
-   fecha= $('#fecha').val();
-   patente= $('#patente').val();
-   tipo_camion = $('#tipo_camion').val();
-   marca = $('#marca').val();
-   modelo = $('#modelo').val();
-   anio = $('#anio').val();
-   cod_bodega = $('#cod_bodega').val();
-   diagnostico = $('#diagnostico').val();
-   trabajos_realizados = $('#trabajos_realizados').val();
-   observaciones = $('#observaciones').val();
-   estado = $('#estado').val();
+num_documento = $('#num_documento').val();
+usuario = $('#usuario').val();
+solicitante = $('#solicitante').val();
+fecha= $('#fecha').val();
+patente= $('#patente').val();
+tipo_camion = $('#tipo_camion').val();
+marca = $('#marca').val();
+modelo = $('#modelo').val();
+anio = $('#anio').val();
+kilometraje = $('#kilometraje').val();
 
-   console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
+cod_bodega = $('#cod_bodega').val();
+diagnostico = $('#diagnostico').val();
+trabajos_realizados = $('#trabajos_realizados').val();
+observaciones = $('#observaciones').val();
+estado = $('#estado').val();
+
+console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
 
 
-   $.ajaxSetup({
+$.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-   $.ajax({
+$.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-orden-trabajo", //url guarda la ruta hacia donde se hace la peticion
          data:{
@@ -586,6 +593,7 @@ if (s == 0 ){
             "marca":marca,
             "modelo":modelo,
             "anio":anio,
+            "kilometraje":kilometraje,
             "fecha":fecha,
             "num_documento":num_documento,
             "cod_bodega":cod_bodega,
@@ -602,19 +610,17 @@ if (s == 0 ){
 
             if (data=='LISTASO') {
                 alert('ORDEN REGISTRADA');
-                location.reload(); 
-                limpiarTodo();
-                location.reload(); 
-
+                GrabarSalidaOT();
             } else {
                 alert('FOLIO  VENCIDO INTENTE NUEVAMENTE');
                 var num = document.getElementById("num_documento");
                 console.log(num.value);
                 num.value = parseInt(num.value,10)+1;      
             }
+
         },
     });
-   GrabarSalidaOT()
+
 }
 
 </script>
@@ -660,12 +666,12 @@ if (s == 0 ){
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "usuario":usuario,
-             "patente":patente,
-             "fecha":fecha,
-             "num_documento":num_documento,
-             "cod_bodega":cod_bodega,
-             "arrayProductos":arrayProductos
+           "usuario":usuario,
+           "patente":patente,
+           "fecha":fecha,
+           "num_documento":num_documento,
+           "cod_bodega":cod_bodega,
+           "arrayProductos":arrayProductos
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);

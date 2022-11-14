@@ -55,8 +55,7 @@ class OrdenTrabajoController extends Controller
   public function promedioNeto($codigo_producto,$cod_bodega)
   {
 
-    $promedio = DB::table('detalle_movimiento')->join('movimiento','movimiento.num_documento','detalle_movimiento.nro_documento_mov')
-    ->where('detalle_movimiento.tipo','INGRESO')->where('cod_producto',$codigo_producto)->where('cod_bodega',$cod_bodega)->avg('neto');
+    $promedio = DB::table('detalle_movimiento')->where('detalle_movimiento.tipo','INGRESO')->where('cod_producto',$codigo_producto)->where('cod_bodega',$cod_bodega)->avg('neto');
 
 
     return $promedio;
@@ -86,6 +85,7 @@ class OrdenTrabajoController extends Controller
        $detalle->cantidad=$datos['cantidad'];
        $detalle->neto=$datos['precio'];
        $detalle->total=$datos['precio'];
+       $detalle->cod_bodega=$request->cod_bodega;
        $detalle->fecha=$request->fecha;  
        $detalle->tipo='SALIDA';
        $detalle->usuario=$request->usuario;
@@ -121,6 +121,7 @@ public function storeOT(Request $request)
     $orden->marca=$request->marca;
     $orden->modelo=$request->modelo;
     $orden->anio=$request->anio;
+    $orden->kilometraje=$request->kilometraje;
     $orden->fecha=$request->fecha;
     $orden->num_documento=$request->num_documento;
     $orden->cod_bodega=$request->cod_bodega;
@@ -203,6 +204,7 @@ public function update(Request $request)
   'marca' => $request->marca,
   'modelo' => $request->modelo,
   'anio' => $request->anio,
+  'kilometraje' => $request->kilometraje,
   'fecha' => $request->fecha,
   'cod_bodega' => $request->cod_bodega,
   'diagnostico' => $request->diagnostico,
@@ -259,13 +261,16 @@ if($arrayServicio) {
 }
 
 return "LISTASO";
-return redirect()->back()->with('message', 'ORDEN DE TRABAJO ACTUALIZADA CORRECTAMENTE');
+
 }
 
 public function storeSalidaUpdate(Request $request)
 {
-  $movimientoBorrar = DB::delete('delete from movimiento where num_documento = "'.$request->num_documento.'" and tipo_documento = "ORDEN DE TRABAJO"');
-  $detalleBorrar = DB::delete('delete from detalle_movimiento where nro_documento_mov = "'.$request->num_documento.'" and tipo_documento = "ORDEN DE TRABAJO"');
+
+
+  $movimientoBorrar = DB::table('movimiento')->where('num_documento',$request->num_documento)->where('tipo_documento','ORDEN DE TRABAJO')->delete();
+  $detalleBorrar = DB::table('detalle_movimiento')->where('nro_documento_mov',$request->num_documento)->where('tipo_documento','ORDEN DE TRABAJO')->delete();
+
 
 
   $movimiento =new Movimiento();
@@ -291,6 +296,7 @@ public function storeSalidaUpdate(Request $request)
      $detalle->neto=$datos['precio'];
      $detalle->total=$datos['precio'];
      $detalle->fecha=$request->fecha;  
+     $detalle->cod_bodega=$request->cod_bodega;
      $detalle->tipo='SALIDA';
      $detalle->usuario=$request->usuario;
      $detalle->patente=$request->patente;
@@ -357,7 +363,7 @@ public function ordenTrabajoPDF($num_documento){
 
   $folio = $num_documento;
   $ot = OrdenTrabajo::join('empleado','orden_trabajo.solicitante','=','empleado.rut')->join('bodega','orden_trabajo.cod_bodega', '=','bodega.codigo_bodega')
-  ->select('orden_trabajo.num_documento','orden_trabajo.solicitante','empleado.nombres','orden_trabajo.fecha','bodega.nombre_bodega','orden_trabajo.cod_bodega','orden_trabajo.patente','orden_trabajo.tipo_camion','orden_trabajo.marca','orden_trabajo.anio','orden_trabajo.diagnostico','orden_trabajo.trabajos_realizados','orden_trabajo.observaciones','orden_trabajo.estado','orden_trabajo.usuario')
+  ->select('orden_trabajo.num_documento','orden_trabajo.solicitante','empleado.nombres','orden_trabajo.fecha','bodega.nombre_bodega','orden_trabajo.cod_bodega','orden_trabajo.patente','orden_trabajo.tipo_camion','orden_trabajo.marca','orden_trabajo.anio','orden_trabajo.diagnostico','orden_trabajo.trabajos_realizados','orden_trabajo.observaciones','orden_trabajo.estado','orden_trabajo.usuario','orden_trabajo.kilometraje')
   ->where('orden_trabajo.num_documento',$folio)->first();
   $otPersonal = OtPersonal::where('num_documento',$folio)->get();
   $otProducto = OtProducto::select('id','cod_producto','producto', DB::raw('SUBSTR(cantidad,2) as cantidad'),'precio','num_documento')->where('num_documento',$folio)->get();

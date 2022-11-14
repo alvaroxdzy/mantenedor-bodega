@@ -6,11 +6,11 @@
       font-family: Arial;
   }
 
-label {
-  font-size: 12px;
-}
+  label {
+      font-size: 12px;
+  }
 
-textarea {
+  textarea {
     font-size: 12px;
 }
 
@@ -88,6 +88,8 @@ body {
 
 
     <label> PATENTE: {{$ot->patente}}  </label>
+
+    <label> KILOMETRAJE: {{$ot->kilometraje}}  </label>
     <br>
     <label> TIPO VEHICULO:  {{$ot->tipo_camion}}</label >
     <br>
@@ -101,33 +103,33 @@ body {
     <div class="card border-primary mb-3"> 
         <div class="card-body">
 
-         <table class="table table-bordered" id="tablaEmpleados" style="width:100%">
-          <thead>
-            <h5> PERSONAL ASIGNADO</h5>
-            <tr>
-                <th>EMPLEADO</th>
-                <th>RUT</th>
-                <th>CARGO</th>
-                <th>INICIO</th>
-                <th>TERMINO</th>
-                <th>DESCRIPCION</th>
+           <table class="table table-bordered" id="tablaEmpleados" style="width:100%">
+              <thead>
+                <h5> PERSONAL ASIGNADO</h5>
+                <tr>
+                    <th>EMPLEADO</th>
+                    <th>RUT</th>
+                    <th>CARGO</th>
+                    <th>INICIO</th>
+                    <th>TERMINO</th>
+                    <th>DESCRIPCION</th>
 
-            </tr>
-        </thead>
-        <tbody id="tbodyEmpleado">
-            @foreach($otPersonal as $otPersonales) 
-            <tr>
-                <td>{{$otPersonales->nombres}}</td>
-                <td>{{$otPersonales->rut}}</td>
-                <td>{{$otPersonales->cargo}}</td>
-                <td>{{$otPersonales->fecha_inicio}}</td>
-                <td>{{$otPersonales->fecha_termino}}</td>
-                <td>{{$otPersonales->detalle}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+                </tr>
+            </thead>
+            <tbody id="tbodyEmpleado">
+                @foreach($otPersonal as $otPersonales) 
+                <tr>
+                    <td>{{$otPersonales->nombres}}</td>
+                    <td>{{$otPersonales->rut}}</td>
+                    <td>{{$otPersonales->cargo}}</td>
+                    <td>{{$otPersonales->fecha_inicio}}</td>
+                    <td>{{$otPersonales->fecha_termino}}</td>
+                    <td>{{$otPersonales->detalle}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
@@ -141,28 +143,28 @@ body {
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" style="width:100%">
-          <thead>
-            <h5> PRESUPUESTO ASIGNADO</h5>
-            <tr>
-                <th >CODIGO PRODUCTO</th>
-                <th>PRODUCTO</th>
-                <th>CANTIDAD</th>
-                <th>PRECIO UNITARIO</th>
-            </tr>
-        </thead>
-        <tbody id="tbodyProductos" >
-            @foreach($otProducto as $otProductos) 
-            <tr>
-                <td style="text-align:left;">{{$otProductos->cod_producto}}</td>
-                <td style="text-align:left">{{$otProductos->producto}}</td>
-                <td style="text-align:center">{{$otProductos->cantidad}}</td>
-                <td style="text-align:right">${{$otProductos->precio}}</td>
+     <table class="table table-sm" style="width:100%">
+      <thead>
+        <h5> PRESUPUESTO ASIGNADO</h5>
+        <tr>
+            <th >CODIGO PRODUCTO</th>
+            <th>PRODUCTO</th>
+            <th>CANTIDAD</th>
+            <th>PRECIO UNITARIO</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyProductos" >
+        @foreach($otProducto as $otProductos) 
+        <tr>
+            <td style="text-align:left;">{{$otProductos->cod_producto}}</td>
+            <td style="text-align:left">{{$otProductos->producto}}</td>
+            <td style="text-align:center">{{$otProductos->cantidad}}</td>
+            <td style="text-align:right">${{$otProductos->precio}}</td>
 
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
 </div>
 <br>
