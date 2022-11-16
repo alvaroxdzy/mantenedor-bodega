@@ -29,7 +29,7 @@ public function store(Request $request)
     if ($patente) {
        $vehiculoUpdate = DB::table('vehiculos')
        ->where('patente',$request->patente)
-       ->update(['tipo_camion' => $request->tipo_camion,
+       ->update(['tipo_equipo' => $request->tipo_equipo,
           'marca' => $request->marca,
           'modelo' => $request->modelo,
           'anio' => $request->anio]);
@@ -37,7 +37,7 @@ public function store(Request $request)
    }
    $vehiculo =new Vehiculo();
    $vehiculo->patente=$request->patente; 
-   $vehiculo->tipo_camion=$request->tipo_camion; 
+   $vehiculo->tipo_equipo=$request->tipo_equipo; 
    $vehiculo->marca=$request->marca; 
    $vehiculo->modelo=$request->modelo; 
    $vehiculo->anio=$request->anio;        
@@ -58,7 +58,7 @@ public function update(Request $request)
 
     $vehiculo =Vehiculo::find($request->patente);
     $vehiculo->patente=$request->patente; 
-    $vehiculo->tipo_camion=$request->tipo_camion; 
+    $vehiculo->tipo_equipo=$request->tipo_equipo; 
     $vehiculo->marca=$request->marca; 
     $vehiculo->modelo=$request->modelo; 
     $vehiculo->anio=$request->anio;        

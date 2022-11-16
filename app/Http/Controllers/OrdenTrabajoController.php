@@ -101,6 +101,10 @@ class OrdenTrabajoController extends Controller
       ->where('tipo','OT')
       ->update(['folio' => $request->num_documento+1]);
     }     
+  } else {
+    $folios =DB::table('folios')
+    ->where('tipo','OT')
+    ->update(['folio' => $request->num_documento+1]);
   }
   return "LISTASO";
 }
@@ -117,7 +121,7 @@ public function storeOT(Request $request)
     $orden->solicitante=$request->solicitante;
     $orden->usuario=$request->usuario;
     $orden->patente=$request->patente;
-    $orden->tipo_camion=$request->tipo_camion;
+    $orden->tipo_equipo=$request->tipo_equipo;
     $orden->marca=$request->marca;
     $orden->modelo=$request->modelo;
     $orden->anio=$request->anio;
@@ -200,7 +204,7 @@ public function update(Request $request)
  ->where('num_documento',$request->num_documento)
  ->update(['solicitante' => $request->solicitante,
   'patente' => $request->patente,
-  'tipo_camion' => $request->tipo_camion,
+  'tipo_equipo' => $request->tipo_equipo,
   'marca' => $request->marca,
   'modelo' => $request->modelo,
   'anio' => $request->anio,
@@ -345,16 +349,20 @@ public function eliminarServicio($id)
 
 public function buscarOT()
 {
-  $ot = OrdenTrabajo::join('bodega','orden_trabajo.cod_bodega', '=','bodega.codigo_bodega')->join('empleado','orden_trabajo.solicitante', '=','empleado.rut')->select('num_documento','fecha','patente','empleado.nombres' , 'orden_trabajo.usuario' , 'bodega.nombre_bodega as nombre_bodega')->get();
+  $ot = OrdenTrabajo::join('bodega','orden_trabajo.cod_bodega', '=','bodega.codigo_bodega')->join('empleado','orden_trabajo.solicitante', '=','empleado.rut')->select('num_documento','fecha','patente','empleado.nombres' , 'orden_trabajo.usuario' , 'bodega.nombre_bodega as nombre_bodega')->orderBy('num_documento','asc')->get();
 
   return view('busquedaOrdenTrabajo')->with('ot',$ot);
 }
 
-public function cerrarOT($num_documento)
+public function cerrarOT(Request $request)
 {
+  $num_documento = $request->num_documento;
+  $fecha_cierre = $request->fecha_cierre;
+
   $ordenCerrar = DB::table('orden_trabajo')
   ->where('num_documento',$num_documento)
-  ->update(['estado' => 'CERRADA']);
+  ->update(['estado' => 'CERRADA',
+            'fecha_cierre' => $fecha_cierre]);
 
   return 'LISTASO';
 }
@@ -363,7 +371,7 @@ public function ordenTrabajoPDF($num_documento){
 
   $folio = $num_documento;
   $ot = OrdenTrabajo::join('empleado','orden_trabajo.solicitante','=','empleado.rut')->join('bodega','orden_trabajo.cod_bodega', '=','bodega.codigo_bodega')
-  ->select('orden_trabajo.num_documento','orden_trabajo.solicitante','empleado.nombres','orden_trabajo.fecha','bodega.nombre_bodega','orden_trabajo.cod_bodega','orden_trabajo.patente','orden_trabajo.tipo_camion','orden_trabajo.marca','orden_trabajo.anio','orden_trabajo.diagnostico','orden_trabajo.trabajos_realizados','orden_trabajo.observaciones','orden_trabajo.estado','orden_trabajo.usuario','orden_trabajo.kilometraje')
+  ->select('orden_trabajo.num_documento','orden_trabajo.solicitante','empleado.nombres','orden_trabajo.fecha','bodega.nombre_bodega','orden_trabajo.cod_bodega','orden_trabajo.patente','orden_trabajo.tipo_equipo','orden_trabajo.marca','orden_trabajo.anio','orden_trabajo.diagnostico','orden_trabajo.trabajos_realizados','orden_trabajo.observaciones','orden_trabajo.estado','orden_trabajo.usuario','orden_trabajo.kilometraje')
   ->where('orden_trabajo.num_documento',$folio)->first();
   $otPersonal = OtPersonal::where('num_documento',$folio)->get();
   $otProducto = OtProducto::select('id','cod_producto','producto', DB::raw('SUBSTR(cantidad,2) as cantidad'),'precio','num_documento')->where('num_documento',$folio)->get();

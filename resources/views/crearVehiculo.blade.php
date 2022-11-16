@@ -31,7 +31,7 @@ input[type=number] {
 
 					<div class="mb-3 col-md-3"> 
 						<h6>TIPO CAMION</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="tipo_camion" name="tipo_camion" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<input style="text-transform:uppercase" type="text" class="form-control" id="tipo_equipo" name="tipo_equipo" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					</div>
 				</div>
 
@@ -78,7 +78,7 @@ input[type=number] {
      }, // data recive un objeto con la informacion que se enviara al servidor
      success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
 
-     	$('#tipo_camion').val(data.tipo_camion);
+     	$('#tipo_equipo').val(data.tipo_equipo);
      	$('#marca').val(data.marca);
      	$('#modelo').val(data.modelo);
      	$('#anio').val(data.anio);

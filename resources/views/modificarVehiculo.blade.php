@@ -31,7 +31,7 @@ input[type=number] {
 
 					<div class="mb-3 col-md-3"> 
 						<h6>TIPO CAMION</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="tipo_camion" name="tipo_camion" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();" value="{{$vehiculo->tipo_camion}}">
+						<input style="text-transform:uppercase" type="text" class="form-control" id="tipo_equipo" name="tipo_equipo" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();" value="{{$vehiculo->tipo_equipo}}">
 					</div>
 				</div>
 

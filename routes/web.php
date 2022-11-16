@@ -97,7 +97,7 @@ Route::get('/modificar-orden/{num_documento}','OrdenTrabajoController@edit')->na
 Route::get('/actualizar-orden-trabajo','OrdenTrabajoController@update')->name('orden.update');
 Route::get('/actualizar-movimiento-ot','OrdenTrabajoController@storeSalidaUpdate')->name('orden.storeSalidaUpdate');
 Route::get('/busqueda-ot/','OrdenTrabajoController@buscarOT')->name('orden.buscarOT');
-Route::get('/cerrar-ot/{num_documento}','OrdenTrabajoController@cerrarOT')->name('orden.cerrarOT');
+Route::get('/cerrar-ot','OrdenTrabajoController@cerrarOT')->name('orden.cerrarOT');
 Route::get('/orden-trabajo-PDF/{num_documento}','OrdenTrabajoController@ordenTrabajoPDF')->name('orden.ordenPDF');
 
 

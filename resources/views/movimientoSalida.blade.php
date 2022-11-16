@@ -9,7 +9,7 @@
 
         <div class="card-body">
             <div>
-               <div class="row">
+             <div class="row">
                 <div class="mb-3 col-md-3">
 
                     <label> TIPO DE DOCUMENTO</label>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="mb-3 col-md-2">
                     <label> FECHA  </label >
-                    <input class="form-control" name="fecha" type="date" id="fecha" required> 
+                    <input class="form-control" name="fecha" type="date" id="fecha" required > 
 
                 </div> 
                 <div class="mb-3 col-md-3">
@@ -84,28 +84,28 @@
     <div class="card-body">
 
         <form class="form-inline">  
-         <table class="table table-sm" id="tableMovimiento" style="width:100%">
-          <thead>
-            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
-            <br>
-            <tr>
+           <table class="table table-sm" id="tableMovimiento" style="width:100%">
+              <thead>
+                <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
                 <br>
-                <th>Codigo producto:</th>
-                <th>Producto:</th>
-                <th>Cantidad:</th>
-                <th>Stock:</th>
-                <th>Saldo</th>
-                <th>Gestionar</th>
-            </tr>
-        </thead>
-        <tbody id="trProductos">
+                <tr>
+                    <br>
+                    <th>Codigo producto:</th>
+                    <th>Producto:</th>
+                    <th>Cantidad:</th>
+                    <th>Stock:</th>
+                    <th>Saldo</th>
+                    <th>Gestionar</th>
+                </tr>
+            </thead>
+            <tbody id="trProductos">
 
-            <input type="hidden" name="contador" value="0" id="contador">
+                <input type="hidden" name="contador" value="0" id="contador">
 
-        </tbody>
-    </table>
-    <input id="grabar-salida" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
-</form>
+            </tbody>
+        </table>
+        <input id="grabar-salida" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+    </form>
 
 
 
@@ -128,7 +128,7 @@
       </button>
   </div>
   <div class="modal-body">
-     <table class="table dataTable no-footer dtr-inline collapsed table-striped" id="tableModal" style="width:100%">
+   <table class="table dataTable no-footer dtr-inline collapsed table-striped" id="tableModal" style="width:100%">
       <thead class="thead-light">
         <tr>
             <th>CODIGO </th>
@@ -156,68 +156,53 @@
 
 <script>
 // Get the modal
-var modal = document.getElementById("myModal");
+    var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+    var btn = document.getElementById("myBtn");
 
 // Get the button that opens the modal
-var btnCerrar = document.getElementById("myBtnCerrar");
+    var btnCerrar = document.getElementById("myBtnCerrar");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+    btn.onclick = function() {
+      modal.style.display = "block";
+  }
 
-btnCerrar.onclick = function() {
-  modal.style.display = "none";
-}
+  btnCerrar.onclick = function() {
+      modal.style.display = "none";
+  }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-}
+  window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 </script>
 
 <script>
-   var dataTable = new DataTable("#tableModal", {
-      perPage: 50,
-      sortable: true,
-      fixedColumns: true,
-      perPageSelect: [ 50, 100],
-      labels: {
-        placeholder: "Buscar..",
-        perPage: "{select}     Registros por pagina",
-        noRows: "No se encontraron registros",
-        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-    }
+ var dataTable = new DataTable("#tableModal", {
+  perPage: 50,
+  sortable: true,
+  fixedColumns: true,
+  perPageSelect: [ 50, 100],
+  labels: {
+    placeholder: "Buscar..",
+    perPage: "{select}     Registros por pagina",
+    noRows: "No se encontraron registros",
+    info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+}
 });
 
-</script>
-
-
-<script type="text/javascript">
-    window.onload = function(){
-  var fecha = new Date(); //Fecha actual
-  var mes = fecha.getMonth()+1; //obteniendo mes
-  var dia = fecha.getDate(); //obteniendo dia
-  var ano = fecha.getFullYear(); //obteniendo año
-  if(dia<10)
-    dia='0'+dia; //agrega cero si el menor de 10
-if(mes<10)
-    mes='0'+mes //agrega cero si el menor de 10
-document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
-}
 </script>
 
 <script type="text/javascript">
@@ -226,27 +211,27 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         $('#agregar_btn').on('click',function(){
         //    $('#selectDocumento').attr("disabled", true);
 
-        if (contador==0){
+            if (contador==0){
 
-        } else {
-            $('#borrar_btn'+contador).attr('hidden',true);
-        }
+            } else {
+                $('#borrar_btn'+contador).attr('hidden',true);
+            }
 
-        contador = contador+1;
-        $('#contador').val(contador);
-
-        productoBodegas();
-        $('#cod_bodega').attr("disabled", true);
-
-        $(document).on('click','#borrar_btn'+contador,function(){
-
-            $(this).closest('tr').remove();
-            contador = contador-1;
+            contador = contador+1;
             $('#contador').val(contador);
-            $('#borrar_btn'+contador).attr('hidden',false);
 
-        });
-    })
+            productoBodegas();
+            $('#cod_bodega').attr("disabled", true);
+
+            $(document).on('click','#borrar_btn'+contador,function(){
+
+                $(this).closest('tr').remove();
+                contador = contador-1;
+                $('#contador').val(contador);
+                $('#borrar_btn'+contador).attr('hidden',false);
+
+            });
+        })
 
     });
 
@@ -266,7 +251,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "cod_bodega":cod_bodega
+           "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -313,12 +298,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script>
     function grabar ()
     {
-     m = 0;
-     n = $('#contador').val();
-     arrayMovimiento = [];
+       m = 0;
+       n = $('#contador').val();
+       arrayMovimiento = [];
 
 
-     if (n == 0 ){
+       if (n == 0 ){
         arrayMovimiento;
     } else {
 
@@ -364,17 +349,17 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "usuario":usuario,
-             "tipo_documento":tipo_documento,
-             "rut":rut,
-             "patente":patente,
-             "fecha":fecha,
-             "tipo":tipo,
-             "estado":estado,
-             "num_documento":num_documento,
-             "cod_bodega":cod_bodega,
-             "rut_proveedor":rut_proveedor,
-             "arrayMovimiento":arrayMovimiento
+           "usuario":usuario,
+           "tipo_documento":tipo_documento,
+           "rut":rut,
+           "patente":patente,
+           "fecha":fecha,
+           "tipo":tipo,
+           "estado":estado,
+           "num_documento":num_documento,
+           "cod_bodega":cod_bodega,
+           "rut_proveedor":rut_proveedor,
+           "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -393,8 +378,27 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 }
 }
 </script>
+
+<script type="text/javascript">
+    function cargarFecha()
+    {
+        var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
+}
+</script>
+
+
 <script type="text/javascript">
     window.onload=cargarFolio();
+    window.onload=cargarFecha();
+
 </script>
 
 

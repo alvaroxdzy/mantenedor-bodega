@@ -91,7 +91,7 @@ body {
 
     <label> KILOMETRAJE: {{$ot->kilometraje}}  </label>
     <br>
-    <label> TIPO VEHICULO:  {{$ot->tipo_camion}}</label >
+    <label> TIPO VEHICULO:  {{$ot->tipo_equipo}}</label >
     <br>
     <label> MARCA:  {{$ot->marca}}</label>
 

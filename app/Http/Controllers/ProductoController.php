@@ -180,14 +180,14 @@ public function InventarioBodegaPDF($cod_bodega){
 
  if($cod_bodega == 'TODAS LAS BODEGAS')
  {
-  $producto = DetalleMovimiento::join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
+  $producto = DetalleMovimiento::join('bodega','detalle_movimiento.cod_bodega','bodega.codigo_bodega')
   ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('round(avg(detalle_movimiento.neto),0) as precio'))
   ->groupBy('detalle_movimiento.cod_producto' , 'detalle_movimiento.nombre_producto' , 'bodega.nombre_bodega','cod_bodega')
   ->get();
 
 }else{
 
-    $producto = DetalleMovimiento::join('bodega','movimiento.cod_bodega','bodega.codigo_bodega')
+    $producto = DetalleMovimiento::join('bodega','detalle_movimiento.cod_bodega','bodega.codigo_bodega')
       ->select('cod_producto','nombre_producto','nombre_bodega','cod_bodega', DB::raw('SUM(detalle_movimiento.cantidad) as stock'),DB::raw('round(avg(detalle_movimiento.neto),0) as precio'))
       ->where('estado','DISPONIBLE')
       ->where('cod_bodega',$cod_bodega)

@@ -60,7 +60,7 @@
                 <div class="mb-3 col-md-2">
                     <label> PATENTE  </label>
                     <select class="form-control" name="patente" id="patente" required onchange="cargarDetallePatente(this)">
-                        <option value="0">----- NO APLICA -----</option>
+                        <option value="0">-----</option>
                         @foreach($vehiculo as $vehiculos)
                         <option value="{{$vehiculos->patente}}"> {{$vehiculos->patente}} </option>
                         @endforeach
@@ -69,7 +69,7 @@
 
                 <div class="mb-3 col-md-2" >
                     <label> KILOMETRAJE  </label >
-                    <input class="form-control" name="kilometraje" type="text" id="kilometraje" required readonly> 
+                    <input class="form-control" name="kilometraje" type="text" id="kilometraje" onkeypress="return valideKey(event);" required> 
 
                 </div> 
 
@@ -78,7 +78,7 @@
 
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> TIPO  </label >
-                    <input class="form-control" name="tipo_camion" type="text" id="tipo_camion" required readonly> 
+                    <input class="form-control" name="tipo_equipo" type="text" id="tipo_equipo" required readonly> 
 
                 </div> 
                 <div class="mb-3 col-md-2" style="width: 23.2%;">
@@ -133,7 +133,7 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
         <h5> DIAGNOSTICO </h5>
-        <textarea style="text-transform:uppercase" type="text-center" class="form-control" id="diagnostico"  name="diganostico"  onkeyup="javascript:this.value=this.value.toUpperCase();" for="diagnostico"></textarea>
+        <textarea style="text-transform:uppercase" type="text-center" class="form-control" id="diagnostico"  name="diagnostico"  onkeyup="javascript:this.value=this.value.toUpperCase();" for="diagnostico"></textarea>
     </div>
 </div>
 
@@ -243,7 +243,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-vehiculo/' + patente, function(data){
 
-         $('#tipo_camion').val(data.tipo_camion);
+         $('#tipo_equipo').val(data.tipo_equipo);
          $('#marca').val(data.marca);
          $('#modelo').val(data.modelo);
          $('#anio').val(data.anio);
@@ -562,7 +562,7 @@ usuario = $('#usuario').val();
 solicitante = $('#solicitante').val();
 fecha= $('#fecha').val();
 patente= $('#patente').val();
-tipo_camion = $('#tipo_camion').val();
+tipo_equipo = $('#tipo_equipo').val();
 marca = $('#marca').val();
 modelo = $('#modelo').val();
 anio = $('#anio').val();
@@ -574,7 +574,7 @@ trabajos_realizados = $('#trabajos_realizados').val();
 observaciones = $('#observaciones').val();
 estado = $('#estado').val();
 
-console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
+console.log(usuario,solicitante,fecha,patente,tipo_equipo,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
 
 
 $.ajaxSetup({
@@ -589,7 +589,7 @@ $.ajax({
             "solicitante":solicitante,
             "usuario":usuario,
             "patente":patente,
-            "tipo_camion":tipo_camion,
+            "tipo_equipo":tipo_equipo,
             "marca":marca,
             "modelo":modelo,
             "anio":anio,
@@ -711,6 +711,22 @@ $.ajax({
     window.onload=cargarFecha();
     window.reload=limpiarTodo();   
     window.reload=cargarFolio();
+</script>
+
+<script type="text/javascript">
+    function validarFormulario()
+    {
+        a = $('#patente option:selected').val();
+        if(a==0){
+            alert('DEBE SELECCIONAR UNA PATENTE');
+            $('#patente').focus();
+        }
+
+        if($('#kilometraje').val() ==""){
+            alert('EL KILOMETRAJE NO PUEDE QUEDAR VACIO');
+            $('#kilometraje').focus();
+        }
+    }
 </script>
 
 

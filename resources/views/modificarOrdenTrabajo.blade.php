@@ -80,7 +80,7 @@
 
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> TIPO  </label >
-                    <input class="form-control" name="tipo_camion" type="text" id="tipo_camion" required readonly> 
+                    <input class="form-control" name="tipo_equipo" type="text" id="tipo_equipo" required readonly> 
 
                 </div> 
                 <div class="mb-3 col-md-2" style="width: 23.2%;">
@@ -182,6 +182,10 @@
 </table>
 <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_serv"  > AGREGAR SERVICIOS </button>
 
+
+<input class="form-control" name="fecha_cierre" type="date" id="fecha_cierre" hidden readonly> 
+
+
 </div>
 </div>
 
@@ -227,20 +231,6 @@
 </script>
 
 <script type="text/javascript">
-    window.onload = function(){
-    var fecha = new Date(); //Fecha actual
-    var mes = fecha.getMonth()+1; //obteniendo mes
-    var dia = fecha.getDate(); //obteniendo dia
-    var ano = fecha.getFullYear(); //obteniendo año
-    if(dia<10)
-    dia='0'+dia; //agrega cero si el menor de 10
-if(mes<10)
-    mes='0'+mes //agrega cero si el menor de 10
-document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
-}
-</script>
-
-<script type="text/javascript">
     function cargarDetallePatente(vehiculo) {
       try {
 
@@ -249,7 +239,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('/traer-vehiculo/' + patente, function(data){
 
-           $('#tipo_camion').val(data.tipo_camion);
+           $('#tipo_equipo').val(data.tipo_equipo);
            $('#marca').val(data.marca);
            $('#modelo').val(data.modelo);
            $('#anio').val(data.anio);
@@ -556,7 +546,7 @@ usuario = $('#usuario').val();
 solicitante = $('#solicitante').val();
 fecha= $('#fecha').val();
 patente= $('#patente').val();
-tipo_camion = $('#tipo_camion').val();
+tipo_equipo = $('#tipo_equipo').val();
 marca = $('#marca').val();
 modelo = $('#modelo').val();
 anio = $('#anio').val();
@@ -566,7 +556,7 @@ diagnostico = $('#diagnostico').val();
 trabajos_realizados = $('#trabajos_realizados').val();
 observaciones = $('#observaciones').val();
 
-console.log(usuario,solicitante,fecha,patente,tipo_camion,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
+console.log(usuario,solicitante,fecha,patente,tipo_equipo,marca,modelo,anio,cod_bodega,diagnostico,trabajos_realizados,observaciones);
 
 
 $.ajaxSetup({
@@ -581,7 +571,7 @@ $.ajax({
             "solicitante":solicitante,
             "usuario":usuario,
             "patente":patente,
-            "tipo_camion":tipo_camion,
+            "tipo_equipo":tipo_equipo,
             "marca":marca,
             "modelo":modelo,
             "anio":anio,
@@ -773,7 +763,7 @@ $.ajax({
                 $('#fecha').val(data[0].fecha);
                 $('#cod_bodega').val(data[0].cod_bodega);
                 $('#patente').val(data[0].patente);
-                $('#tipo_camion').val(data[0].tipo_camion);
+                $('#tipo_equipo').val(data[0].tipo_equipo);
                 $('#marca').val(data[0].marca);
                 $('#modelo').val(data[0].modelo);
                 $('#anio').val(data[0].anio);
@@ -783,6 +773,7 @@ $.ajax({
                 $('#estado').val(data[0].estado);
                 $('#kilometraje').val(data[0].kilometraje);
 
+                $('#kilometraje').attr('disabled',true);
                 $('#solicitante').attr('disabled',true);
                 $('#fecha').attr('readonly',true);
                 $('#cod_bodega').attr('readonly',true);
@@ -860,7 +851,7 @@ $.ajax({
                 $('#fecha').val(data[0].fecha);
                 $('#cod_bodega').val(data[0].cod_bodega);
                 $('#patente').val(data[0].patente);
-                $('#tipo_camion').val(data[0].tipo_camion);
+                $('#tipo_equipo').val(data[0].tipo_equipo);
                 $('#marca').val(data[0].marca);
                 $('#modelo').val(data[0].modelo);
                 $('#anio').val(data[0].anio);
@@ -879,18 +870,16 @@ $.ajax({
 <script type="text/javascript">
     function eliminarEmpleado(id)
     {
-        var result = confirm("Seguro que desea eliminar?");
+        var result = confirm("SEGURO QUE DESEA ELIMINAR??");
         if (result){
 
+            $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-        $.ajax({
+            $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/eliminar-ot-personal/" +id, //url guarda la ruta hacia donde se hace la peticion
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
@@ -899,22 +888,23 @@ $.ajax({
             }
         },
     });
-    }
+        }
     } 
 </script>
 
 <script type="text/javascript">
     function eliminarProducto(id)
     {
-        alert('PRODUCTO ELIMINADO');
+        var result = confirm("SEGURO QUE DESEA ELIMINAR?");
+        if (result){
 
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+            $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        $.ajax({
+            $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/eliminar-ot-producto/" +id, //url guarda la ruta hacia donde se hace la peticion
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
@@ -926,15 +916,15 @@ $.ajax({
            }
        },
    });
-
+        }
     } 
 </script>
 
 <script type="text/javascript">
     function eliminarServicio(id)
     {
-        alert(id);
-
+       var result = confirm("SEGURO QUE DESEA ELIMINAR?");
+       if (result){
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -951,14 +941,35 @@ $.ajax({
             }
         },
     });
-
-    } 
+    }
+} 
 </script>
+
+<script type="text/javascript">
+    function cargarFecha()
+    {
+        var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+document.getElementById('fecha_cierre').value=ano+"-"+mes+"-"+dia;
+}
+</script>
+
+
 <script type="text/javascript">
     function cerrarOT()
     {
+        var result = confirm("CONFIRME QUE DESEA CERRAR LA ORDEN, DESPUES NO PODRA MODIFICARLA");
+       if (result){
+
         num_documento = $('#num_documento').val();
-        alert ("ORDEN CERRADA");
+        fecha_cierre = $('#fecha_cierre').val();
+        
 
         $.ajaxSetup({
           headers: {
@@ -968,15 +979,20 @@ $.ajax({
 
         $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/cerrar-ot/" +num_documento, //url guarda la ruta hacia donde se hace la peticion
+         url:"/cerrar-ot", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+           "fecha_cierre":fecha_cierre,
+           "num_documento":num_documento
+         }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             if(data=='LISTASO'){
+                alert ("ORDEN CERRADA");
                 location.reload();
                 $('#num_documento').focus();
             }
         },
     });
-
+    }
     }
 </script>
 
@@ -997,6 +1013,7 @@ $.ajax({
 
 <script type="text/javascript">
     window.onload=traerOT();
+    window.onload=cargarFecha();
 </script>
 
 

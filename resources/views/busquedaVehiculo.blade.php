@@ -35,7 +35,7 @@
           @foreach($vehiculo as $vehiculos) 
           <tr>
 
-            <td><a style="color:black " href="/modificar-vehiculo/{{$vehiculos->patente}}">{{$vehiculos->tipo_camion}}</a> </td>
+            <td><a style="color:black " href="/modificar-vehiculo/{{$vehiculos->patente}}">{{$vehiculos->tipo_equipo}}</a> </td>
             <td>{{$vehiculos->marca}}</td>
             <td style="width:250px">{{$vehiculos->modelo}}</td>
             <td>{{$vehiculos->patente}} </td>
