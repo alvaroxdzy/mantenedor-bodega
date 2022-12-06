@@ -24,10 +24,9 @@ input[type=number] {
 
 				{{ csrf_field() }}
 				
-				<div class="mb-3 col-md-2"> 
+				<div class="mb-3 col-md-5"> 
 					<h6  for="codigo_bodega">Rut Empleado</h6>
-					<input style="text-transform:uppercase" type="text" class="form-control" id="rut" name="rut" minlength="1" maxlength="12" required onblur="traerEmpleado()"  onkeyup="javascript:this.value=this.value.toUpperCase();">
-					<small class="form-text text-muted">Formato 11111111-1</small>
+					<input style="text-transform:uppercase" type="text" class="form-control" id="rut" name="rut" minlength="1" maxlength="12" required onblur="traerEmpleado()"  onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="11111111-1">
 				</div>
 
 				<div class="mb-3 col-md-5"> 
@@ -38,7 +37,7 @@ input[type=number] {
 				<input value="{{$userId = Auth::user()->name;}}" type="hidden" name="usuario">
 
 
-				<div class="mb-3 col-md-4"> 
+				<div class="mb-3 col-md-5"> 
 					<h6 for="direccion_bodega">Cargo</h6>
 					<input style="text-transform:uppercase" type="text" class="form-control" id="cargo" name="cargo" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
 				</div>
@@ -47,7 +46,7 @@ input[type=number] {
 				<div class="row mb-0">
 					<div class="col-md-6 offset-md-0">
 
-						<input type="submit"  style="width:40%" class="btn btn-outline-primary"  value="Registrar empleado "> </input>
+						<input type="submit" id="btn-crear" class="btn btn-primary"  value="Crear Empleado "> </input>
 					</div>
 				</div>
 			</div>
@@ -77,6 +76,11 @@ input[type=number] {
      });
 			}
 		</script>
+		<style type="text/css">
+			#btn-crear{
+				padding: 3px;
+			}
+		</style>
 
 		<div id="error"> </div>
 		@if(session()->has('message'))

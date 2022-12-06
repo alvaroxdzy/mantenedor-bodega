@@ -12,93 +12,92 @@
 
         <div class="card-body">
           <form class="form-inline">  
-            <div>
-             <div class="row">
-                <div class="mb-3 col-md-3">
 
-                    <label> TIPO DE DOCUMENTO</label>
-                    <select class="form-control" id="tipo_documento" name="tipo_documento" onblur="cargarFolio()" onclick="cargarFolio();"> 
-                        <option>FACTURA</option>
-                        <option>GUIA</option>
-                        <option>COMPROBANTE DE INGRESO</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-md-3">
-                    <label> NRO DOCUMENTO </label>
-                    <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
-                </div>
+           <div class="row">
+            <div class="mb-3 col-md-3">
 
-                <input type="hidden" name="folios" value="{{$folio->folio}}" id="folios">
-
-                <div class="mb-3 col-md-5">
-                    <label> PROVEEDOR  </label>
-                    <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
-                        <option value="0">----- NO POSEE -----</option>
-                        @foreach($proveedor as $proveedores)
-                        <option value="{{$proveedores->rut_proveedor}}"> {{$proveedores->razon_social}} </option>
-                        @endforeach
-                    </select>
-                </div>
+                <label> TIPO DE DOCUMENTO</label>
+                <select class="form-control" id="tipo_documento" name="tipo_documento" onblur="cargarFolio()" onclick="cargarFolio();"> 
+                    <option>FACTURA</option>
+                    <option>GUIA</option>
+                    <option>COMPROBANTE DE INGRESO</option>
+                </select>
             </div>
-            <div class="row"> 
-                <div class="mb-3 col-md-4">
-                    <label> BODEGA  </label>
-                    <select class="form-control" name="cod_bodega" id="cod_bodega" required>
-
-                        @foreach($bodega as $bodegas)
-                        <option value="{{$bodegas->codigo_bodega}}"> {{$bodegas->nombre_bodega}} </option>
-                        @endforeach
-                    </select>
-
-                </div>
-                <div class="mb-3 col-md-2">
-                    <label> FECHA  </label >
-                    <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
-
-                </div> 
-                <div class="mb-3 col-md-3">
-                    <label> TIPO DE MOVIMIENTO  </label>
-                    <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
-                </div>               
-
-
-                <div class="mb-3 col-md-3" >
-                    <label> ESTADO  </label>
-                    <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
-                </div>
-                <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
+            <div class="mb-3 col-md-3">
+                <label> NRO DOCUMENTO </label>
+                <input  class="form-control" type="text" name="num_documento" id="num_documento" required onkeypress="return valideKey(event);" >
             </div>
 
-        </div> 
+
+
+            <div class="mb-3 col-md-5">
+                <label> PROVEEDOR  </label>
+                <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
+                    <option value="0">----- NO POSEE -----</option>
+                    @foreach($proveedor as $proveedores)
+                    <option value="{{$proveedores->rut_proveedor}}"> {{$proveedores->razon_social}} </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="mb-3 col-md-4">
+                <label> BODEGA  </label>
+                <select class="form-control" name="cod_bodega" id="cod_bodega" required>
+
+                    @foreach($bodega as $bodegas)
+                    <option value="{{$bodegas->codigo_bodega}}"> {{$bodegas->nombre_bodega}} </option>
+                    @endforeach
+                </select>
+
+            </div>
+            <div class="mb-3 col-md-2">
+                <label> FECHA  </label >
+                <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
+
+            </div> 
+            <div class="mb-3 col-md-3">
+                <label> TIPO DE MOVIMIENTO  </label>
+                <input class="form-control "name="tipo" type="text" id="tipo" value="INGRESO" readonly> 
+            </div>               
+
+
+            <div class="mb-3 col-md-2" >
+                <label> ESTADO  </label>
+                <input class="form-control "name="estado" id="estado" type="text" value="DISPONIBLE" readonly > 
+            </div>
+            <input value="{{$userId = Auth::user()->name;}}" id="usuario" type="hidden" name="usuario">
+        </div>
+
     </div>
-
+    <input type="hidden" name="folios" value="{{$folio->folio}}" id="folios">
 </div>
 
 
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" id="tableMovimiento" style="width:100%">
-          <thead>
-            <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
-            <tr>
-                <br>
-                <th>Codigo </th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Neto</th>
-                <th>IVA</th>
-                <th>Total:</th>
-                <th>Gestionar</th>
-            </tr>
-        </thead>
-        <tbody id="tbodyMovimiento">
+     <table class="table table-sm" id="tableMovimiento" style="width:100%">
+      <thead>
+        <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_btn"  > AGREGAR DETALLE </button>
+        <tr>
+            <br>
+            <th>Codigo </th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Neto</th>
+            <th>IVA</th>
+            <th>Total:</th>
+            <th>Gestionar</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyMovimiento">
 
-            <input type="hidden" name="contador" value="0" id="contador">
+        <input type="hidden" name="contador" value="0" id="contador">
 
-        </tbody>
-    </table>
-    <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
+    </tbody>
+</table>
+<input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
 </form>
 
 
@@ -114,31 +113,31 @@
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">LISTADO PRODUCTOS</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-  </div>
-  <div class="modal-body">
-   <table class="table dataTable no-footer dtr-inline collapsed table-striped" id="tableModal" style="width:100%">
-      <thead class="thead-light">
-        <tr>
-            <th>CODIGO </th>
-            <th>PRODUCTO</th>
-            <th>BODEGA</th>
+        <h5 class="modal-title" >LISTADO PRODUCTOS</h5>
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <table id="myTable" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width: 100%;">
+        <thead class="thead-light">
+          <tr>
+            <th onclick="sortTable(0)">Codigo</th>
+            <th onclick="sortTable(1)">Producto</th>    
         </tr>
     </thead>
-    <tbody id="TbodyModal" >
-        @foreach($productos as $producto) 
-        <tr>
-            <td>{{$producto->codigo_producto}}</a> </td>          
-            <td>{{$producto->nombre_producto}}</a> </td>
-            <td>{{$producto->nombre_bodega}}</td>
+    <tbody id="tbody_producto">
+      @foreach($productos as $producto) 
+      <tr>
 
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+        <td>{{$producto->codigo_producto}} </td>          
+        <td>{{$producto->nombre_producto}} </td>
+
+    </tr>
+    @endforeach
+</tbody>
+</table> 
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary btn-sm" id="myBtnCerrar" data-dismiss="modal"> Salir </button>
@@ -146,6 +145,41 @@
 </div>
 </div>
 </div>
+
+
+<script type="text/javascript">
+  $(document).on('click','#myBtn',function(){
+
+    $('#tbody_producto').empty();
+
+    var codigo_bodega=$('#cod_bodega option:selected').val();
+    console.log(codigo_bodega)
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/productos-bodega", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+           "cod_bodega":codigo_bodega,
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+
+          //$('#trTable').empty();
+          data.forEach(function(detalle) {
+            $('#tbody_producto').append('<tr>'+
+              '<td>'+detalle.codigo_producto+'</a></td>'+
+              '<td>'+detalle.nombre_producto+'</a></td>'+
+              '</tr>');
+          });
+        },
+      });
+  });
+
+</script>
 
 <script type="text/javascript">
     function cargarFolio() 
@@ -160,57 +194,57 @@
             $('#num_documento').attr('readonly',false);
         }
 
-      
-  }
+
+    }
 </script>
 
 <script>
 // Get the modal
-var modal = document.getElementById("myModal");
+    var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+    var btn = document.getElementById("myBtn");
 
 // Get the button that opens the modal
-var btnCerrar = document.getElementById("myBtnCerrar");
+    var btnCerrar = document.getElementById("myBtnCerrar");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+    btn.onclick = function() {
+      modal.style.display = "block";
+  }
 
-btnCerrar.onclick = function() {
-  modal.style.display = "none";
-}
+  btnCerrar.onclick = function() {
+      modal.style.display = "none";
+  }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-}
+  window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 </script>
 
 <script>
- var dataTable = new DataTable("#tableModal", {
-  perPage: 50,
-  sortable: true,
-  fixedColumns: true,
-  perPageSelect: [ 50, 100],
-  labels: {
-    placeholder: "Buscar..",
-    perPage: "{select}     Registros por pagina",
-    noRows: "No se encontraron registros",
-    info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-}
+   var dataTable = new DataTable("#tableModal", {
+      perPage: 50,
+      sortable: true,
+      fixedColumns: true,
+      perPageSelect: [ 50, 100],
+      labels: {
+        placeholder: "Buscar..",
+        perPage: "{select}     Registros por pagina",
+        noRows: "No se encontraron registros",
+        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+    }
 });
 
 </script>
@@ -236,29 +270,29 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
         $('#agregar_btn').on('click',function(){
         //    $('#selectDocumento').attr("disabled", true);
 
-        if (contador==0){
+            if (contador==0){
 
-        } else {
-            $('#borrar_btn'+contador).attr('hidden',true);
-        }
+            } else {
+                $('#borrar_btn'+contador).attr('hidden',true);
+            }
 
-        contador = contador+1;
-        $('#contador').val(contador);
-
-
-        productoBodegas(); 
-
-        $('#cod_bodega').attr("disabled", true);
-
-        $(document).on('click','#borrar_btn'+contador,function(){
-
-            $(this).closest('tr').remove();
-            contador = contador-1;
+            contador = contador+1;
             $('#contador').val(contador);
-            $('#borrar_btn'+contador).attr('hidden',false);
 
-        });
-    })
+
+            productoBodegas(); 
+
+            $('#cod_bodega').attr("disabled", true);
+
+            $(document).on('click','#borrar_btn'+contador,function(){
+
+                $(this).closest('tr').remove();
+                contador = contador-1;
+                $('#contador').val(contador);
+                $('#borrar_btn'+contador).attr('hidden',false);
+
+            });
+        })
 
     });
 
@@ -279,7 +313,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "cod_bodega":cod_bodega
+             "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -327,12 +361,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script>
     function grabar ()
     {
-       m = 0;
-       n = $('#contador').val();
-       arrayMovimiento = [];
+     m = 0;
+     n = $('#contador').val();
+     arrayMovimiento = [];
 
 
-       if (n == 0 ){
+     if (n == 0 ){
         arrayMovimiento;
     } else {
 
@@ -379,15 +413,15 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "usuario":usuario,
-           "tipo_documento":tipo_documento,
-           "fecha":fecha,
-           "tipo":tipo,
-           "estado":estado,
-           "num_documento":num_documento,
-           "cod_bodega":cod_bodega,
-           "rut_proveedor":rut_proveedor,
-           "arrayMovimiento":arrayMovimiento
+             "usuario":usuario,
+             "tipo_documento":tipo_documento,
+             "fecha":fecha,
+             "tipo":tipo,
+             "estado":estado,
+             "num_documento":num_documento,
+             "cod_bodega":cod_bodega,
+             "rut_proveedor":rut_proveedor,
+             "arrayMovimiento":arrayMovimiento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
 
@@ -410,10 +444,10 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
                     alert('FACTURA NUMERO :'+num_documento+ ' YA SE ENCUENTRA REGISTRADA');
                     $('#num_documento').focus();
                 } else {
-                num.value = parseInt(num.value,10)+1;
+                    num.value = parseInt(num.value,10)+1;
                 } 
-                      
-            
+
+
             }
         },
     });
@@ -435,6 +469,89 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
 </script>
 
+<script>
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable");
+    switching = true;
+  //Set the sorting direction to ascending:
+    dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+    while (switching) {
+    //start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+      for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+        shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      //Each time a switch is done, increase this count by 1:
+        switchcount ++;      
+      } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+</script>
+
+<style type="text/css">
+  #myTable > :not(caption) > * > * {
+    padding: .1rem .1rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 0.5px;
+    border-color: #3c3c3c;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    border: 1px solid #3c3c3c;
+  }
+
+  th {
+    cursor: pointer;
+  }
+
+  #myTable tbody tr:hover {
+    background-color: #f3f3f3;
+    cursor:pointer;
+  }
+
+  #btn-crear{
+    padding: 0.2rem .3rem;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+</style>
 
 @endsection
 

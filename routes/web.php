@@ -39,6 +39,8 @@ Route::get('/actualizar-producto','ProductoController@update')->name('producto.u
 Route::get('/eliminar-producto/{id}','ProductoController@destroy')->name('producto.destroy');
 Route::get('/stock-productos','ProductoController@inventario')->name('producto.inventario');
 Route::get('/filtrar-productos','ProductoController@filtrarInventario')->name('producto.filtrarInventario');
+Route::get('/productos-bodega','ProductoController@productosBodegas')->name('producto.productosBodegas');
+
 Route::get('/historial-producto/{cod_producto}/{cod_bodega}','ProductoController@productoHistorial')->name('producto.historial');
 Route::get('/traer-producto','ProductoController@traerProducto')->name('producto.traerProducto');
 
@@ -89,7 +91,9 @@ Route::get('/traer-empleado/{nombres}','OrdenTrabajoController@traerDetalleEmple
 Route::get('/neto-productos/{codigo_producto}/{cod_bodega}','OrdenTrabajoController@promedioNeto')->name('orden.promedioNeto') ;
 Route::get('/almacenar-movimiento-ot','OrdenTrabajoController@storeSalida')->name('orden.storeSalida');
 Route::get('/almacenar-orden-trabajo','OrdenTrabajoController@storeOT')->name('orden.storeOT');
+
 Route::get('/traer-ot','OrdenTrabajoController@traerOT')->name('orden.traerOT');
+
 Route::get('/eliminar-ot-personal/{id}','OrdenTrabajoController@eliminarPersonal')->name('orden.eliminarPersonal');
 Route::get('/eliminar-ot-producto/{id}','OrdenTrabajoController@eliminarProducto')->name('orden.eliminarProducto');
 Route::get('/eliminar-ot-servicio/{id}','OrdenTrabajoController@eliminarServicio')->name('orden.eliminarServicio');

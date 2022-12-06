@@ -46,13 +46,11 @@ public function salida()
 {
   $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
   $empleado = Empleado::select('rut','nombres')->orderBy('nombres')->get();
-  $producto= Producto::select('codigo_producto','nombre_producto')->get();
   $productos=Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.codigo_producto','producto.nombre_producto', 'producto.observacion_producto' , 'bodega.nombre_bodega as nombre_bodega' , 'bodega.codigo_bodega as cod_bodega')->get();
   $vehiculo = Vehiculo::select('patente')->get();
   $folios = Folios::select('folio')->where('tipo','CS')->first();
 
   return view('movimientoSalida')->with('empleado',$empleado)
-  //->with('producto',$producto)
   ->with('bodega',$bodega)->with('vehiculo',$vehiculo)->with('folios',$folios)->with('productos',$productos);
 }
 
@@ -148,6 +146,16 @@ public function cargarDetalleMovimiento($num_documento,$tipo_documento)
 
 }
 
+public function traerMovimiento(Request $request)
+{
+  $folio = $requet->num_documento;
+
+  $movimiento = Movimiento::where('num_documento',$folio)->first();
+  $detalleMovimiento = DetalleMovimiento::where('nro_documento_mov',$folio)->get();
+
+  return[$movimiento,$detalleMovimiento];
+
+}
 
 
 }

@@ -33,12 +33,6 @@ input[type=number] {
 
 							<input value="{{$proveedor->id}}" type="hidden" name="id">
 
-
-							<div class="mb-3 col-md-2">
-								<label for="dig_rut_prov">Digito verificador</label>
-								<input value="{{$proveedor->dig_rut_prov}}" style="width:50px"style="text-transform:uppercase" type="text" class="form-control" id="dig_rut_prov" name="dig_rut_prov"  minlength="1" maxlength="1" required onkeyup="javascript:this.value=this.value.toUpperCase();" readonly>
-
-							</div>
 							<div class="mb-3 col-md-3">
 								<label for="razon_social">Razon social</label>
 								<input value="{{$proveedor->razon_social}}" style="text-transform:uppercase" type="text" class="form-control" id="razon_social" name="razon_social" required maxlength="75" onkeyup="javascript:this.value=this.value.toUpperCase();">

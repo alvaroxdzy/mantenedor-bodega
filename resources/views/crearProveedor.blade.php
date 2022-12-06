@@ -23,37 +23,37 @@ input[type=number] {
 			<div class="card border-primary mb-3">
 				{{ csrf_field() }}
 				<div class="row" > 
-					<div class="mb-3 col-md-2">
+					<div class="mb-3 col-md-3">
 						<label for="rut_proveedor">Rut</label>
-						<input style="width:200px" style="text-transform:uppercase" type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" minlength="1" maxlength="20" onblur="traerProveedor()" required onkeyup="javascript:this.value=this.value.toUpperCase();">
-						<small id="rut_prov" class="form-text text-muted">11111111-1.</small>
+						<input  style="text-transform:uppercase" type="text" class="form-control" id="rut_proveedor" name="rut_proveedor" minlength="1" maxlength="20" onblur="traerProveedor()" required onkeyup="javascript:this.value=this.value.toUpperCase();">
+						<small id="rut_prov" class="form-text text-muted">Formato Rut 11111111-1.</small>
 					</div>
 					
-					<div class="mb-3 col-md-3">
+					<div class="mb-3 col-md-5">
 						<label for="razon_social">Razon social</label>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="razon_social" name="razon_social" required maxlength="75" onkeyup="javascript:this.value=this.value.toUpperCase();">
 
 					</div>
 
-					<div class="mb-3 col-md-3">
+					
+				</div>
+				<br> 
+				<div class="row" >
+					<div class="mb-3 col-md-4">
 						<label for="giro">Giro</label>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="giro" name="giro"  required onkeyup="javascript:this.value=this.value.toUpperCase();">
 
 					</div>
-				</div>
-				<br> 
-				<div class="row" >
-					<div class="mb-3 col-md-8">
+					<div class="mb-3 col-md-4">
 						<label for="direccion_prov">Dirección</label>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="direccion_prov" name="direccion_prov" required onkeyup="javascript:this.value=this.value.toUpperCase();">
-				
+
 					</div>
 				</div>
 
 				<div class="row mb-0">
 					<div class="col-md-6 offset-md-0">
-						<br>
-						<input type="submit"  style="width:30%;" class="btn btn-outline-primary"  value=" Grabaar Proveedor "> </input>
+						<input type="submit" id="btn-crear" class="btn btn-primary"  value="Crear Proveedor"> </input>
 					</div>
 				</div>
 			</div>
@@ -87,6 +87,11 @@ input[type=number] {
      });
 	}
 </script>
+<style type="text/css">
+	#btn-crear{
+		padding: 3px;
+	}
+</style>
 
 
 

@@ -5,55 +5,32 @@
 
 
 <div  class="container"> 
-  <h5>LISTADO PROVEEDORES</h5>
+  <h5 style="text-align:center;">LISTADO PROVEEDORES</h5>
   <div > 
-   <form class="form-text-input" type="get">
-    <a href="crear-proveedor" class="btn btn-outline-primary btn-sm" role="button">CREAR</a>
-  </form>
-</div>
-<div class="row"> 
- <div class="clod-md-4"> </div>
- <div class="clod-md-6"> 
-   <div class="row">   
-     <table id="myTable" class="table table-sm "  style="width:100%" >
-      <thead >
-        <tr>
-          <th>Rut</th>
-          <th>Razón</th>
-          <th>Giro</th>
-          <th>Dirección</th>
-          <th>Gestionar</th> 
-        </thead>
-        <tbody>
-        </tr>
-        @foreach($proveedores as $proveedor) 
-        <tr>
-          <td><a style="color:black " href="modificar-proveedor/{{$proveedor->rut_proveedor}}">{{$proveedor->rut_proveedor}}</a> </td>
-          <td id="td-datatable">{{$proveedor->razon_social}}</td>
-          <td id="td-datatable">{{$proveedor->giro}}</td>
-          <td id="td-datatable">{{$proveedor->direccion_prov}}</td>
-          <td> <a class="btn btn-outline-danger btn-sm"  onclick="eliminar({{$proveedor->rut}})"> Eliminar  </a></td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table> 
-
-
-    <script>
-     var dataTable = new DataTable("#myTable", {
-      perPage: 10,
-      sortable: true,
-      fixedColumns: false,
-      perPageSelect: [10, 25, 50, 100],
-      labels: {
-        placeholder: "Buscar..",
-        perPage: "{select}     Registros por pagina",
-        noRows: "No se encontraron registros",
-        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-      }
-
-    });
-  </script>
+    <a href="crear-proveedor" id="btn-crear" class="btn btn-primary btn-sm" role="button">Crear Proveedor</a>
+  </div>
+  <table id="myTable"  class="table dataTable no-footer dtr-inline collapsed table-striped"  style="width:100%" >
+    <thead >
+      <tr>
+        <th>Rut</th>
+        <th>Razon</th>
+        <th>Giro</th> 
+        <th>Dirección</th>
+        <th>Gestionar</th> 
+      </thead>
+      <tbody>
+      </tr>
+      @foreach($proveedores as $proveedor) 
+      <tr>
+        <td><a href="/modificar-proveedor/{{$proveedor->rut_proveedor}}">{{$proveedor->rut_proveedor}}</a></td>
+        <td><a href="/modificar-proveedor/{{$proveedor->rut_proveedor}}">{{$proveedor->razon_social}}</a></td>
+        <td><a href="/modificar-proveedor/{{$proveedor->rut_proveedor}}">{{$proveedor->giro}}</a></td>
+        <td><a href="/modificar-proveedor/{{$proveedor->rut_proveedor}}">{{$proveedor->direccion_prov}}</a></td>
+        <td><a class="btn btn-outline-danger btn-sm" id="btn-eliminar" onclick="eliminar({{$proveedor->id}})"> Eliminar </a></td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table> 
 
   <script type="text/javascript">
     function eliminar(id){
@@ -82,15 +59,54 @@
   }
 </script>
 
+<script>
+ var dataTable = new DataTable("#myTable", {
+  perPage: 50,
+  sortable: true,
+  fixedColumns: true,
+  perPageSelect: [50, 100, 200],
+  labels: {
+    placeholder: "Buscar..",
+    perPage: "{select}     Registros por pagina",
+    noRows: "No se encontraron registros",
+    info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+  }
 
+});
+</script>
 
-</font>
+<style type="text/css">
+  .table > :not(caption) > * > * {
+    padding: .1rem .1rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 0.5px;
+    border-color: #3c3c3c;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+        border: 1px solid #3c3c3c;
+  }
 
-</div> 
-</div> 
-</div> 
-</div>      
-</div>  
+  th {
+    cursor: pointer;
+  }
+
+#btn-eliminar {
+  padding: 0.2rem .2rem;
+  font-size: 0.9rem;
+    margin-left: 4.5px;
+}
+
+#btn-crear{
+    padding: 0.2rem .3rem;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+
+  }
+
+    a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
 
 
 @endsection

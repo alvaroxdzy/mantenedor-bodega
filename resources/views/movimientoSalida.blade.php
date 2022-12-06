@@ -128,12 +128,11 @@
       </button>
   </div>
   <div class="modal-body">
-   <table class="table dataTable no-footer dtr-inline collapsed table-striped" id="tableModal" style="width:100%">
+   <table class="table dataTable no-footer dtr-inline collapsed table-striped" id="myTable" style="width:100%">
       <thead class="thead-light">
         <tr>
             <th>CODIGO </th>
             <th>PRODUCTO</th>
-            <th>BODEGA</th>
         </tr>
     </thead>
     <tbody id="TbodyModal" >
@@ -153,6 +152,40 @@
 </div>
 
 </div>
+
+<script type="text/javascript">
+  $(document).on('click','#myBtn',function(){
+
+    $('#TbodyModal').empty();
+
+    var codigo_bodega=$('#cod_bodega option:selected').val();
+    console.log(codigo_bodega)
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/productos-bodega", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+           "cod_bodega":codigo_bodega,
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+
+          //$('#trTable').empty();
+          data.forEach(function(detalle) {
+            $('#TbodyModal').append('<tr>'+
+              '<td>'+detalle.codigo_producto+'</a></td>'+
+              '<td>'+detalle.nombre_producto+'</a></td>'+
+              '</tr>');
+          });
+        },
+      });
+  });
+
+</script>
 
 <script>
 // Get the modal
@@ -189,21 +222,6 @@
 }
 </script>
 
-<script>
- var dataTable = new DataTable("#tableModal", {
-  perPage: 50,
-  sortable: true,
-  fixedColumns: true,
-  perPageSelect: [ 50, 100],
-  labels: {
-    placeholder: "Buscar..",
-    perPage: "{select}     Registros por pagina",
-    noRows: "No se encontraron registros",
-    info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-}
-});
-
-</script>
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -401,7 +419,89 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
 </script>
 
+<script>
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable");
+    switching = true;
+  //Set the sorting direction to ascending:
+    dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+    while (switching) {
+    //start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+      for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+        shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      //Each time a switch is done, increase this count by 1:
+        switchcount ++;      
+      } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+</script>
 
+<style type="text/css">
+  #myTable > :not(caption) > * > * {
+    padding: .1rem .1rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 0.5px;
+    border-color: #3c3c3c;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    border: 1px solid #3c3c3c;
+  }
+
+  th {
+    cursor: pointer;
+  }
+
+  #myTable tbody tr:hover {
+    background-color: #f3f3f3;
+    cursor:pointer;
+  }
+
+  #btn-crear{
+    padding: 0.2rem .3rem;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+</style>
 
 @endsection
 

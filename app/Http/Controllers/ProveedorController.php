@@ -83,9 +83,9 @@ public function search(){
     return view('busquedaProveedor',compact('proveedores'));
 }
 
-public function destroy($rut)
+public function destroy($id)
 {
-    $proveedor = Proveedor::find($rut);
+    $proveedor = Proveedor::find($id);
     $proveedor->delete();
     return redirect(route('proveedor.search'));
 

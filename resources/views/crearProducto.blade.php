@@ -62,10 +62,9 @@ input[type=number] {
 				</div>
 				
 				<div class="row mb-0">
-					<br>
 					<div class="col-md-6 offset-md-0">
 						<br>
-						<input type="submit" style="width:40%" class="btn btn-outline-primary"  value=" Grabar producto ">  </input>
+						<input type="submit" id="btn-crear" class="btn btn-primary"  value=" Crear Producto ">  </input>
 					</div>
 				</div>
 			</div>
@@ -101,6 +100,11 @@ input[type=number] {
 		}
 	</script>
 
+	<style type="text/css">
+		#btn-crear{
+			padding: 3px;
+		}
+	</style>
 
 	<div id="error"> </div>
 	@if(session()->has('message'))

@@ -26,10 +26,10 @@ input[type=number] {
 				<div class="row">
 					<div class="mb-3 col-md-2"> 
 						<h6>PATENTE</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="patente" name="patente" minlength="2" maxlength="7" required  onkeyup="javascript:this.value=this.value.toUpperCase();" onblur="traerPatente()">
+						<input style="text-transform:uppercase" type="text" class="form-control" id="patente" name="patente" minlength="2" maxlength="7" required  onkeyup="javascript:this.value=this.value.toUpperCase();" onblur="traerPatente()" placeholder="XXXX99">
 					</div>
 
-					<div class="mb-3 col-md-3"> 
+					<div class="mb-3 col-md-4"> 
 						<h6>TIPO CAMION</h6>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="tipo_equipo" name="tipo_equipo" required maxlength="50" onkeyup="javascript:this.value=this.value.toUpperCase();">
 					</div>
@@ -37,7 +37,7 @@ input[type=number] {
 
 
 				<div class="row">
-					<div class="mb-3 col-md-3"> 
+					<div class="mb-3 col-md-2"> 
 						<h6>MARCA</h6>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="marca" name="marca" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
 					</div>
@@ -46,31 +46,31 @@ input[type=number] {
 						<h6>MODELO</h6>
 						<input style="text-transform:uppercase" type="text" class="form-control" id="modelo" name="modelo" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
 					</div>
-					<div class="mb-3 col-md-2"> 
+					<div class="mb-3 col-md-1"> 
 						<h6>AÑO</h6>
-						<input style="text-transform:uppercase" type="text" class="form-control" id="anio" name="anio" required onkeyup="javascript:this.value=this.value.toUpperCase();"> 
+						<input style="text-transform:uppercase" type="text" class="form-control" id="anio" name="anio" required onkeypress="return valideKey(event);"> 
 					</div>
 
 					<div class="row mb-0">
 						<div class="col-md-6 offset-md-0">
 
-							<input type="submit"  style="width:40%" class="btn btn-outline-primary"  value="GRABAR VEHICULO "> </input>
+							<input type="submit" id="btn-crear" class="btn btn-primary"  value="Crear Vehiculo"> </input>
 						</div>
 					</div>
 				</div>
 			</form>
 
-<script type="text/javascript">
-	function traerPatente() 
-	{
-		var patente=$('#patente').val();
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});	
+			<script type="text/javascript">
+				function traerPatente() 
+				{
+					var patente=$('#patente').val();
+					$.ajaxSetup({
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						}
+					});	
 
-		$.ajax({
+					$.ajax({
      type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
      url:"/traer-vehiculo", //url guarda la ruta hacia donde se hace la peticion
      data:{
@@ -84,8 +84,14 @@ input[type=number] {
      	$('#anio').val(data.anio);
      },
  });
-		}
-</script>
+				}
+			</script>
+
+			<style type="text/css">
+				#btn-crear{
+					padding: 3px;
+				}
+			</style>
 
 			<div id="error"> </div>
 			@if(session()->has('message'))
