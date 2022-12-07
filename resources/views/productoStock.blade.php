@@ -9,11 +9,11 @@
      <h3>LISTADO DE PRODUCTOS</h3>
    </div>
 <div class="row">
+
  <div class=" mb-3 col-md-3"> 
     <select class="form-select form-select-sm " id="seleccionar-bodega">
       <option value="TODAS LAS BODEGAS">TODAS LAS BODEGAS</option>
       @foreach($bodega as $nombrebodegas)
-
       <option value="{{$nombrebodegas->codigo_bodega}}">{{$nombrebodegas->nombre_bodega}} </option>
       @endforeach
     </select>
@@ -21,7 +21,7 @@
   </div>
 
   <div class="mb-2 col-md-4"> 
-    <input type="button" class="btn-outline-primary btn-sm" id="btn-filtrar" value="Buscar"> 
+    <a id="btn-filtrar" class="btn btn-primary  btn-sm" role="button">Filtrar Productos</a>
   </div>
   <div class="mb-1 col-sm 5 d-flex justify-content-end">
     <a class="btn btn-primary" id="generar-pdf"  >Convertir a PDF</a>

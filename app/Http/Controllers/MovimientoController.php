@@ -142,18 +142,9 @@ public function cargarDetalleMovimiento($num_documento,$tipo_documento)
 
   $movimiento = Movimiento::join('bodega','movimiento.cod_bodega', '=','bodega.codigo_bodega')->select('movimiento.num_documento','movimiento.tipo_documento','movimiento.tipo', 'movimiento.fecha' , 'movimiento.estado' , 'movimiento.usuario' , 'bodega.nombre_bodega as nombre_bodega')->where('num_documento',$num_documento)->where('tipo_documento',$tipo_documento)->first();
 
-  return view('busquedaDetalleMovimiento')->with('detalleMovimiento',$detalleMovimiento)->with('movimiento',$movimiento);
+  $detalleFijo = DetalleMovimiento::where('nro_documento_mov',$num_documento)->where('tipo_documento',$tipo_documento)->select('rut','patente','rut_proveedor')->first();
 
-}
-
-public function traerMovimiento(Request $request)
-{
-  $folio = $requet->num_documento;
-
-  $movimiento = Movimiento::where('num_documento',$folio)->first();
-  $detalleMovimiento = DetalleMovimiento::where('nro_documento_mov',$folio)->get();
-
-  return[$movimiento,$detalleMovimiento];
+  return view('busquedaDetalleMovimiento')->with('detalleMovimiento',$detalleMovimiento)->with('movimiento',$movimiento)->with('detalleFijo',$detalleFijo);
 
 }
 

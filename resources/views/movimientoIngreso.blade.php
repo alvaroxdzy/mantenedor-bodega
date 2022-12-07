@@ -33,7 +33,7 @@
             <div class="mb-3 col-md-5">
                 <label> PROVEEDOR  </label>
                 <select class="form-control" name="rut_proveedor" id="rut_proveedor" required >
-                    <option value="0">----- NO POSEE -----</option>
+                    <option value="">----- NO POSEE -----</option>
                     @foreach($proveedor as $proveedores)
                     <option value="{{$proveedores->rut_proveedor}}"> {{$proveedores->razon_social}} </option>
                     @endforeach
@@ -99,8 +99,6 @@
 </table>
 <input type="" class="btn btn-primary"  value="GUARDAR MOVIMIENTO " onclick="grabar()">  </input>
 </form>
-
-
 
 </div>
 </div>
@@ -231,22 +229,6 @@
         modal.style.display = "none";
     }
 }
-</script>
-
-<script>
-   var dataTable = new DataTable("#tableModal", {
-      perPage: 50,
-      sortable: true,
-      fixedColumns: true,
-      perPageSelect: [ 50, 100],
-      labels: {
-        placeholder: "Buscar..",
-        perPage: "{select}     Registros por pagina",
-        noRows: "No se encontraron registros",
-        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-    }
-});
-
 </script>
 
 <script type="text/javascript">

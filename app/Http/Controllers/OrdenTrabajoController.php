@@ -13,6 +13,7 @@ use App\Models\OtPersonal;
 use App\Models\OtProducto;
 use App\Models\OtServicio;
 use App\Models\Movimiento;
+use App\Models\Producto;
 use App\Models\DetalleMovimiento;
 use PDF;
 
@@ -27,7 +28,8 @@ class OrdenTrabajoController extends Controller
     $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get();
     $vehiculo = Vehiculo::select('patente')->get();
     $folios = Folios::select('folio')->where('tipo','OT')->first();
-    return view('OrdenTrabajo')->with('vehiculo',$vehiculo)->with('bodega',$bodega)->with('empleado',$empleado)->with('folios',$folios);
+    $productos=Producto::join('bodega','producto.cod_bod_producto', '=','bodega.codigo_bodega')->select('producto.codigo_producto','producto.nombre_producto', 'producto.observacion_producto' , 'bodega.nombre_bodega as nombre_bodega' , 'bodega.codigo_bodega as cod_bodega')->get();
+    return view('OrdenTrabajo')->with('vehiculo',$vehiculo)->with('bodega',$bodega)->with('empleado',$empleado)->with('folios',$folios)->with('productos',$productos);
 
   }
 
@@ -362,7 +364,7 @@ public function cerrarOT(Request $request)
   $ordenCerrar = DB::table('orden_trabajo')
   ->where('num_documento',$num_documento)
   ->update(['estado' => 'CERRADA',
-            'fecha_cierre' => $fecha_cierre]);
+    'fecha_cierre' => $fecha_cierre]);
 
   return 'LISTASO';
 }

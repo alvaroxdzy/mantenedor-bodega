@@ -65,6 +65,7 @@ Route::get('/busqueda-movimiento','MovimientoController@buscarMovimiento')->name
 Route::get('/detalle-movimiento/{num_documento}/{tipo_documento}','MovimientoController@cargarDetalleMovimiento')->name('movimiento.cargarDetalleMovimiento');
 
 
+
 //RUTAS PARA EMPLEADOS
 Route::get('/busqueda-empleado','EmpleadoController@search')->name('empleado.search');
 Route::get('/crear-empleado','EmpleadoController@create')->name('empleado.create');

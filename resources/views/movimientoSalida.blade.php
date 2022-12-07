@@ -28,7 +28,7 @@
                 <div class="mb-3 col-md-4">
                     <label> EMPLEADO  </label>
                     <select class="form-control" name="rut" id="rut" required >
-                        <option value="0">----- NO APLICA -----</option>
+                        <option value="">----- NO APLICA -----</option>
                         @foreach($empleado as $empleados)
                         <option value="{{$empleados->rut}}"> {{$empleados->nombres}} </option>
                         @endforeach
@@ -38,7 +38,7 @@
                 <div class="mb-3 col-md-2">
                     <label> PATENTE  </label>
                     <select class="form-control" name="patente" id="patente" required >
-                        <option value="0">----- NO APLICA -----</option>
+                        <option value="">----- NO APLICA -----</option>
                         @foreach($vehiculo as $vehiculos)
                         <option value="{{$vehiculos->patente}}"> {{$vehiculos->patente}} </option>
                         @endforeach

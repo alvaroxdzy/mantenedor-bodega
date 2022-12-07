@@ -40,7 +40,7 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-             <div class="row">
+               <div class="row">
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
@@ -108,24 +108,24 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" id="tablaEmpleados" style="width:100%">
-          <thead>
-            <h5> PERSONAL ASIGNADO</h5>
-            <tr>
-                <th>EMPLEADO</th>
-                <th>RUT</th>
-                <th>CARGO</th>
-                <th>FECHA INICIO</th>
-                <th>FECHA TERMINO</th>
-                <th>DESCRIPCION</th>
-                <th>GESTIONAR</th>
-            </tr>
-        </thead>
-        <tbody id="tbodyEmpleado">
-            <input type="hidden" name="contador" value="0" id="contador">
-        </tbody>
-    </table>
-    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+     <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+      <thead>
+        <h5> PERSONAL ASIGNADO</h5>
+        <tr>
+            <th>EMPLEADO</th>
+            <th>RUT</th>
+            <th>CARGO</th>
+            <th>FECHA INICIO</th>
+            <th>FECHA TERMINO</th>
+            <th>DESCRIPCION</th>
+            <th>GESTIONAR</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyEmpleado">
+        <input type="hidden" name="contador" value="0" id="contador">
+    </tbody>
+</table>
+<button class="btn btn-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
 </div>
 </div>
 
@@ -141,26 +141,69 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-     <table class="table table-sm" style="width:100%">
-      <thead>
-        <h5> PRESUPUESTO ASIGNADO</h5>
-        <tr>
-            <th>CODIGO PRODUCTO</th>
-            <th>PRODUCTO</th>
-            <th>CANTIDAD</th>
-            <th>STOCK</th>
-            <th>SALDO</th>
-            <th>PRECIO UNITARIO</th>
-            <th>GESTIONAR</th>
-        </tr>
-    </thead>
-    <tbody id="tbodyProductos" >
+        <!-- Trigger/Open The Modal -->
+        
 
-        <input type="hidden" name="contador2" value="0" id="contador2">
+        <!-- The Modal -->
+        <div class="modal" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" >LISTADO PRODUCTOS</h5> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <table id="myTable" class="table dataTable no-footer dtr-inline collapsed table-striped" style="width: 100%;">
+                <thead class="thead-light">
+                  <tr>
+                    <th onclick="sortTable(0)">Codigo</th>
+                    <th onclick="sortTable(1)">Producto</th>    
+                </tr>
+            </thead>
+            <tbody id="tbody_producto">
+              @foreach($productos as $producto) 
+              <tr>
 
-    </tbody>
+                <td>{{$producto->codigo_producto}} </td>          
+                <td>{{$producto->nombre_producto}} </td>
+
+            </tr>
+            @endforeach
+        </tbody>
+    </table> 
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary btn-sm" id="myBtnCerrar" data-dismiss="modal"> Salir </button>
+</div>
+</div>
+</div>
+</div>
+
+<table class="table table-sm" style="width:100%">
+  <thead>
+    <div class="row">
+            <h5> PRESUPUESTO ASIGNADO</h5>  <button style="width:40px;margin-left:250px;margin-top:-38px ;" class="btn btn-primary btn-sm"  id="myBtn">🔍</button>
+    </div>
+
+    <tr>
+        <th>CODIGO PRODUCTO</th>
+        <th>PRODUCTO</th>
+        <th>CANTIDAD</th>
+        <th>STOCK</th>
+        <th>SALDO</th>
+        <th>PRECIO UNITARIO</th>
+        <th>GESTIONAR</th>
+    </tr>
+</thead>
+<tbody id="tbodyProductos" >
+
+    <input type="hidden" name="contador2" value="0" id="contador2">
+
+</tbody>
 </table>
-<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
+<button class="btn btn-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
 
 </div>
 
@@ -178,7 +221,7 @@
         <input type="hidden" name="contador3" value="0" id="contador3">
     </tbody>
 </table>
-<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_serv"  > AGREGAR SERVICIOS </button>
+<button class="btn btn-primary btn-sm" type="button" id="agregar_serv"  > AGREGAR SERVICIOS </button>
 
 </div>
 </div>
@@ -198,7 +241,7 @@
 </div>
 
 <div class="row">
- <div class="mb-3 col-md-3" style="width: 25%;">
+   <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> GUARDAR </button>
 </div>
 
@@ -208,6 +251,90 @@
 </form>
 </div>
 
+<script type="text/javascript">
+  $(document).on('click','#myBtn',function(){
+
+    $('#tbody_producto').empty();
+
+    var codigo_bodega=$('#cod_bodega option:selected').val();
+    console.log(codigo_bodega)
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+    $.ajax({
+         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
+         url:"/productos-bodega", //url guarda la ruta hacia donde se hace la peticion
+         data:{
+           "cod_bodega":codigo_bodega,
+         }, // data recive un objeto con la informacion que se enviara al servidor
+         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
+
+          //$('#trTable').empty();
+          data.forEach(function(detalle) {
+            $('#tbody_producto').append('<tr>'+
+              '<td>'+detalle.codigo_producto+'</a></td>'+
+              '<td>'+detalle.nombre_producto+'</a></td>'+
+              '</tr>');
+        });
+      },
+  });
+});
+
+</script>
+
+<script>
+// Get the modal
+    var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+// Get the button that opens the modal
+    var btnCerrar = document.getElementById("myBtnCerrar");
+
+// Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+    btn.onclick = function() {
+      modal.style.display = "block";
+  }
+
+  btnCerrar.onclick = function() {
+      modal.style.display = "none";
+  }
+
+// When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
+
+// When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<script>
+   var dataTable = new DataTable("#tableModal", {
+      perPage: 50,
+      sortable: true,
+      fixedColumns: true,
+      perPageSelect: [ 50, 100],
+      labels: {
+        placeholder: "Buscar..",
+        perPage: "{select}     Registros por pagina",
+        noRows: "No se encontraron registros",
+        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+    }
+});
+
+</script>
 
 
 <script type="text/javascript">
@@ -243,11 +370,11 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-vehiculo/' + patente, function(data){
 
-         $('#tipo_equipo').val(data.tipo_equipo);
-         $('#marca').val(data.marca);
-         $('#modelo').val(data.modelo);
-         $('#anio').val(data.anio);
-     });
+           $('#tipo_equipo').val(data.tipo_equipo);
+           $('#marca').val(data.marca);
+           $('#modelo').val(data.modelo);
+           $('#anio').val(data.anio);
+       });
     } catch (e) {}
 
 }
@@ -291,9 +418,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-empleado/' + nombres, function(data){
 
-         $('#rut'+numero).val(data.rut);
-         $('#cargo'+numero).val(data.cargo);
-     });
+           $('#rut'+numero).val(data.rut);
+           $('#cargo'+numero).val(data.cargo);
+       });
     } catch (e) {}
 }
 </script>
@@ -331,8 +458,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td > <select style="width:350px" id="selectEmpleado'+contador+'" class="form-control" onchange="cargarEmpleado(this)" required><option value="">-------</option>' ; 
             data.forEach(function(empleado) {
-               html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
-           });
+             html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
+         });
             html+='</select> </td>' ;
             html+='<td><input style="width:100px" id="rut'+contador+'"  type="text" name="rut" required readonly></td>';
             html+='<td><input style="width:200px" id="cargo'+contador+'"   type="text" name="cargo" required readonly></td>';
@@ -399,7 +526,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "cod_bodega":cod_bodega
+           "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -466,18 +593,18 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function servicios() {
 
-     contador3 = $('#contador3').val();
+       contador3 = $('#contador3').val();
 
-     var html = '';
-     html+='<tr>';
-     html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
-     html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
-     html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
-     html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
-     html+='<tr>';
+       var html = '';
+       html+='<tr>';
+       html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
+       html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
+       html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
+       html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
+       html+='<tr>';
 
-     $('#tbodyServicios').append(html);
- };
+       $('#tbodyServicios').append(html);
+   };
 
 </script>
 
@@ -485,12 +612,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function grabarOrden()
     {
-       m = 0;
-       e = $('#contador').val();
-       arrayPersonal = [];
+     m = 0;
+     e = $('#contador').val();
+     arrayPersonal = [];
 
 
-       if (e == 0 ){
+     if (e == 0 ){
         arrayPersonal;
     } else {
 
@@ -666,12 +793,12 @@ $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "usuario":usuario,
-           "patente":patente,
-           "fecha":fecha,
-           "num_documento":num_documento,
-           "cod_bodega":cod_bodega,
-           "arrayProductos":arrayProductos
+             "usuario":usuario,
+             "patente":patente,
+             "fecha":fecha,
+             "num_documento":num_documento,
+             "cod_bodega":cod_bodega,
+             "arrayProductos":arrayProductos
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -729,6 +856,84 @@ $.ajax({
     }
 </script>
 
+<script>
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable");
+    switching = true;
+  //Set the sorting direction to ascending:
+    dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+    while (switching) {
+    //start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+      for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+        shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+        }
+    } else if (dir == "desc") {
+      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+    }
+}
+}
+if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+    switching = true;
+      //Each time a switch is done, increase this count by 1:
+    switchcount ++;      
+} else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+    if (switchcount == 0 && dir == "asc") {
+      dir = "desc";
+      switching = true;
+  }
+}
+}
+}
+</script>
+
+<style type="text/css">
+  #myTable > :not(caption) > * > * {
+    padding: .1rem .1rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 0.5px;
+    border-color: #3c3c3c;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    border: 1px solid #3c3c3c;
+}
+
+th {
+    cursor: pointer;
+}
+
+#myTable tbody tr:hover {
+    background-color: #f3f3f3;
+    cursor:pointer;
+}
+
+
+</style>
 
 @endsection
 
