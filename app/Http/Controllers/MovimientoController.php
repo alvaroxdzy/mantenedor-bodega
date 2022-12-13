@@ -10,8 +10,10 @@ use App\Models\Movimiento;
 use App\Models\Empleado;
 use App\Models\DetalleMovimiento;
 use App\Models\Vehiculo;
+use App\Models\HistoricoMovimiento;
 use DB;
 use App\Models\Folios;
+use Carbon\Carbon;
 
 
 
@@ -69,8 +71,6 @@ public function traerStock($cod_producto,$cod_bodega){
 }
 
 
-
-
 public function store(Request $request)
 {
 
@@ -87,7 +87,6 @@ public function store(Request $request)
  $movimiento->tipo=$request->tipo;
  $movimiento->estado=$request->estado;
  $movimiento->usuario=$request->usuario;
-
 
  $arrayDatos = $request->arrayMovimiento;
 
@@ -125,13 +124,33 @@ if($tipo_documento=='COMPROBANTE SALIDA'){
   ->update(['folio' => $request->num_documento+1]);
 }
 
+foreach ($arrayDatos as $datos) {
+
+   $detalle = new HistoricoMovimiento();
+   $detalle->nro_documento_mov=$request->num_documento;
+   $detalle->cod_bodega=$request->cod_bodega;
+   $detalle->cod_producto=$datos['selectProducto'];
+   $detalle->nombre_producto=$datos['nombre_producto'];
+   $detalle->cantidad=$datos['cantidad'];
+   $detalle->neto=$datos['valoress'];
+   $detalle->iva=$datos['iva'];
+   $detalle->total=$datos['total'];
+   $detalle->tipo_documento=$request->tipo_documento;
+   $detalle->rut_proveedor=$request->rut_proveedor; 
+   $detalle->fecha=$request->fecha;  
+   $detalle->tipo=$request->tipo;
+   $detalle->usuario=$request->usuario;
+   $detalle->rut=$request->rut;
+   $detalle->patente=$request->patente;
+   $detalle->save();
+ }
 
 
 return "LISTASO";
 }
 
 public function buscarMovimiento(){
-  $movimiento = Movimiento::join('bodega','movimiento.cod_bodega', '=','bodega.codigo_bodega')->select('movimiento.num_documento','movimiento.tipo_documento','movimiento.tipo', 'movimiento.fecha' , 'movimiento.estado' , 'movimiento.usuario' , 'bodega.nombre_bodega as nombre_bodega')->get();
+  $movimiento = Movimiento::join('bodega','movimiento.cod_bodega', '=','bodega.codigo_bodega')->select('movimiento.num_documento','movimiento.tipo_documento','movimiento.tipo', 'movimiento.fecha' , 'movimiento.estado' , 'movimiento.usuario' , 'bodega.nombre_bodega as nombre_bodega')->orderBy('fecha','desc')->get();
 
   return view('busquedaMovimiento')->with('movimiento',$movimiento);
 }

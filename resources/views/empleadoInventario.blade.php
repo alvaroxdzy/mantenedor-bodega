@@ -8,22 +8,11 @@
 
  <div class="card-header">
   <div class="row">
-   <h3>Entrega de productos por empleado</h3>
+   <h3>PRODUCTOS ENTREGADOS POR EMPLEADO</h3>
  </div>
  <div class="row">
-   <div class=" mb-3 col-md-3"> 
-    <select class="form-select form-select-sm " id="seleccionar-bodega">
-      <option value="TODAS LAS BODEGAS">TODAS LAS BODEGAS</option>
-      <option value="003">BODEGA PREVENCION SANTIAGO</option>
-    </select>
-
-  </div>
-
-  <div class="mb-2 col-md-4"> 
-    <input type="button" class="btn-outline-primary btn-sm" id="btn-filtrar" value="Buscar"> 
-  </div>
   <div class="mb-1 col-sm 5 d-flex justify-content-end">
-    <a class="btn btn-primary" id="generar-pdf"  >Convertir a PDF</a>
+    <a style="margin-top:-40px" class="btn btn-primary" id="generar-pdf">Convertir a PDF</a>
   </div>
 
 </div>
@@ -32,20 +21,17 @@
 <table id="myTable" class="table table-sm table-striped  " style="width:100%;" >
   <thead >
     <tr>
-      <th>rut</th>
-      <th>nombres</th>
-      <th>productos/entregados</th> 
-      <th>bodega</th>
+      <th>Rut</th>
+      <th>Nombres </th>
+      <th>Productos\Recibidos</th> 
     </tr>
   </thead>
   <tbody id="trTable">
     @foreach($inventarioEmpleado as $inventarioEmpleados) 
-    <tr>
+    <tr class='clickable-row' data-href="/historial-empleado/{{$inventarioEmpleados->rut}}">
       <td><a style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}">{{$inventarioEmpleados->rut}}</a></td>
       <td><a style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}">{{$inventarioEmpleados->nombres}}</a> </td>
       <td>{{intval($inventarioEmpleados->productos_entregados)}} </td>
-      <td>{{$inventarioEmpleados->nombre_bodega}}</td>
-
     </tr>
     @endforeach
   </tbody>
@@ -76,6 +62,13 @@
 
 </script>
 
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+      window.location = $(this).data("href");
+    });
+  });
+</script>
 
 <script>
  var dataTable = new DataTable("#myTable", {
@@ -91,47 +84,26 @@
   }
 });
 </script>
+<style>
+  #myTable tbody tr:hover {
+    background-color: #f3f3f3;
+    cursor:pointer;
+  }
 
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
-  $(document).on('click','#btn-filtrar',function(){
+  a {
+    text-decoration: none;
+    color: black;
+  }
 
-    $('#myTable').DataTable().clear().destroy();
-
-    var codigo_bodega=$('#seleccionar-bodega option:selected').val();
-
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    $.ajax({
-         type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
-         url:"/filtrar-empleados", //url guarda la ruta hacia donde se hace la peticion
-         data:{
-           "cod_bodega":codigo_bodega,
-         }, // data recive un objeto con la informacion que se enviara al servidor
-         success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
-          
-          //$('#trTable').empty();
-          data.forEach(function(detalle) {
-
-            $('#trTable').append('<tr>'+
-              '<td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button">'+detalle.rut+'</a></td>'+
-              '<td><a class="nav-link" style="color:black " href="/historial-empleado/{{$inventarioEmpleados->rut}}" id="btn-revisar" type="button"> '+detalle.nombres+'</a></td>'+
-              '<td style="width:25%" >'+detalle.productos_entregados+'</td>'+
-              '<td>'+detalle.nombre_bodega+'</td>'+
-              '</tr>');
-
-          });
-
-        },
-      });
-
-  });
-
-</script>
+  .table > :not(caption) > * > * {
+    padding: .1rem .1rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 0.5px;
+    border-color: #3c3c3c;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    border: 1px solid #3c3c3c;
+  }
+</style>
 
 
 

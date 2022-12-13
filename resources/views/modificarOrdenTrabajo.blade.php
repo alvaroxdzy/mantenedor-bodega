@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
+@can('revisar orden')
 <div class="container">
     <div class="card border-primary mb-3">
         <h4 style="text-align:center;"> ORDEN DE TRABAJO</h4>
@@ -41,7 +41,7 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-               <div class="row">
+             <div class="row">
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>" readonly> 
@@ -110,24 +110,24 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-     <table class="table table-sm" id="tablaEmpleados" style="width:100%">
-      <thead>
-        <h5> PERSONAL ASIGNADO</h5>
-        <tr>
-            <th>EMPLEADO</th>
-            <th>RUT</th>
-            <th>CARGO</th>
-            <th>FECHA INICIO</th>
-            <th>FECHA TERMINO</th>
-            <th>DESCRIPCION</th>
-            <th>GESTIONAR</th>
-        </tr>
-    </thead>
-    <tbody id="tbodyEmpleado">
-        <input type="hidden" name="contador" value="0" id="contador">
-    </tbody>
-</table>
-<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+       <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+          <thead>
+            <h5> PERSONAL ASIGNADO</h5>
+            <tr>
+                <th>EMPLEADO</th>
+                <th>RUT</th>
+                <th>CARGO</th>
+                <th>FECHA INICIO</th>
+                <th>FECHA TERMINO</th>
+                <th>DESCRIPCION</th>
+                <th>GESTIONAR</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyEmpleado">
+            <input type="hidden" name="contador" value="0" id="contador">
+        </tbody>
+    </table>
+    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
 </div>
 </div>
 
@@ -143,26 +143,26 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-       <table class="table table-sm" style="width:100%">
-          <thead>
-            <h5> PRESUPUESTO ASIGNADO</h5>
-            <tr>
-                <th>CODIGO PRODUCTO</th>
-                <th>PRODUCTO</th>
-                <th>CANTIDAD</th>
-                <th>STOCK</th>
-                <th>SALDO</th>
-                <th>PRECIO UNITARIO</th>
-                <th>GESTIONAR</th>
-            </tr>
-        </thead>
-        <tbody id="tbodyProductos" >
+     <table class="table table-sm" style="width:100%">
+      <thead>
+        <h5> PRESUPUESTO ASIGNADO</h5>
+        <tr>
+            <th>CODIGO PRODUCTO</th>
+            <th>PRODUCTO</th>
+            <th>CANTIDAD</th>
+            <th>STOCK</th>
+            <th>SALDO</th>
+            <th>PRECIO UNITARIO</th>
+            <th>GESTIONAR</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyProductos" >
 
-            <input type="hidden" name="contador2" value="0" id="contador2">
+        <input type="hidden" name="contador2" value="0" id="contador2">
 
-        </tbody>
-    </table>
-    <button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
+    </tbody>
+</table>
+<button class="btn btn-outline-primary btn-sm" type="button" id="agregar_prod"  > AGREGAR REPUESTOS </button>
 
 </div>
 
@@ -204,7 +204,7 @@
 </div>
 
 <div class="row">
-   <div class="mb-3 col-md-3" style="width: 25%;">
+ <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button"  id="btn_grabar_orden" onclick="grabarOrden()"> Guardar </button>
 </div>
 <div class="mb-3 col-md-3" style="width: 25%;">
@@ -213,9 +213,7 @@
 <div class="mb-3 col-md-3" style="width: 25%;">
     <button class="btn btn-primary btn-sm" type="button" onclick="cerrarOT()" id="btn_cerrar_orden"> Cerrar </button>
 </div>
-
 </div>
-
 </form>
 </div>
 
@@ -239,11 +237,11 @@
 
         $.get('/traer-vehiculo/' + patente, function(data){
 
-           $('#tipo_equipo').val(data.tipo_equipo);
-           $('#marca').val(data.marca);
-           $('#modelo').val(data.modelo);
-           $('#anio').val(data.anio);
-       });
+         $('#tipo_equipo').val(data.tipo_equipo);
+         $('#marca').val(data.marca);
+         $('#modelo').val(data.modelo);
+         $('#anio').val(data.anio);
+     });
     } catch (e) {}
 
 }
@@ -287,9 +285,9 @@
 
         $.get('/traer-empleado/' + nombres, function(data){
 
-           $('#rut'+numero).val(data.rut);
-           $('#cargo'+numero).val(data.cargo);
-       });
+         $('#rut'+numero).val(data.rut);
+         $('#cargo'+numero).val(data.cargo);
+     });
     } catch (e) {}
 }
 </script>
@@ -316,8 +314,8 @@
             html+='<tr>';
             html+='<td > <select style="width:250px" id="selectEmpleado'+contador+'" class="form-control" onchange="cargarEmpleado(this)" required><option value="">-------</option>' ; 
             data.forEach(function(empleado) {
-             html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
-         });
+               html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
+           });
             html+='</select> </td>' ;
             html+='<td><input style="width:100px" id="rut'+contador+'"  type="text" name="rut" required readonly></td>';
             html+='<td><input style="width:200px" id="cargo'+contador+'"   type="text" name="cargo" required readonly></td>';
@@ -383,7 +381,7 @@
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:'/producto-bodega/' +cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "cod_bodega":cod_bodega
+             "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -401,10 +399,9 @@
             html+='<td><input id="cantidad'+contador2+'"  oninput="calcularSaldoOT(this)" type="text" name="cantidad" value="0" onkeypress="return valideKey(event);"></td>';
             html+='<td><input id="stock'+contador2+'" type="text" name="stock" required value="0" readonly></td>';
             html+='<td><input id="saldo'+contador2+'" type="text" name="saldo" required readonly></td>';
-            html+='<td><input id="neto'+contador2+'"  type="text" name="neto" readonly></td>';
+            html+='<td><input id="neto'+contador2+'"  type="text" name="neto" readonly></td>';        
             html+='<td><button id="borrar_btn2'+contador2+'" type="button"> Eliminar </button> </td>';
             html+='<tr>';
-
             $('#tbodyProductos').append(html);
         },
     });
@@ -450,18 +447,18 @@
 <script type="text/javascript">
     function servicios() {
 
-       contador3 = $('#contador3').val();
+     contador3 = $('#contador3').val();
 
-       var html = '';
-       html+='<tr>';
-       html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
-       html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
-       html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
-       html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
-       html+='<tr>';
+     var html = '';
+     html+='<tr>';
+     html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
+     html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
+     html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
+     html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
+     html+='<tr>';
 
-       $('#tbodyServicios').append(html);
-   };
+     $('#tbodyServicios').append(html);
+ };
 
 </script>
 
@@ -469,12 +466,12 @@
 <script type="text/javascript">
     function grabarOrden()
     {
-     m = 0;
-     e = $('#contador').val();
-     arrayPersonal = [];
+       m = 0;
+       e = $('#contador').val();
+       arrayPersonal = [];
 
 
-     if (e == 0 ){
+       if (e == 0 ){
         arrayPersonal;
     } else {
 
@@ -648,12 +645,12 @@ $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/actualizar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "usuario":usuario,
-             "patente":patente,
-             "fecha":fecha,
-             "num_documento":num_documento,
-             "cod_bodega":cod_bodega,
-             "arrayProductos":arrayProductos
+           "usuario":usuario,
+           "patente":patente,
+           "fecha":fecha,
+           "num_documento":num_documento,
+           "cod_bodega":cod_bodega,
+           "arrayProductos":arrayProductos
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -719,7 +716,9 @@ $.ajax({
                         '<td><input id="fecha_inicio'+contadorEmpleado+'" type="date" value="'+detalle.fecha_inicio+'" readonly></td>'+
                         '<td><input id="fecha_termino'+contadorEmpleado+'" type="date" value="'+detalle.fecha_termino+'" readonly></td>'+
                         '<td><input id="detalle'+contadorEmpleado+'" type="text" value="'+detalle.detalle+'" readonly></td>'+
+                        @can('grabar orden')
                         '<td><button type="button" onclick="eliminarEmpleado('+detalle.id+')" hidden> Eliminar </button> </td>'+
+                        @endcan
                         '</tr>');
                     $('#contador').val(contadorEmpleado);
                 });
@@ -729,11 +728,11 @@ $.ajax({
                   contadorServicio++;
 
                   $('#tbodyServicios').append('<tr>'+
-                     '<td><input style="width:300px" id="servicio'+contadorServicio+'" type="text" value="'+detalle.servicio+'" readonly></td>'+
-                     '<td><input style="width:300px" id="descripcion_servicio'+contadorServicio+'" type="text" value="'+detalle.descripcion_servicio+'" readonly></td>'+
-                     '<td><input style="width:300px" id="valor_servicio'+contadorServicio+'" type="text" value="'+detalle.valor_servicio+'" readonly></td>'+
-                     '<td><button type="button" onclick="eliminarServicio('+detalle.id+')" hidden> Eliminar </button> </td>'+
-                     '</tr>');
+                   '<td><input style="width:300px" id="servicio'+contadorServicio+'" type="text" value="'+detalle.servicio+'" readonly></td>'+
+                   '<td><input style="width:300px" id="descripcion_servicio'+contadorServicio+'" type="text" value="'+detalle.descripcion_servicio+'" readonly></td>'+
+                   '<td><input style="width:300px" id="valor_servicio'+contadorServicio+'" type="text" value="'+detalle.valor_servicio+'" readonly></td>'+
+                   '<td><button type="button" onclick="eliminarServicio('+detalle.id+')" hidden> Eliminar </button> </td>'+
+                   '</tr>');
 
 
                   $('#contador3').val(contadorServicio);
@@ -817,11 +816,11 @@ $.ajax({
                   contadorServicio++;
 
                   $('#tbodyServicios').append('<tr>'+
-                     '<td><input style="width:300px" id="servicio'+contadorServicio+'" type="text" value="'+detalle.servicio+'"></td>'+
-                     '<td><input style="width:300px" id="descripcion_servicio'+contadorServicio+'" type="text" value="'+detalle.descripcion_servicio+'"></td>'+
-                     '<td><input style="width:300px" id="valor_servicio'+contadorServicio+'" type="text" value="'+detalle.valor_servicio+'"></td>'+
-                     '<td><button type="button" onclick="eliminarServicio('+detalle.id+')"> Eliminar </button> </td>'+
-                     '</tr>');
+                   '<td><input style="width:300px" id="servicio'+contadorServicio+'" type="text" value="'+detalle.servicio+'"></td>'+
+                   '<td><input style="width:300px" id="descripcion_servicio'+contadorServicio+'" type="text" value="'+detalle.descripcion_servicio+'"></td>'+
+                   '<td><input style="width:300px" id="valor_servicio'+contadorServicio+'" type="text" value="'+detalle.valor_servicio+'"></td>'+
+                   '<td><button type="button" onclick="eliminarServicio('+detalle.id+')"> Eliminar </button> </td>'+
+                   '</tr>');
 
 
                   $('#contador3').val(contadorServicio);
@@ -910,12 +909,12 @@ $.ajax({
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             if(data==1){
 
-               location.reload();
+             location.reload();
 
 
-           }
-       },
-   });
+         }
+     },
+ });
         }
     } 
 </script>
@@ -923,8 +922,8 @@ $.ajax({
 <script type="text/javascript">
     function eliminarServicio(id)
     {
-       var result = confirm("SEGURO QUE DESEA ELIMINAR?");
-       if (result){
+     var result = confirm("SEGURO QUE DESEA ELIMINAR?");
+     if (result){
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -965,24 +964,24 @@ document.getElementById('fecha_cierre').value=ano+"-"+mes+"-"+dia;
     function cerrarOT()
     {
         var result = confirm("CONFIRME QUE DESEA CERRAR LA ORDEN, DESPUES NO PODRA MODIFICARLA");
-       if (result){
+        if (result){
 
-        num_documento = $('#num_documento').val();
-        fecha_cierre = $('#fecha_cierre').val();
-        
+            num_documento = $('#num_documento').val();
+            fecha_cierre = $('#fecha_cierre').val();
 
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
-        $.ajax({
+            $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+            $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/cerrar-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "fecha_cierre":fecha_cierre,
-           "num_documento":num_documento
+             "fecha_cierre":fecha_cierre,
+             "num_documento":num_documento
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             if(data=='LISTASO'){
@@ -992,7 +991,7 @@ document.getElementById('fecha_cierre').value=ano+"-"+mes+"-"+dia;
             }
         },
     });
-    }
+        }
     }
 </script>
 
@@ -1016,6 +1015,6 @@ document.getElementById('fecha_cierre').value=ano+"-"+mes+"-"+dia;
     window.onload=cargarFecha();
 </script>
 
-
+@endcan
 @endsection
 

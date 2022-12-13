@@ -16,25 +16,19 @@
       <tr>
         <th>Producto</th>
         <th>Documento</th> 
-        <th >Numero</th>
         <th>Tipo</th>  
         <th>Fecha</th>  
-        <th >Cantidad</th>   
-        <th>Usuario</th>     
-
+        <th >Cantidad</th>     
       </tr>
     </thead>
     <tbody>
       @foreach($movimiento as $movimientos) 
       <tr>
         <td>{{$movimientos->nombre_producto}}</td>
-        <td>{{$movimientos->tipo_documento}}</td>
-        <td >{{$movimientos->nro_documento_mov}}</td>
+        <td>{{$movimientos->tipo_documento}} : {{$movimientos->nro_documento_mov}}</td>
         <td>{{$movimientos->tipo}}</td>
         <td>{{$movimientos->fecha}}</td>
         <td style="text-align:end;">{{$movimientos->cantidad}}</td>
-        <td>{{$movimientos->usuario}} </td>
-
       </tr>
       @endforeach
     </tbody>

@@ -22,34 +22,53 @@
     <tbody>
       @foreach($ot as $ots) 
       <tr>
+         <?php
+        $newDate = date("d-m-Y", strtotime($ots->fecha)); 
+        ?>
         <td><a style="color:black " href="/modificar-orden/{{$ots->num_documento}}"> {{$ots->num_documento}}</a></td>
+        <td><a style="color:black " href="/modificar-orden/{{$ots->num_documento}}"> <?php echo $newDate; ?></a></td>
+        <td><a style="color:black " href="/modificar-orden/{{$ots->num_documento}}"> {{$ots->patente}}</a></td>
+        <td><a style="color:black " href="/modificar-orden/{{$ots->num_documento}}"> {{$ots->nombres}}</a></td>
+        <td><a style="color:black " href="/modificar-orden/{{$ots->num_documento}}"> {{$ots->nombre_bodega}}</a></td>
+        <td><a style="color:black " href="/modificar-orden/{{$ots->num_documento}}"> {{$ots->usuario}}</a></td>
 
-        <td>{{$ots->fecha}}</td>
-        <td>{{$ots->patente}}</td>
-        <td>{{$ots->nombres}}</td>
-        <td>{{$ots->nombre_bodega}}</td>
-        <td>{{$ots->usuario}} </td>
       </tr>
       @endforeach
     </tbody>
   </table>  
-  <script>
-   var dataTable = new DataTable("#tabla-ordenes", {
-    perPage: 10,
-    sortable: true,
-    fixedColumns: true,
-    perPageSelect: [10, 25, 50, 100],
-    labels: {
-      placeholder: "Buscar..",
-      perPage: "{select}     Registros por pagina",
-      noRows: "No se encontraron registros",
-      info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-    }
-  });
-</script>
-
 </div> 
 
+
+<script>
+ var dataTable = new DataTable("#tabla-ordenes", {
+  perPage: 50,
+  sortable: true,
+  fixedColumns: true,
+  perPageSelect: [ 50, 100],
+  labels: {
+    placeholder: "Buscar..",
+    perPage: "{select}     Registros por pagina",
+    noRows: "No se encontraron registros",
+    info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+  }
+});
+</script>
+
+<style>
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .table > :not(caption) > * > * {
+    padding: .1rem .1rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 0.5px;
+    border-color: #3c3c3c;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    border: 1px solid #3c3c3c;
+  }
+</style>
 
 
 

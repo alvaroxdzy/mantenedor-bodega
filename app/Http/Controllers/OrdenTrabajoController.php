@@ -351,7 +351,7 @@ public function eliminarServicio($id)
 
 public function buscarOT()
 {
-  $ot = OrdenTrabajo::join('bodega','orden_trabajo.cod_bodega', '=','bodega.codigo_bodega')->join('empleado','orden_trabajo.solicitante', '=','empleado.rut')->select('num_documento','fecha','patente','empleado.nombres' , 'orden_trabajo.usuario' , 'bodega.nombre_bodega as nombre_bodega')->orderBy('num_documento','asc')->get();
+  $ot = OrdenTrabajo::join('bodega','orden_trabajo.cod_bodega', '=','bodega.codigo_bodega')->join('empleado','orden_trabajo.solicitante', '=','empleado.rut')->select('num_documento','fecha','patente','empleado.nombres' , 'orden_trabajo.usuario' , 'bodega.nombre_bodega as nombre_bodega')->orderBy('num_documento','desc')->get();
 
   return view('busquedaOrdenTrabajo')->with('ot',$ot);
 }

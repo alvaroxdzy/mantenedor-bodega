@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
+@can('grabar orden')
 <div class="container">
     <div class="card border-primary mb-3">
         <h4 style="text-align:center;"> ORDEN DE TRABAJO</h4>
@@ -40,7 +40,7 @@
         <div class="card-body">
           <form class="form-inline">  
             <div>
-               <div class="row">
+             <div class="row">
                 <div class="mb-3 col-md-2" style="width: 22.2%;">
                     <label> FECHA  </label >
                     <input class="form-control" name="fecha" type="date" id="fecha" required value="<?php echo date("d-m-Y\TH-i");?>"> 
@@ -108,24 +108,24 @@
 <div class="card border-primary mb-3"> 
     <div class="card-body">
 
-     <table class="table table-sm" id="tablaEmpleados" style="width:100%">
-      <thead>
-        <h5> PERSONAL ASIGNADO</h5>
-        <tr>
-            <th>EMPLEADO</th>
-            <th>RUT</th>
-            <th>CARGO</th>
-            <th>FECHA INICIO</th>
-            <th>FECHA TERMINO</th>
-            <th>DESCRIPCION</th>
-            <th>GESTIONAR</th>
-        </tr>
-    </thead>
-    <tbody id="tbodyEmpleado">
-        <input type="hidden" name="contador" value="0" id="contador">
-    </tbody>
-</table>
-<button class="btn btn-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
+       <table class="table table-sm" id="tablaEmpleados" style="width:100%">
+          <thead>
+            <h5> PERSONAL ASIGNADO</h5>
+            <tr>
+                <th>EMPLEADO</th>
+                <th>RUT</th>
+                <th>CARGO</th>
+                <th>FECHA INICIO</th>
+                <th>FECHA TERMINO</th>
+                <th>DESCRIPCION</th>
+                <th>GESTIONAR</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyEmpleado">
+            <input type="hidden" name="contador" value="0" id="contador">
+        </tbody>
+    </table>
+    <button class="btn btn-primary btn-sm" type="button" id="agregar_emp"  > AGREGAR PERSONAL </button>
 </div>
 </div>
 
@@ -184,7 +184,7 @@
 <table class="table table-sm" style="width:100%">
   <thead>
     <div class="row">
-            <h5> PRESUPUESTO ASIGNADO</h5>  <button style="width:40px;margin-left:250px;margin-top:-38px ;" class="btn btn-primary btn-sm"  id="myBtn">🔍</button>
+        <h5> PRESUPUESTO ASIGNADO</h5>  <button style="width:40px;margin-left:250px;margin-top:-38px ;" class="btn btn-primary btn-sm"  id="myBtn">🔍</button>
     </div>
 
     <tr>
@@ -241,8 +241,16 @@
 </div>
 
 <div class="row">
-   <div class="mb-3 col-md-3" style="width: 25%;">
+ <div class="mb-3 col-md-3" style="width: 25%;">
+
+
+    @can("grabar orden")
     <button class="btn btn-primary btn-sm" type="button" onclick="grabarOrden()"> GUARDAR </button>
+    @else
+    Usted no tiene permiso para generar ordenes de trabajo
+    @endcan
+
+    
 </div>
 
 
@@ -268,7 +276,7 @@
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/productos-bodega", //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "cod_bodega":codigo_bodega,
+             "cod_bodega":codigo_bodega,
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
 
@@ -321,17 +329,17 @@
 </script>
 
 <script>
-   var dataTable = new DataTable("#tableModal", {
-      perPage: 50,
-      sortable: true,
-      fixedColumns: true,
-      perPageSelect: [ 50, 100],
-      labels: {
-        placeholder: "Buscar..",
-        perPage: "{select}     Registros por pagina",
-        noRows: "No se encontraron registros",
-        info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
-    }
+ var dataTable = new DataTable("#tableModal", {
+  perPage: 50,
+  sortable: true,
+  fixedColumns: true,
+  perPageSelect: [ 50, 100],
+  labels: {
+    placeholder: "Buscar..",
+    perPage: "{select}     Registros por pagina",
+    noRows: "No se encontraron registros",
+    info: "Mostrando registros del {start} hasta el {end} de un total de {rows} registros",
+}
 });
 
 </script>
@@ -370,11 +378,11 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-vehiculo/' + patente, function(data){
 
-           $('#tipo_equipo').val(data.tipo_equipo);
-           $('#marca').val(data.marca);
-           $('#modelo').val(data.modelo);
-           $('#anio').val(data.anio);
-       });
+         $('#tipo_equipo').val(data.tipo_equipo);
+         $('#marca').val(data.marca);
+         $('#modelo').val(data.modelo);
+         $('#anio').val(data.anio);
+     });
     } catch (e) {}
 
 }
@@ -418,9 +426,9 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 
         $.get('traer-empleado/' + nombres, function(data){
 
-           $('#rut'+numero).val(data.rut);
-           $('#cargo'+numero).val(data.cargo);
-       });
+         $('#rut'+numero).val(data.rut);
+         $('#cargo'+numero).val(data.cargo);
+     });
     } catch (e) {}
 }
 </script>
@@ -458,8 +466,8 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
             html+='<tr>';
             html+='<td > <select style="width:350px" id="selectEmpleado'+contador+'" class="form-control" onchange="cargarEmpleado(this)" required><option value="">-------</option>' ; 
             data.forEach(function(empleado) {
-             html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
-         });
+               html+='<option value="'+empleado.nombres+'">'+empleado.nombres+'</option>'; 
+           });
             html+='</select> </td>' ;
             html+='<td><input style="width:100px" id="rut'+contador+'"  type="text" name="rut" required readonly></td>';
             html+='<td><input style="width:200px" id="cargo'+contador+'"   type="text" name="cargo" required readonly></td>';
@@ -526,7 +534,7 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"producto-bodega/"+cod_bodega, //url guarda la ruta hacia donde se hace la peticion
          data:{
-           "cod_bodega":cod_bodega
+             "cod_bodega":cod_bodega
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -593,18 +601,18 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function servicios() {
 
-       contador3 = $('#contador3').val();
+     contador3 = $('#contador3').val();
 
-       var html = '';
-       html+='<tr>';
-       html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
-       html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
-       html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
-       html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
-       html+='<tr>';
+     var html = '';
+     html+='<tr>';
+     html+='<td><input style="width:300px" id="servicio'+contador3+'"  type="text" name="servicio" onkeyup="javascript:this.value=this.value.toUpperCase();"></td>';
+     html+='<td><input style="width:300px" id="descripcion_servicio'+contador3+'" type="text" name="descripcion_servicio" onkeyup="javascript:this.value=this.value.toUpperCase();" ></td>';
+     html+='<td><input style="width:300px" id="valor_servicio'+contador3+'"  type="text" name="valor_servicio" onkeypress="return valideKey(event);""></td>';
+     html+='<td><button   id="borrar_btn3'+contador3+'" type="button"> Eliminar </button> </td>';
+     html+='<tr>';
 
-       $('#tbodyServicios').append(html);
-   };
+     $('#tbodyServicios').append(html);
+ };
 
 </script>
 
@@ -612,12 +620,12 @@ document.getElementById('fecha').value=ano+"-"+mes+"-"+dia;
 <script type="text/javascript">
     function grabarOrden()
     {
-     m = 0;
-     e = $('#contador').val();
-     arrayPersonal = [];
+       m = 0;
+       e = $('#contador').val();
+       arrayPersonal = [];
 
 
-     if (e == 0 ){
+       if (e == 0 ){
         arrayPersonal;
     } else {
 
@@ -793,12 +801,12 @@ $.ajax({
          type:"GET", // la variable type guarda el tipo de la peticion GET,POST,..
          url:"/almacenar-movimiento-ot", //url guarda la ruta hacia donde se hace la peticion
          data:{
-             "usuario":usuario,
-             "patente":patente,
-             "fecha":fecha,
-             "num_documento":num_documento,
-             "cod_bodega":cod_bodega,
-             "arrayProductos":arrayProductos
+           "usuario":usuario,
+           "patente":patente,
+           "fecha":fecha,
+           "num_documento":num_documento,
+           "cod_bodega":cod_bodega,
+           "arrayProductos":arrayProductos
          }, // data recive un objeto con la informacion que se enviara al servidor
          success:function(data){ //success es una funcion que se utiliza si el servidor retorna informacion
             console.log(data);
@@ -934,6 +942,6 @@ th {
 
 
 </style>
-
+@endcan
 @endsection
 

@@ -13,10 +13,12 @@
       <tr>
         <th>Documento</th>
         <th>Numero</th> 
-        <th >Codigo/Producto</th>
+        <th>Codigo/Producto</th>
         <th>Producto</th>  
-        <th >Fecha</th>
+        <th>Bodega</th>
+        <th>Fecha</th>
         <th>Cantidad</th>  
+
 
 
       </tr>
@@ -26,8 +28,9 @@
       <tr>
         <td>{{$empleados->tipo_documento}}</td>
         <td>{{$empleados->nro_documento_mov}}</td>
-        <td >{{$empleados->cod_producto}}</td>
+        <td>{{$empleados->cod_producto}}</td>
         <td>{{$empleados->nombre_producto}}</td>
+        <td>{{$empleados->nombre_bodega}}</td>
         <td>{{$empleados->fecha}}</td>
         <td style="text-align:end;">{{$empleados->cantidad}}</td>
 

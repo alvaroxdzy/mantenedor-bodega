@@ -74,14 +74,14 @@
                                     <a class="dropdown-item" href="/busqueda-movimiento"> Movimientos </a> 
                                 </div>
 
-
+                                @can('revisar orden')
                                 <li id="li_layout" class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown" aria-haspopup="true" >Ordenes de trabajo </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/crear-orden"> Emitir Orden  </a> 
                                         <a class="dropdown-item" href="/busqueda-ot"> Ver Orden </a> 
                                     </div>
-
+                                @endcan
 
                                     <li id="li_layout" class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown" aria-haspopup="true" >Reportes </a>

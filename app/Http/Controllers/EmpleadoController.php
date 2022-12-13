@@ -73,45 +73,21 @@ public function update(Request $request)
 
 public function inventarioEmpleados()
 {
-
- $bodega = Bodega::select('codigo_bodega','nombre_bodega')->get()->unique('codigo_bodega','nombre_bodega');
-
- $inventarioEmpleado = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
-   where estado="DISPONIBLE" 
-   GROUP by empleado.rut , nombres , nombre_bodega');
+ $inventarioEmpleado = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados"  FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut 
+   GROUP by empleado.rut , nombres ');
 
  if ($inventarioEmpleado==null){
   return redirect()->back()->withErrors(['msg' => 'The Message']);;
 } else {
- return view('empleadoInventario')->with('bodega',$bodega)->with('inventarioEmpleado',$inventarioEmpleado);
+ return view('empleadoInventario')->with('inventarioEmpleado',$inventarioEmpleado);
 }
-
-}
-
-
-public function filtrarInventario(Request $request){
-  $cod_bodega=$request->cod_bodega;
-
-  if($cod_bodega == 'TODAS LAS BODEGAS')
-  {
-    $empleado = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
-      WHERE estado="DISPONIBLE"
-      GROUP by empleado.rut , nombres , nombre_bodega');
-
-  }else{
-    $empleado = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
-      WHERE cod_bodega="'.$cod_bodega.'" and estado="DISPONIBLE"
-      GROUP by empleado.rut , nombres , nombre_bodega');
-  }
-
-  return $empleado;
 }
 
 
 public function productoHistorial($rut){
 
 
- $empleado = DB::select('select detalle_movimiento.tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov where rut = "'.$rut.'" ');
+ $empleado = DB::select('select detalle_movimiento.tipo_documento, nro_documento_mov , cod_producto , nombre_producto , substring(cantidad,2) as cantidad, detalle_movimiento.fecha , bodega.nombre_bodega from detalle_movimiento join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = detalle_movimiento.cod_bodega where rut = "'.$rut.'" ');
 
  $trabajador = Empleado::where('rut',$rut)->first();
 
@@ -121,16 +97,9 @@ public function productoHistorial($rut){
 
 public function InventarioBodegaPDF($cod_bodega){
 
- if($cod_bodega == 'TODAS LAS BODEGAS')
- {
-   $inventarioEmpleadoPDF = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
-    where estado="DISPONIBLE" 
-    GROUP by empleado.rut , nombres , nombre_bodega');
- }else{
-   $inventarioEmpleadoPDF = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados" , nombre_bodega FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut join movimiento on movimiento.num_documento = detalle_movimiento.nro_documento_mov join bodega on bodega.codigo_bodega = movimiento.cod_bodega 
-    WHERE cod_bodega="'.$cod_bodega.'" and estado="DISPONIBLE"
-    GROUP by empleado.rut , nombres , nombre_bodega');
- }
+  $inventarioEmpleadoPDF = DB::select('SELECT empleado.rut ,nombres , substring(sum(cantidad),2) as "productos_entregados"  FROM `detalle_movimiento` join empleado on empleado.rut = detalle_movimiento.rut 
+   GROUP by empleado.rut , nombres ');
+ 
  $data = [
    'inventarioEmpleadoPDF' => $inventarioEmpleadoPDF
  ];

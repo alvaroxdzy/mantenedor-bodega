@@ -43,8 +43,7 @@
     <tr>
       <th>rut</th>
       <th>nombres</th>
-      <th>productos/entregados</th> 
-      <th>bodega</th>  
+      <th>productos entregados</th> 
     </tr>
   </thead>
   <tbody id="trTable">
@@ -53,7 +52,6 @@
       <td>{{$inventarioEmpleadoPDFs->rut}}</td>
       <td>{{$inventarioEmpleadoPDFs->nombres}}</td>
       <td style="text-align:center;">{{$inventarioEmpleadoPDFs->productos_entregados}}</td>
-      <td>{{$inventarioEmpleadoPDFs->nombre_bodega}}</td>
     </tr>
     @endforeach
   </tbody>
